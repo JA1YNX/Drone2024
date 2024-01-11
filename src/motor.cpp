@@ -1,4 +1,4 @@
-#include "motor.h"
+#include "motor.hpp"
 
 void motor::rotate()
 {

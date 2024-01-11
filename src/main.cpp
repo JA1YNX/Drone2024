@@ -1,6 +1,6 @@
 #include <Arduino.h>
-#include "BNO055.h"
-#include "motor.h"
+#include "BNO055.hpp"
+#include "motor.hpp"
 
 #define puls 200//pwm周波数
 #define dutyd 52//初期値

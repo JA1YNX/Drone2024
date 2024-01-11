@@ -1,4 +1,4 @@
-#include "BNO055.h"
+#include "BNO055.hpp"
 
 void get_bno055_data(void)
 {
