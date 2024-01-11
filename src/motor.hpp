@@ -1,5 +1,8 @@
 #include <Arduino.h>
 
+#define puls 200//pwm周波数
+#define dutyd 52//初期値
+#define dutys 58//最低回転
 
 class motor{
     public:

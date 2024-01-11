@@ -1,20 +1,11 @@
 #include <Arduino.h>
 #include "BNO055.hpp"
 #include "motor.hpp"
-
-#define puls 200//pwm周波数
-#define dutyd 52//初期値
-#define dutys 58//最低回転
+#include "user.hpp"
 
 
-int64_t x,y,z,qx,qy,qz,qw,turn;//諸々値
-
-struct user{
-  int x;
-  int y;
-  int z;
-  int turn;
-};
+//Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
+Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
 motor m(32,33,25,26,1,2,3,4);
 user u;

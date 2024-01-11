@@ -7,8 +7,6 @@
 
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
 
-//Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
-Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
 imu::Vector<3> gyroscope;//ジャイロ
 imu::Vector<3> accelermetor;//加速度
