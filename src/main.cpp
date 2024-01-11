@@ -214,10 +214,10 @@ void loop(void)
   qw = quat.w();
   m.rotate();
   m.d = 60+(z-euler.z())*50;
-  m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*50+turn;
-  m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*50-turn;
-  m.c3 = ((x-euler.x())+(y-euler.y()))*50+turn;
-  m.c4 = ((x-euler.x())*(-1)+(y-euler.y()))*50-turn;
+  m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*500+turn;
+  m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*500-turn;
+  m.c3 = ((x-euler.x())+(y-euler.y()))*500+turn;
+  m.c4 = ((x-euler.x())*(-1)+(y-euler.y()))*500-turn;
 
   m.c1 += (u.x+u.y*(-1))+u.turn;
   m.c2 += (u.x*(-1)+u.y*(-1))-u.turn;
