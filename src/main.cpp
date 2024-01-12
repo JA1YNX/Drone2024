@@ -65,6 +65,7 @@ void setup(void)
   qz = quat.z();
   qw = quat.w();
   turn = 0;
+  m.d = -6;
   m.rotate();
   delay(500);
 }
