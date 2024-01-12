@@ -9,10 +9,10 @@
 
 #define BNO055interval 10 //何ms間隔でデータを取得するか
 
-class motor{
+class motor{//モーターチャンネルとピン設定
     public:
-        int nf = 0;
-        int d = 0;//デフォルト
+        int nf = 0;//モーターの回転ON/OFF
+        int d = 0;//もとになる数値
         int c1 = 0;//左前変更値
         int c2 = 0;//右前変更値
         int c3 = 0;//左後変更値
@@ -32,7 +32,7 @@ class motor{
 
 int64_t x,y,z,qx,qy,qz,qw,turn;//諸々値
 
-struct user{
+struct user{//プロポ入力
   int x;
   int y;
   int z;
@@ -56,8 +56,8 @@ void get_bno055_data(void);
 void bno_setup();
 
 
-motor m(32,33,25,26,1,2,3,4);
-user u;
+motor m(32,33,25,26,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
+user u;//プロポ入力
 
 void setup(void)
 {
@@ -71,10 +71,10 @@ void setup(void)
   qw = quat.w();
   turn = 0;
 
-  m.setup();
-  m.nf = 1;
-  m.d = -6;
-  m.rotate();
+  m.setup();//初期化
+  m.nf = 1;//モーターの回転ON
+  m.d = -6;//esc初期化
+  m.rotate();//回転
 }
 
 
@@ -88,15 +88,15 @@ void loop(void)
   qz = quat.z();
   qw = quat.w();
   m.d = 10;//+(z-euler.z())*50.0;
-  m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*2.0+turn/2.0;
-  m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*2.0-turn/2.0;
+  m.c1 = ((x-euler.x())+(y-euler.y())*(-1.0))*2.0+turn/2.0;
+  m.c2 = ((x-euler.x())*(-1.0)+(y-euler.y())*(-1.0))*2.0-turn/2.0;
   m.c3 = ((x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
-  m.c4 = ((x-euler.x())*(-1)+(y-euler.y()))*2.0-turn/2.0;
+  m.c4 = ((x-euler.x())*(-1.0)+(y-euler.y()))*2.0-turn/2.0;
 
-  m.c1 += (u.x+u.y*(-1))+u.turn;
-  m.c2 += (u.x*(-1)+u.y*(-1))-u.turn;
+  m.c1 += (u.x+u.y*(-1.0))+u.turn;
+  m.c2 += (u.x*(-1.0)+u.y*(-1.0))-u.turn;
   m.c3 += (u.x+u.y)+u.turn;
-  m.c4 += (u.x*(-1)+u.y)-u.turn;
+  m.c4 += (u.x*(-1.0)+u.y)-u.turn;
   m.rotate();
 
 }
