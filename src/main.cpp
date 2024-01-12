@@ -11,6 +11,7 @@
 
 class motor{
     public:
+        int nf = 0;
         int d = 0;//デフォルト
         int c1 = 0;//左前変更値
         int c2 = 0;//右前変更値
@@ -20,8 +21,13 @@ class motor{
         int ch2 = 0;
         int ch3 = 0;
         int ch4 = 0;
+        int pin1 = 0;
+        int pin2 = 0;
+        int pin3 = 0;
+        int pin4 = 0;
         void rotate();
-        motor(int pin1,int pin2,int pin3,int pin4,int cha1,int cha2,int cha3,int cha4);
+        motor(int pin_1,int pin_2,int pin_3,int pin_4,int cha1,int cha2,int cha3,int cha4):pin1(pin_1),pin2(pin_2),pin3(pin_3),pin4(pin_4),ch1(cha1),ch2(cha2),ch3(cha3),ch4(cha4){}
+        void setup();
 };
 
 int64_t x,y,z,qx,qy,qz,qw,turn;//諸々値
@@ -56,7 +62,6 @@ user u;
 void setup(void)
 {
   bno_setup();
-
   x = euler.x();
   y = euler.y();
   z = euler.z();
@@ -65,9 +70,11 @@ void setup(void)
   qz = quat.z();
   qw = quat.w();
   turn = 0;
+
+  m.setup();
+  m.nf = 1;
   m.d = -6;
   m.rotate();
-  delay(500);
 }
 
 
@@ -213,21 +220,19 @@ void get_bno055_data(void)
 
 void motor::rotate()
 {
-  if(!d == 0)
-  {
-      ledcWrite(ch1, abs(d+c1+dutys-1) * 1);
-      ledcWrite(ch2, abs(d+c2+dutys-1) * 1);
-      ledcWrite(ch3, abs(d+c3+dutys-1) * 1);
-      ledcWrite(ch4, abs(d+c4+dutys-1) * 1);
-  }
+  ledcWrite(ch1, dutys+abs(d+c1) * nf);
+  ledcWrite(ch2, dutys+abs(d+c2) * nf);
+  ledcWrite(ch3, dutys+abs(d+c3) * nf);
+  ledcWrite(ch4, dutys+abs(d+c4) * nf);
+  
   Serial.print("1:");
-  Serial.print(abs(d+c1+dutys-1) * 1);
+  Serial.print(dutys+abs(d+c1) * nf);
   Serial.print("   2:");
-  Serial.print(abs(d+c2+dutys-1) * 1);
+  Serial.print(dutys+abs(d+c2) * nf);
   Serial.print("   3:");
-  Serial.print(abs(d+c3+dutys-1) * 1);
+  Serial.print(dutys+abs(d+c3) * nf);
   Serial.print("   4:");
-  Serial.print(abs(d+c4+dutys-1) * 1);
+  Serial.print(dutys+abs(d+c4) * nf);
 
   Serial.print("       1:");
   Serial.print(c1);
@@ -239,12 +244,8 @@ void motor::rotate()
   Serial.print(c4);
   Serial.println("");
 }
-motor::motor(int pin1,int pin2,int pin3,int pin4,int cha1,int cha2,int cha3,int cha4)
+void motor::setup()
 {
-    int ch1 = cha1;
-    int ch2 = cha2;
-    int ch3 = cha3;
-    int ch4 = cha4;
     ledcSetup(ch1,puls,8);
     ledcSetup(ch2,puls,8);
     ledcSetup(ch3,puls,8);
