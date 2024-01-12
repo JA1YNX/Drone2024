@@ -8,7 +8,7 @@
 motor m(32,33,25,26,1,2,3,4);
 user u;
 
-void setup2(void)
+void setup(void)
 {
   bno_setup();
 
@@ -23,7 +23,7 @@ void setup2(void)
 }
 
 
-void loop2(void)
+void loop(void)
 {
   x = euler.x();
   y = euler.y();

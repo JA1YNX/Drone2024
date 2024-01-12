@@ -78,7 +78,7 @@ void get_bno055_data(void);
 motor m(32,33,25,26,1,2,3,4);
 user u;
 
-void setup3(void)
+void setup(void)
 {
     pinMode(21, INPUT_PULLUP); //SDA 21番ピンのプルアップ(念のため)
     pinMode(22, INPUT_PULLUP); //SDA 22番ピンのプルアップ(念のため)
@@ -203,7 +203,7 @@ void get_bno055_data(void)
   //Serial.println();
 }
 
-void loop3(void)
+void loop(void)
 {
   x = euler.x();
   y = euler.y();
