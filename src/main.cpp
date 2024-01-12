@@ -88,10 +88,10 @@ void loop(void)
   qz = quat.z();
   qw = quat.w();
   m.d = 10;//+(z-euler.z())*50.0;
-  m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*5.0+turn/2.0;
-  m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*5.0-turn/2.0;
-  m.c3 = ((x-euler.x())+(y-euler.y()))*5.0+turn/2.0;
-  m.c4 = ((x-euler.x())*(-1)+(y-euler.y()))*5.0-turn/2.0;
+  m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*2.0+turn/2.0;
+  m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*2.0-turn/2.0;
+  m.c3 = ((x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
+  m.c4 = ((x-euler.x())*(-1)+(y-euler.y()))*2.0-turn/2.0;
 
   m.c1 += (u.x+u.y*(-1))+u.turn;
   m.c2 += (u.x*(-1)+u.y*(-1))-u.turn;
