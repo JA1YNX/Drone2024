@@ -1,4 +1,7 @@
 #include <Arduino.h>
+#include <Wire.h>
+#include <Adafruit_BNO055.h>
+#include <Ticker.h>
 
 #define puls 200//pwm周波数
 #define dutyd 52//初期値
