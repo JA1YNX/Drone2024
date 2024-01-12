@@ -3,6 +3,13 @@
 #include <Adafruit_BNO055.h>
 #include <Ticker.h>
 
+#define in1 //レシーバーch1
+#define in2 //レシーバーch2
+#define in3 //レシーバーch3
+#define in4 //レシーバーch4
+#define in5 //レシーバーch5
+#define in6 //レシーバーch6
+
 #define puls 200//pwm周波数
 #define dutyd 52//初期値
 #define dutys 58//最低回転
@@ -70,6 +77,12 @@ void setup(void)
   qz = quat.z();
   qw = quat.w();
   turn = 0;
+  pinMode(in1,INPUT);
+  pinMode(in2,INPUT);
+  pinMode(in3,INPUT);
+  pinMode(in4,INPUT);
+  pinMode(in5,INPUT);
+  pinMode(in6,INPUT);
 
   m.setup();//初期化
   m.nf = 1;//モーターの回転ON
@@ -80,6 +93,11 @@ void setup(void)
 
 void loop(void)
 {
+  u.x = in2;
+  u.y = in4;
+  u.z = in3;
+  u.turn = in1;
+
   x = euler.x();
   y = euler.y();
   z = euler.z();
