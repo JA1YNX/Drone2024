@@ -78,24 +78,24 @@ void loop(void)
   qz = quat.z();
   qw = quat.w();
   m.rotate();
-  m.d = 60+(z-euler.z())*50.0;
-  m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*50.0+turn/2.0;
-  m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*50.0-turn/2.0;
-  m.c3 = ((x-euler.x())+(y-euler.y()))*50.0+turn/2.0;
-  m.c4 = ((x-euler.x())*(-1)+(y-euler.y()))*50.0-turn/2.0;
+  m.d = 60;//+(z-euler.z())*50.0;
+  m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*5.0+turn/2.0;
+  m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*5.0-turn/2.0;
+  m.c3 = ((x-euler.x())+(y-euler.y()))*5.0+turn/2.0;
+  m.c4 = ((x-euler.x())*(-1)+(y-euler.y()))*5.0-turn/2.0;
 
   m.c1 += (u.x+u.y*(-1))+u.turn;
   m.c2 += (u.x*(-1)+u.y*(-1))-u.turn;
   m.c3 += (u.x+u.y)+u.turn;
   m.c4 += (u.x*(-1)+u.y)-u.turn;
 
-  Serial.print("1");
+  Serial.print("1:");
   Serial.print(m.c1);
-  Serial.print("   2");
+  Serial.print("   2:");
   Serial.print(m.c2);
-  Serial.print("   3");
+  Serial.print("   3:");
   Serial.print(m.c3);
-  Serial.print("   4");
+  Serial.print("   4:");
   Serial.print(m.c4);
   Serial.println("");
 }
