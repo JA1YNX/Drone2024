@@ -1,5 +1,36 @@
 #include "BNO055.hpp"
 
+void bno_setup()
+{
+    pinMode(21, INPUT_PULLUP); //SDA 21番ピンのプルアップ(念のため)
+    pinMode(22, INPUT_PULLUP); //SDA 22番ピンのプルアップ(念のため)
+
+    Serial.begin(9600);
+    Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
+
+    if (!bno.begin()) // センサの初期化
+    {
+        Serial.print("Ooops, no BNO055 detected ... Check your wiring or I2C ADDR!");
+        while (1);
+    }
+
+    delay(1000);
+
+  /* Display the current temperature */
+    int8_t temp = bno.getTemp();
+    Serial.print("Current Temperature: ");
+    Serial.print(temp);
+    Serial.println(" C");
+    Serial.println("");
+
+    bno.setExtCrystalUse(false);
+
+    Serial.println("Calibration status values: 0=uncalibrated, 3=fully calibrated");
+    bno055ticker.attach_ms(BNO055interval, get_bno055_data);
+
+
+}
+
 void get_bno055_data(void)
 {
     // Possible vector values can be:
