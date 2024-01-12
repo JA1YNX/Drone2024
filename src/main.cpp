@@ -65,6 +65,8 @@ void setup(void)
   qz = quat.z();
   qw = quat.w();
   turn = 0;
+  m.rotate();
+  delay(500);
 }
 
 
@@ -77,8 +79,7 @@ void loop(void)
   qy = quat.y();
   qz = quat.z();
   qw = quat.w();
-  m.rotate();
-  m.d = 60;//+(z-euler.z())*50.0;
+  m.d = 10;//+(z-euler.z())*50.0;
   m.c1 = ((x-euler.x())+(y-euler.y())*(-1))*5.0+turn/2.0;
   m.c2 = ((x-euler.x())*(-1)+(y-euler.y())*(-1))*5.0-turn/2.0;
   m.c3 = ((x-euler.x())+(y-euler.y()))*5.0+turn/2.0;
@@ -88,16 +89,8 @@ void loop(void)
   m.c2 += (u.x*(-1)+u.y*(-1))-u.turn;
   m.c3 += (u.x+u.y)+u.turn;
   m.c4 += (u.x*(-1)+u.y)-u.turn;
+  m.rotate();
 
-  Serial.print("1:");
-  Serial.print(m.c1);
-  Serial.print("   2:");
-  Serial.print(m.c2);
-  Serial.print("   3:");
-  Serial.print(m.c3);
-  Serial.print("   4:");
-  Serial.print(m.c4);
-  Serial.println("");
 }
 
 
@@ -226,6 +219,24 @@ void motor::rotate()
       ledcWrite(ch3, abs(d+c3+dutys-1) * 1);
       ledcWrite(ch4, abs(d+c4+dutys-1) * 1);
   }
+  Serial.print("1:");
+  Serial.print(abs(d+c1+dutys-1) * 1);
+  Serial.print("   2:");
+  Serial.print(abs(d+c2+dutys-1) * 1);
+  Serial.print("   3:");
+  Serial.print(abs(d+c3+dutys-1) * 1);
+  Serial.print("   4:");
+  Serial.print(abs(d+c4+dutys-1) * 1);
+
+  Serial.print("       1:");
+  Serial.print(c1);
+  Serial.print("   2:");
+  Serial.print(c2);
+  Serial.print("   3:");
+  Serial.print(c3);
+  Serial.print("   4:");
+  Serial.print(c4);
+  Serial.println("");
 }
 motor::motor(int pin1,int pin2,int pin3,int pin4,int cha1,int cha2,int cha3,int cha4)
 {
@@ -246,4 +257,5 @@ motor::motor(int pin1,int pin2,int pin3,int pin4,int cha1,int cha2,int cha3,int 
     ledcWrite(ch2, abs(dutyd) * 1);//58~90
     ledcWrite(ch3, abs(dutyd) * 1);//58~90
     ledcWrite(ch4, abs(dutyd) * 1);//58~90
+    delay(500);
 }
