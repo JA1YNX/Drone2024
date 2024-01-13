@@ -19,6 +19,13 @@
 
 #define BNO055interval 10 //何ms間隔でデータを取得するか
 
+struct user{//プロポ入力
+  int x;
+  int y;
+  int z;
+  int turn;
+};
+
 class motor{//モーターチャンネルとピン設定
     public:
         int nf = 0;//モーターの回転ON/OFF
@@ -40,14 +47,6 @@ class motor{//モーターチャンネルとピン設定
         void setup();
 };
 
-
-struct user{//プロポ入力
-  int x;
-  int y;
-  int z;
-  int turn;
-};
-
 class contloler{
     public:
         int pin_in1;
@@ -63,7 +62,7 @@ class contloler{
         user set;
         void setup();
         user read();
-        contloler(int pin[10],user set_):pin_in1(pin.1),pin_in2(pin.2),pin_in3(pin.3),pin_in4(pin.4),pin_in5(pin.5),pin_in6(pin.6),pin_in7(pin.7),pin_in8(pin.8),pin_in9(pin.9),pin_in0(pin.0),set(set_){}
+        contloler(int pin[10],user set_):pin_in1(pin[1]),pin_in2(pin[2]),pin_in3(pin[3]),pin_in4(pin[4]),pin_in5(pin[5]),pin_in6(pin[6]),pin_in7(pin[7]),pin_in8(pin[8]),pin_in9(pin[9]),pin_in0(pin[0]),set(set_){}
 };
 
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
@@ -90,12 +89,6 @@ void setup(void)
 {
   bno_setup();
   c.setup();
-  pinMode(in1,INPUT);
-  pinMode(in2,INPUT);
-  pinMode(in3,INPUT);
-  pinMode(in4,INPUT);
-  pinMode(in5,INPUT);
-  pinMode(in6,INPUT);
 
   m.setup();//初期化
   m.nf = 1;//モーターの回転ON
