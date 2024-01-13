@@ -3,6 +3,8 @@
 #include <Adafruit_BNO055.h>
 #include <Ticker.h>
 
+#define read_ 1 //analogread倍率
+
 #define in1 //レシーバーch1
 #define in2 //レシーバーch2
 #define in3 //レシーバーch3
@@ -13,6 +15,7 @@
 #define puls 200//pwm周波数
 #define dutyd 52//初期値
 #define dutys 58//最低回転
+#define p_max 90//最高回転
 
 #define BNO055interval 10 //何ms間隔でデータを取得するか
 
@@ -37,7 +40,6 @@ class motor{//モーターチャンネルとピン設定
         void setup();
 };
 
-int64_t x,y,z,qx,qy,qz,qw,turn;//諸々値
 
 struct user{//プロポ入力
   int x;
@@ -46,6 +48,23 @@ struct user{//プロポ入力
   int turn;
 };
 
+class contloler{
+    public:
+        int pin_in1;
+        int pin_in2;
+        int pin_in3;
+        int pin_in4;
+        int pin_in5;
+        int pin_in6;
+        int pin_in7;
+        int pin_in8;
+        int pin_in9;
+        int pin_in0;
+        user set;
+        void setup();
+        user read();
+        contloler(int pin[10],user set_):pin_in1(pin.1),pin_in2(pin.2),pin_in3(pin.3),pin_in4(pin.4),pin_in5(pin.5),pin_in6(pin.6),pin_in7(pin.7),pin_in8(pin.8),pin_in9(pin.9),pin_in0(pin.0),set(set_){}
+};
 
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
 
@@ -65,18 +84,12 @@ void bno_setup();
 
 motor m(32,33,25,26,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
+contloler c({0,in1,in2,in3,in4,in5,in6},{4,2,3,1});
 
 void setup(void)
 {
   bno_setup();
-  x = euler.x();
-  y = euler.y();
-  z = euler.z();
-  qx = quat.x();
-  qy = quat.y();
-  qz = quat.z();
-  qw = quat.w();
-  turn = 0;
+  c.setup();
   pinMode(in1,INPUT);
   pinMode(in2,INPUT);
   pinMode(in3,INPUT);
@@ -93,18 +106,13 @@ void setup(void)
 
 void loop(void)
 {
-  u.x = in2;
-  u.y = in4;
-  u.z = in3;
-  u.turn = in1;
+  int64_t x,y,z,turn;//諸々値
+  
+  u = c.read(); 
 
   x = euler.x();
   y = euler.y();
   z = euler.z();
-  qx = quat.x();
-  qy = quat.y();
-  qz = quat.z();
-  qw = quat.w();
   m.d = 10;//+(z-euler.z())*50.0;
   m.c1 = ((x-euler.x())+(y-euler.y())*(-1.0))*2.0+turn/2.0;
   m.c2 = ((x-euler.x())*(-1.0)+(y-euler.y())*(-1.0))*2.0-turn/2.0;
@@ -119,6 +127,28 @@ void loop(void)
 
 }
 
+void contloler::setup()
+{
+  if(!pin_in0 == 0){pinMode(pin_in0,INPUT)};
+  if(!pin_in1 == 0){pinMode(pin_in1,INPUT)};
+  if(!pin_in2 == 0){pinMode(pin_in2,INPUT)};
+  if(!pin_in3 == 0){pinMode(pin_in3,INPUT)};
+  if(!pin_in4 == 0){pinMode(pin_in4,INPUT)};
+  if(!pin_in5 == 0){pinMode(pin_in5,INPUT)};
+  if(!pin_in6 == 0){pinMode(pin_in6,INPUT)};
+  if(!pin_in7 == 0){pinMode(pin_in7,INPUT)};
+  if(!pin_in8 == 0){pinMode(pin_in8,INPUT)};
+  if(!pin_in9 == 0){pinMode(pin_in9,INPUT)};
+}
+
+user contloler::read()
+{
+  int x = analogRead(set.x)*read_;
+  int y = analogRead(set.y)*read_;
+  int z = analogRead(set.z)*read_;
+  int turn = analogRead(set.turn)*read_;
+  return user{x,y,z,turn};
+}
 
 void bno_setup()
 {
