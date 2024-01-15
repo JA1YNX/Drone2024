@@ -134,10 +134,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  int x = analogRead(set.x)*read_;
-  int y = analogRead(set.y)*read_;
-  int z = analogRead(set.z)*read_;
-  int turn = analogRead(set.turn)*read_;
+  int x = analogRead(14)*read_;
+  int y = analogRead(4)*read_;
+  int z = analogRead(13)*read_;
+  int turn = analogRead(2)*read_;
   Serial.print(x);
   Serial.print("   ");
   Serial.print(y);
