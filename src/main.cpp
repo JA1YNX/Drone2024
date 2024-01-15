@@ -14,10 +14,10 @@
 #define BNO055interval 10 //何ms間隔でデータを取得するか
 
 struct user{//プロポ入力
-  int x;
-  int y;
-  int z;
-  int turn;
+  double x;
+  double y;
+  double z;
+  double turn;
 };
 
 class motor{//モーターチャンネルとピン設定
@@ -75,7 +75,7 @@ void bno_setup();
 
 motor m(32,33,25,26,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
-contloler c(2,4,13,14,16,17,user{4,2,3,1});
+contloler c(2,4,13,14,16,17,user{14,4,13,2});
 
 void setup(void)
 {
@@ -124,20 +124,20 @@ contloler::contloler(int pin1,int pin2,int pin3,int pin4,int pin5,int pin6,user 
 }
 void contloler::setup()
 {
-  if(!pin_in1 == 0)pinMode(pin_in1,INPUT);
-  if(!pin_in2 == 0)pinMode(pin_in2,INPUT);
-  if(!pin_in3 == 0)pinMode(pin_in3,INPUT);
-  if(!pin_in4 == 0)pinMode(pin_in4,INPUT);
-  if(!pin_in5 == 0)pinMode(pin_in5,INPUT);
-  if(!pin_in6 == 0)pinMode(pin_in6,INPUT);
+  pinMode(pin_in1,ANALOG);
+  pinMode(pin_in2,ANALOG);
+  pinMode(pin_in3,ANALOG);
+  pinMode(pin_in4,ANALOG);
+  pinMode(pin_in5,ANALOG);
+  pinMode(pin_in6,ANALOG);
 }
 
 user contloler::read()
 {
-  int x = analogRead(14)*read_;
-  int y = analogRead(4)*read_;
-  int z = analogRead(13)*read_;
-  int turn = analogRead(2)*read_;
+  double x = analogRead(set.x)*read_;
+  double y = analogRead(set.y)*read_;
+  double z = analogRead(set.z)*read_;
+  double turn = analogRead(set.turn)*read_;
   Serial.print(x);
   Serial.print("   ");
   Serial.print(y);
