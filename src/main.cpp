@@ -2,6 +2,7 @@
 #include <Wire.h>
 #include <Adafruit_BNO055.h>
 #include <Ticker.h>
+#include <BluetoothSerial.h>
 
 #define read_ 1 //analogread倍率
 
@@ -70,6 +71,8 @@ Ticker bno055ticker; //タイマー割り込み用のインスタンス
 //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
+BluetoothSerial bt;
+
 imu::Vector<3> gyroscope;//ジャイロ
 imu::Vector<3> accelermetor;//加速度
 imu::Vector<3> magnetmetor;//磁気
@@ -89,6 +92,7 @@ void setup(void)
 {
   bno_setup();
   c.setup();
+  bt.begin("Drone2024");
 
   m.setup();//初期化
   m.nf = 1;//モーターの回転ON
