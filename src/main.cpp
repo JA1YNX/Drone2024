@@ -63,7 +63,7 @@ class contloler{
         user set;
         void setup();
         user read();
-        contloler(int pin[10],user set_):pin_in1(pin[1]),pin_in2(pin[2]),pin_in3(pin[3]),pin_in4(pin[4]),pin_in5(pin[5]),pin_in6(pin[6]),pin_in7(pin[7]),pin_in8(pin[8]),pin_in9(pin[9]),pin_in0(pin[0]),set(set_){}
+        contloler(int pin0,int pin1,int pin2,int pin3,int pin4,int pin5,int pin6,user set_):pin_in1(pin1),pin_in2(pin2),pin_in3(pin3),pin_in4(pin4),pin_in5(pin5),pin_in6(pin6),set(set_){}
 };
 
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
@@ -86,7 +86,7 @@ void bno_setup();
 
 motor m(32,33,25,26,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
-contloler c({0,in1,in2,in3,in4,in5,in6},{4,2,3,1});
+contloler c(in1,in2,in3,in4,in5,in6,{4,2,3,1});
 
 void setup(void)
 {
@@ -126,16 +126,16 @@ void loop(void)
 
 void contloler::setup()
 {
-  if(!pin_in0 == 0){pinMode(pin_in0,INPUT)};
-  if(!pin_in1 == 0){pinMode(pin_in1,INPUT)};
-  if(!pin_in2 == 0){pinMode(pin_in2,INPUT)};
-  if(!pin_in3 == 0){pinMode(pin_in3,INPUT)};
-  if(!pin_in4 == 0){pinMode(pin_in4,INPUT)};
-  if(!pin_in5 == 0){pinMode(pin_in5,INPUT)};
-  if(!pin_in6 == 0){pinMode(pin_in6,INPUT)};
-  if(!pin_in7 == 0){pinMode(pin_in7,INPUT)};
-  if(!pin_in8 == 0){pinMode(pin_in8,INPUT)};
-  if(!pin_in9 == 0){pinMode(pin_in9,INPUT)};
+  if(!pin_in0 == 0)pinMode(pin_in0,INPUT);
+  if(!pin_in1 == 0)pinMode(pin_in1,INPUT);
+  if(!pin_in2 == 0)pinMode(pin_in2,INPUT);
+  if(!pin_in3 == 0)pinMode(pin_in3,INPUT);
+  if(!pin_in4 == 0)pinMode(pin_in4,INPUT);
+  if(!pin_in5 == 0)pinMode(pin_in5,INPUT);
+  if(!pin_in6 == 0)pinMode(pin_in6,INPUT);
+  if(!pin_in7 == 0)pinMode(pin_in7,INPUT);
+  if(!pin_in8 == 0)pinMode(pin_in8,INPUT);
+  if(!pin_in9 == 0)pinMode(pin_in9,INPUT);
 }
 
 user contloler::read()
