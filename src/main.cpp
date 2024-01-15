@@ -6,13 +6,6 @@
 
 #define read_ 1 //analogread倍率
 
-#define in1 //レシーバーch1
-#define in2 //レシーバーch2
-#define in3 //レシーバーch3
-#define in4 //レシーバーch4
-#define in5 //レシーバーch5
-#define in6 //レシーバーch6
-
 #define puls 200//pwm周波数
 #define dutyd 52//初期値
 #define dutys 58//最低回転
@@ -82,7 +75,7 @@ void bno_setup();
 
 motor m(32,33,25,26,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
-contloler c(in1,in2,in3,in4,in5,in6,{4,2,3,1});
+contloler c(2,4,13,14,16,17,user{4,2,3,1});
 
 void setup(void)
 {
@@ -145,6 +138,14 @@ user contloler::read()
   int y = analogRead(set.y)*read_;
   int z = analogRead(set.z)*read_;
   int turn = analogRead(set.turn)*read_;
+  Serial.print(x);
+  Serial.print("   ");
+  Serial.print(y);
+  Serial.print("   ");
+  Serial.print(z);
+  Serial.print("   ");
+  Serial.print(turn);
+  Serial.println("   ");
   return user{x,y,z,turn};
 }
 
@@ -271,24 +272,24 @@ void motor::rotate()
   ledcWrite(ch3, dutys+abs(d+c3) * nf);
   ledcWrite(ch4, dutys+abs(d+c4) * nf);
   
-  Serial.print("1:");
-  Serial.print(dutys+abs(d+c1) * nf);
-  Serial.print("   2:");
-  Serial.print(dutys+abs(d+c2) * nf);
-  Serial.print("   3:");
-  Serial.print(dutys+abs(d+c3) * nf);
-  Serial.print("   4:");
-  Serial.print(dutys+abs(d+c4) * nf);
+  bt.print("1:");
+  bt.print(dutys+abs(d+c1) * nf);
+  bt.print("   2:");
+  bt.print(dutys+abs(d+c2) * nf);
+  bt.print("   3:");
+  bt.print(dutys+abs(d+c3) * nf);
+  bt.print("   4:");
+  bt.print(dutys+abs(d+c4) * nf);
 
-  Serial.print("       1:");
-  Serial.print(c1);
-  Serial.print("   2:");
-  Serial.print(c2);
-  Serial.print("   3:");
-  Serial.print(c3);
-  Serial.print("   4:");
-  Serial.print(c4);
-  Serial.println("");
+  bt.print("       1:");
+  bt.print(c1);
+  bt.print("   2:");
+  bt.print(c2);
+  bt.print("   3:");
+  bt.print(c3);
+  bt.print("   4:");
+  bt.print(c4);
+  bt.println("");
 }
 void motor::setup()
 {
