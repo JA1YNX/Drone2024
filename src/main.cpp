@@ -4,7 +4,7 @@
 #include <Ticker.h>
 #include <BluetoothSerial.h>
 
-#define read_ 1 //analogread倍率
+#define read_ 0.0001 //analogread倍率
 
 #define puls 200//pwm周波数
 #define dutyd 52//初期値
@@ -73,9 +73,9 @@ void get_bno055_data(void);
 void bno_setup();
 
 
-motor m(32,33,25,26,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
+motor m(25,26,27,14,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
-contloler c(2,4,13,14,16,17,user{14,4,13,2});
+contloler c(32,33,34,35,12,13,user{35,33,34,32});
 
 void setup(void)
 {
@@ -272,7 +272,7 @@ void motor::rotate()
   ledcWrite(ch3, dutys+abs(d+c3) * nf);
   ledcWrite(ch4, dutys+abs(d+c4) * nf);
   
-  bt.print("1:");
+  bt.print("out1:");
   bt.print(dutys+abs(d+c1) * nf);
   bt.print("   2:");
   bt.print(dutys+abs(d+c2) * nf);
@@ -281,7 +281,7 @@ void motor::rotate()
   bt.print("   4:");
   bt.print(dutys+abs(d+c4) * nf);
 
-  bt.print("       1:");
+  bt.print("   changer1:");
   bt.print(c1);
   bt.print("   2:");
   bt.print(c2);
