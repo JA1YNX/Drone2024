@@ -95,18 +95,19 @@ void setup(void)
 void loop(void)
 {
   int64_t x,y,z,turn;//諸々値
-  bt.print("{   Drone2024:");
-  u = c.read(); 
 
+  bt.print("{   Drone2024:");
+
+  u = c.read(); 
   x = euler.x();
   y = euler.y();
   z = euler.z();
+
   m.d = u.z;//+(z-euler.z())*50.0;
   m.c1 = ((0+u.x-u.y)+u.turn);
   m.c2 = ((0-u.x-u.y)-u.turn);
   m.c3 = ((0+u.x+u.y)+u.turn);
   m.c4 = ((0-u.x+u.y)-u.turn);
-
 
   m.c1 += (0+(x-euler.x())-(y-euler.y()))*2.0+turn/2.0;
   m.c2 += (0-(x-euler.x())-(y-euler.y()))*2.0-turn/2.0;
