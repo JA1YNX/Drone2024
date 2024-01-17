@@ -4,7 +4,7 @@
 #include <Ticker.h>
 #include <BluetoothSerial.h>
 
-#define read_ 0.0001 //analogread倍率
+#define read_ 0.01 //analogread倍率
 
 #define puls 200//pwm周波数
 #define dutyd 52//初期値
@@ -80,7 +80,7 @@ contloler c(32,33,34,35,12,13,user{35,33,34,32});
 void setup(void)
 {
   bno_setup();
-  c.setup();
+  //c.setup();
   bt.begin("Drone2024");
 
   m.setup();//初期化
@@ -125,20 +125,20 @@ contloler::contloler(int pin1,int pin2,int pin3,int pin4,int pin5,int pin6,user 
 }
 void contloler::setup()
 {
-  pinMode(pin_in1,ANALOG);
-  pinMode(pin_in2,ANALOG);
-  pinMode(pin_in3,ANALOG);
-  pinMode(pin_in4,ANALOG);
-  pinMode(pin_in5,ANALOG);
-  pinMode(pin_in6,ANALOG);
+  pinMode(pin_in1,OUTPUT);
+  pinMode(pin_in2,OUTPUT);
+  pinMode(pin_in3,OUTPUT);
+  pinMode(pin_in4,OUTPUT);
+  pinMode(pin_in5,OUTPUT);
+  pinMode(pin_in6,OUTPUT);
 }
 
 user contloler::read()
 {
-  double x = analogRead(set.x)*read_;
-  double y = analogRead(set.y)*read_;
-  double z = analogRead(set.z)*read_;
-  double turn = analogRead(set.turn)*read_;
+  double x = (analogRead(set.x)-1.5)*read_;
+  double y = (analogRead(set.y)-1.5)*read_;
+  double z = (analogRead(set.z)-0.5)*read_;
+  double turn = (analogRead(set.turn)-1.5)*read_;
   bt.print(" cx:");
   bt.print(x);
   bt.print(" cy:");
