@@ -143,7 +143,7 @@ user contloler::read()
   bt.print(x);
   bt.print(" cy:");
   bt.print(y);
-  bt.print(" cx:");
+  bt.print(" cz:");
   bt.print(z);
   bt.print(" ct:");
   bt.print(turn);
@@ -283,7 +283,7 @@ void motor::rotate()
   bt.print("  ou4:");
   bt.print(dutys+abs(d+c4) * nf);
 
-  bt.print("  ch1:");
+  bt.print("      ch1:");
   bt.print(c1);
   bt.print("  ch2:");
   bt.print(c2);
