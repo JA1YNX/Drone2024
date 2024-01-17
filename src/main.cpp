@@ -105,10 +105,10 @@ void loop(void)
   m.c3 = ((x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
   m.c4 = ((x-euler.x())*(-1.0)+(y-euler.y()))*2.0-turn/2.0;
 
-  m.c1 += (u.x+u.y*(-1.0))+u.turn;
-  m.c2 += (u.x*(-1.0)+u.y*(-1.0))-u.turn;
-  m.c3 += (u.x+u.y)+u.turn;
-  m.c4 += (u.x*(-1.0)+u.y)-u.turn;
+  m.c1 += ((u.x+u.y*(-1.0))+u.turn);
+  m.c2 += ((u.x*(-1.0)+u.y*(-1.0))-u.turn);
+  m.c3 += ((u.x+u.y)+u.turn);
+  m.c4 += ((u.x*(-1.0)+u.y)-u.turn);
   m.rotate();
   bt.println("     ");
 
@@ -137,7 +137,7 @@ user contloler::read()
 {
   double x = (analogRead(set.x)-1.5)*read_;
   double y = (analogRead(set.y)-1.5)*read_;
-  double z = (analogRead(set.z)-0.5)*read_;
+  double z = (analogRead(set.z)-0.5)*read_*10;
   double turn = (analogRead(set.turn)-1.5)*read_;
   bt.print(" cx:");
   bt.print(x);
