@@ -75,6 +75,7 @@ void bno_setup();
 
 motor m(25,26,27,14,1,2,3,4);//(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
+user ud;//標準
 contloler c(32,33,34,35,12,13,user{35,33,34,32});
 
 void setup(void)
@@ -83,6 +84,7 @@ void setup(void)
   c.setup();
   bt.begin("Drone2024");
 
+  ud = c.read();
   m.setup();//初期化
   m.nf = 1;//モーターの回転ON
   m.d = -6;//esc初期化
@@ -99,7 +101,7 @@ void loop(void)
   x = euler.x();
   y = euler.y();
   z = euler.z();
-  m.d = u.z-15;//+(z-euler.z())*50.0;
+  m.d = u.z;//+(z-euler.z())*50.0;
   m.c1 = ((0+u.x-u.y)+u.turn);
   m.c2 = ((0-u.x-u.y)-u.turn);
   m.c3 = ((0+u.x+u.y)+u.turn);
@@ -137,10 +139,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  double x = (analogRead(set.x)-3.5)*read_;
-  double y = (analogRead(set.y)-3.5)*read_;
-  double z = (analogRead(set.z)-1.5)*read_*14;
-  double turn = (analogRead(set.turn)-1.5)*read_;
+  double x = (analogRead(set.x)-ud.x)*read_;
+  double y = (analogRead(set.y)-ud.y)*read_;
+  double z = (analogRead(set.z)-ud.z)*read_*20;
+  double turn = (analogRead(set.turn)-ud.turn)*read_;
   bt.print("   cx:");
   bt.print(x);
   bt.print("   cy:");
