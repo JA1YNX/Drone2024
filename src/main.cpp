@@ -11,7 +11,7 @@
 #define dutys 58//最低回転
 #define p_max 90//最高回転
 
-#define BNO055interval 10 //何ms間隔でデータを取得するか
+#define BNO055interval 5 //何ms間隔でデータを取得するか
 
 struct user{//プロポ入力
   double x;
@@ -152,7 +152,7 @@ user contloler::read()
   bt.print(z);
   bt.print("   ct:");
   bt.print(turn);
-  bt.print("     ");
+  bt.println("     ");
   return user{x,y,z,turn};
 }
 
@@ -286,7 +286,7 @@ void motor::rotate()
   bt.print("  ou3:");
   bt.print(dutys+abs(d+c3) * nf);
   bt.print("  ou4:");
-  bt.print(dutys+abs(d+c4) * nf);
+  bt.println(dutys+abs(d+c4) * nf);
 
   bt.print("      ch1:");
   bt.print(c1);
@@ -296,7 +296,7 @@ void motor::rotate()
   bt.print(c3);
   bt.print("  ch4:");
   bt.print(c4);
-  bt.print("     ");
+  bt.println("     ");
 }
 void motor::setup()
 {
