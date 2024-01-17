@@ -110,6 +110,7 @@ void loop(void)
   m.c3 += (u.x+u.y)+u.turn;
   m.c4 += (u.x*(-1.0)+u.y)-u.turn;
   m.rotate();
+  bt.println("     ");
 
 }
 contloler::contloler(int pin1,int pin2,int pin3,int pin4,int pin5,int pin6,user set_)
@@ -138,14 +139,15 @@ user contloler::read()
   double y = analogRead(set.y)*read_;
   double z = analogRead(set.z)*read_;
   double turn = analogRead(set.turn)*read_;
-  Serial.print(x);
-  Serial.print("   ");
-  Serial.print(y);
-  Serial.print("   ");
-  Serial.print(z);
-  Serial.print("   ");
-  Serial.print(turn);
-  Serial.println("   ");
+  bt.print(" x:");
+  bt.print(x);
+  bt.print(" y:");
+  bt.print(y);
+  bt.print(" x:");
+  bt.print(z);
+  bt.print(" t:");
+  bt.print(turn);
+  bt.print("   ");
   return user{x,y,z,turn};
 }
 
@@ -289,7 +291,7 @@ void motor::rotate()
   bt.print(c3);
   bt.print("   4:");
   bt.print(c4);
-  bt.println("");
+  bt.print("     ");
 }
 void motor::setup()
 {
