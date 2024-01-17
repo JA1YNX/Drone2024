@@ -80,7 +80,7 @@ contloler c(32,33,34,35,12,13,user{35,33,34,32});
 void setup(void)
 {
   bno_setup();
-  //c.setup();
+  c.setup();
   bt.begin("Drone2024");
 
   m.setup();//初期化
@@ -93,24 +93,26 @@ void setup(void)
 void loop(void)
 {
   int64_t x,y,z,turn;//諸々値
-  bt.print("Drone2024:");
+  bt.print("{   Drone2024:");
   u = c.read(); 
 
   x = euler.x();
   y = euler.y();
   z = euler.z();
   m.d = u.z-15;//+(z-euler.z())*50.0;
-  m.c1 = ((x-euler.x())+(y-euler.y())*(-1.0))*2.0+turn/2.0;
-  m.c2 = ((x-euler.x())*(-1.0)+(y-euler.y())*(-1.0))*2.0-turn/2.0;
-  m.c3 = ((x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
-  m.c4 = ((x-euler.x())*(-1.0)+(y-euler.y()))*2.0-turn/2.0;
+  m.c1 = ((0+u.x-u.y)+u.turn);
+  m.c2 = ((0-u.x-u.y)-u.turn);
+  m.c3 = ((0+u.x+u.y)+u.turn);
+  m.c4 = ((0-u.x+u.y)-u.turn);
 
-  m.c1 += ((u.x+u.y*(-1.0))+u.turn);
-  m.c2 += ((u.x*(-1.0)+u.y*(-1.0))-u.turn);
-  m.c3 += ((u.x+u.y)+u.turn);
-  m.c4 += ((u.x*(-1.0)+u.y)-u.turn);
+
+  m.c1 += (0+(x-euler.x())-(y-euler.y()))*2.0+turn/2.0;
+  m.c2 += (0-(x-euler.x())-(y-euler.y()))*2.0-turn/2.0;
+  m.c3 += (0+(x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
+  m.c4 += (0-(x-euler.x())+(y-euler.y()))*2.0-turn/2.0;
+
   m.rotate();
-  bt.println("     ");
+  bt.println("    } ");
 
 }
 contloler::contloler(int pin1,int pin2,int pin3,int pin4,int pin5,int pin6,user set_)
@@ -125,12 +127,12 @@ contloler::contloler(int pin1,int pin2,int pin3,int pin4,int pin5,int pin6,user 
 }
 void contloler::setup()
 {
-  pinMode(pin_in1,OUTPUT);
-  pinMode(pin_in2,OUTPUT);
-  pinMode(pin_in3,OUTPUT);
-  pinMode(pin_in4,OUTPUT);
-  pinMode(pin_in5,OUTPUT);
-  pinMode(pin_in6,OUTPUT);
+  pinMode(pin_in1,INPUT);
+  pinMode(pin_in2,INPUT);
+  pinMode(pin_in3,INPUT);
+  pinMode(pin_in4,INPUT);
+  pinMode(pin_in5,INPUT);
+  pinMode(pin_in6,INPUT);
 }
 
 user contloler::read()
