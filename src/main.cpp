@@ -99,7 +99,7 @@ void loop(void)
   x = euler.x();
   y = euler.y();
   z = euler.z();
-  m.d = 10;//+(z-euler.z())*50.0;
+  m.d = u.z-15;//+(z-euler.z())*50.0;
   m.c1 = ((x-euler.x())+(y-euler.y())*(-1.0))*2.0+turn/2.0;
   m.c2 = ((x-euler.x())*(-1.0)+(y-euler.y())*(-1.0))*2.0-turn/2.0;
   m.c3 = ((x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
@@ -135,19 +135,19 @@ void contloler::setup()
 
 user contloler::read()
 {
-  double x = (analogRead(set.x)-1.5)*read_;
-  double y = (analogRead(set.y)-1.5)*read_;
-  double z = (analogRead(set.z)-0.5)*read_*10;
+  double x = (analogRead(set.x)-3.5)*read_;
+  double y = (analogRead(set.y)-3.5)*read_;
+  double z = (analogRead(set.z)-1.5)*read_*14;
   double turn = (analogRead(set.turn)-1.5)*read_;
-  bt.print(" cx:");
+  bt.print("   cx:");
   bt.print(x);
-  bt.print(" cy:");
+  bt.print("   cy:");
   bt.print(y);
-  bt.print(" cz:");
+  bt.print("   cz:");
   bt.print(z);
-  bt.print(" ct:");
+  bt.print("   ct:");
   bt.print(turn);
-  bt.print("   ");
+  bt.print("     ");
   return user{x,y,z,turn};
 }
 
