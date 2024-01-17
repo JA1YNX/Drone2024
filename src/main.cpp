@@ -93,7 +93,7 @@ void setup(void)
 void loop(void)
 {
   int64_t x,y,z,turn;//諸々値
-  
+  bt.print("Drone2024:");
   u = c.read(); 
 
   x = euler.x();
@@ -139,13 +139,13 @@ user contloler::read()
   double y = analogRead(set.y)*read_;
   double z = analogRead(set.z)*read_;
   double turn = analogRead(set.turn)*read_;
-  bt.print(" x:");
+  bt.print(" cx:");
   bt.print(x);
-  bt.print(" y:");
+  bt.print(" cy:");
   bt.print(y);
-  bt.print(" x:");
+  bt.print(" cx:");
   bt.print(z);
-  bt.print(" t:");
+  bt.print(" ct:");
   bt.print(turn);
   bt.print("   ");
   return user{x,y,z,turn};
@@ -274,22 +274,22 @@ void motor::rotate()
   ledcWrite(ch3, dutys+abs(d+c3) * nf);
   ledcWrite(ch4, dutys+abs(d+c4) * nf);
   
-  bt.print("out1:");
+  bt.print("  ou1:");
   bt.print(dutys+abs(d+c1) * nf);
-  bt.print("   2:");
+  bt.print("  ou2:");
   bt.print(dutys+abs(d+c2) * nf);
-  bt.print("   3:");
+  bt.print("  ou3:");
   bt.print(dutys+abs(d+c3) * nf);
-  bt.print("   4:");
+  bt.print("  ou4:");
   bt.print(dutys+abs(d+c4) * nf);
 
-  bt.print("   changer1:");
+  bt.print("  ch1:");
   bt.print(c1);
-  bt.print("   2:");
+  bt.print("  ch2:");
   bt.print(c2);
-  bt.print("   3:");
+  bt.print("  ch3:");
   bt.print(c3);
-  bt.print("   4:");
+  bt.print("  ch4:");
   bt.print(c4);
   bt.print("     ");
 }
