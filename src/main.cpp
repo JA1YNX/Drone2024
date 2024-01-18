@@ -94,7 +94,7 @@ void setup(void)
 
 void loop(void)
 {
-  int64_t x,y,z,turn;//諸々値
+  int x,y,z,turn;//諸々値
 
   bt.print("{   Drone2024:");
 
