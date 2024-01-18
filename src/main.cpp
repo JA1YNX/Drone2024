@@ -104,16 +104,34 @@ void loop(void)
   z = euler.z();
 
   m.d = u.z;//+(z-euler.z())*50.0;
-  m.c1 = ((0+u.x-u.y)+u.turn);
-  m.c2 = ((0-u.x-u.y)-u.turn);
-  m.c3 = ((0+u.x+u.y)+u.turn);
-  m.c4 = ((0-u.x+u.y)-u.turn);
+  m.c1 = 0;
+  m.c2 = 0;
+  m.c3 = 0;
+  m.c4 = 0;
 
+  m.c1 += ((0+u.x-u.y)+u.turn);
+  m.c2 += ((0-u.x-u.y)-u.turn);
+  m.c3 += ((0+u.x+u.y)+u.turn);
+  m.c4 += ((0-u.x+u.y)-u.turn);
+
+  if(u.x==0) m.c1 += (x-euler.x())*2.0;
+  if(u.y==0) m.c1 -= (y-euler.y())*2.0;
+  m.c1 += turn/2.0;
+  if(u.x==0) m.c2 -= (x-euler.x())*2.0;
+  if(u.y==0) m.c2 -= (y-euler.y())*2.0;
+  m.c2 -= turn/2.0;
+  if(u.x==0) m.c3 += (x-euler.x())*2.0;
+  if(u.y==0) m.c3 += (y-euler.y())*2.0;
+  m.c3 += turn/2.0;
+  if(u.x==0) m.c4 -= (x-euler.x())*2.0;
+  if(u.y==0) m.c4 += (y-euler.y())*2.0;
+  m.c4 -= turn/2.0;
+  /*
   m.c1 += (0+(x-euler.x())-(y-euler.y()))*2.0+turn/2.0;
   m.c2 += (0-(x-euler.x())-(y-euler.y()))*2.0-turn/2.0;
   m.c3 += (0+(x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
   m.c4 += (0-(x-euler.x())+(y-euler.y()))*2.0-turn/2.0;
-
+  */
   m.rotate();
   bt.println("    } ");
 
@@ -142,7 +160,7 @@ user contloler::read()
 {
   double x = (analogRead(set.x)-ud.x)*read_;
   double y = (analogRead(set.y)-ud.y)*read_;
-  double z = (analogRead(set.z)-ud.z)*read_*20;
+  double z = (analogRead(set.z)-ud.z)*read_;
   double turn = (analogRead(set.turn)-ud.turn)*read_;
   bt.print("   cx:");
   bt.print(x);
@@ -199,7 +217,7 @@ void get_bno055_data(void)
 
 
     // キャリブレーションのステータスの取得と表示
-    bno.getCalibration(&system_, &gyro, &accel, &mag);
+    //bno.getCalibration(&system_, &gyro, &accel, &mag);
     //Serial.print("CALIB Sys:");
     //Serial.print(system_, DEC);
     //Serial.print(", Gy");
@@ -212,7 +230,7 @@ void get_bno055_data(void)
 
 
     // ジャイロセンサ値の取得と表示
-    gyroscope = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
+    //gyroscope = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
     //Serial.print(" Gy_xyz:");
     //Serial.print(gyroscope.x());
     //Serial.print(", ");
@@ -223,7 +241,7 @@ void get_bno055_data(void)
 
 
     // 加速度センサ値の取得と表示
-    accelermetor = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
+    //accelermetor = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
     //Serial.print(" Ac_xyz:");
     //Serial.print(accelermetor.x());
     //Serial.print(", ");
@@ -234,7 +252,7 @@ void get_bno055_data(void)
 
 
     // 磁力センサ値の取得と表示
-    magnetmetor = bno.getVector(Adafruit_BNO055::VECTOR_MAGNETOMETER);
+    //magnetmetor = bno.getVector(Adafruit_BNO055::VECTOR_MAGNETOMETER);
     //Serial.print(" Mg_xyz:");
     //Serial.print(magnetmetor .x());
     //Serial.print(", ");
@@ -246,12 +264,12 @@ void get_bno055_data(void)
 
     // センサフュージョンによる方向推定値の取得と表示
     euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-    //Serial.print(" DIR_xyz:");
-    //Serial.print(euler.x());
-    //Serial.print(", ");
-    //Serial.print(euler.y());
-    //Serial.print(", ");
-    //Serial.print(euler.z());
+    bt.print(" DIR_x:");
+    bt.print(euler.x());
+    bt.print(" DIR_y:");
+    bt.print(euler.y());
+    bt.print(" DIR_z:");
+    bt.println(euler.z());
 
 
 
