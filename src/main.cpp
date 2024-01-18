@@ -5,11 +5,12 @@
 #include <BluetoothSerial.h>
 
 #define read_ 0.01 //analogread倍率
+#define hob 2.0 //ホバリング時センサ倍率
 
 #define puls 200//pwm周波数
 #define dutyd 52//初期値
-#define dutys 58//最低回転
-#define p_max 90//最高回転
+#define dutys 56//最低回転58
+#define p_max 90//最高回転98
 
 #define BNO055interval 5 //何ms間隔でデータを取得するか
 
@@ -99,9 +100,10 @@ void loop(void)
   bt.print("{   Drone2024:");
 
   u = c.read(); 
-  x = euler.x();
-  y = euler.y();
-  z = euler.z();
+  if(!u.x == 0) x = euler.x();
+  if(!u.y == 0) y = euler.y();
+  if(!u.z == 0) z = euler.z();
+  if(!u.turn == 0) turn = quat.z();
 
   m.d = u.z;//+(z-euler.z())*50.0;
   m.c1 = 0;
@@ -114,18 +116,21 @@ void loop(void)
   m.c3 += ((0+u.x+u.y)+u.turn);
   m.c4 += ((0-u.x+u.y)-u.turn);
 
-  if(u.x==0) m.c1 += (x-euler.x())*2.0;
-  if(u.y==0) m.c1 -= (y-euler.y())*2.0;
-  m.c1 += turn/2.0;
-  if(u.x==0) m.c2 -= (x-euler.x())*2.0;
-  if(u.y==0) m.c2 -= (y-euler.y())*2.0;
-  m.c2 -= turn/2.0;
-  if(u.x==0) m.c3 += (x-euler.x())*2.0;
-  if(u.y==0) m.c3 += (y-euler.y())*2.0;
-  m.c3 += turn/2.0;
-  if(u.x==0) m.c4 -= (x-euler.x())*2.0;
-  if(u.y==0) m.c4 += (y-euler.y())*2.0;
-  m.c4 -= turn/2.0;
+  if(!u.x==0) m.c1 += (x-euler.x())*hob;
+  if(!u.y==0) m.c1 -= (y-euler.y())*hob;
+  if(!u.turn==0) m.c1 += (turn-quat.z())/hob;
+  
+  if(!u.x==0) m.c2 -= (x-euler.x())*hob;
+  if(!u.y==0) m.c2 -= (y-euler.y())*hob;
+  if(!u.turn==0) m.c2 -= (turn-quat.z())/hob;
+  
+  if(!u.x==0) m.c3 += (x-euler.x())*hob;
+  if(!u.y==0) m.c3 += (y-euler.y())*hob;
+  if(!u.turn==0) m.c3 += (turn-quat.z())/hob;
+  
+  if(!u.x==0) m.c4 -= (x-euler.x())*hob;
+  if(!u.y==0) m.c4 += (y-euler.y())*hob;
+  if(!u.turn==0) m.c4 -= (turn-quat.z())/hob;
   /*
   m.c1 += (0+(x-euler.x())-(y-euler.y()))*2.0+turn/2.0;
   m.c2 += (0-(x-euler.x())-(y-euler.y()))*2.0-turn/2.0;
