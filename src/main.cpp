@@ -51,6 +51,10 @@ class contloler {
     int pin_in5;
     int pin_in6;
     user set;
+    int x;
+    int y;
+    int z;
+    int turn;
     void setup();
     user read();
     contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
@@ -77,6 +81,7 @@ void bno_setup();
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
 user ud;//標準
+user j;//BNO055値
 contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
 
 void setup(void)
@@ -102,10 +107,10 @@ void loop(void)
   bt.print("{   Drone2024:");
 
   u = c.read();
-  if (!u.x == 0) x = euler.x();
-  if (!u.y == 0) y = euler.y();
-  if (!u.z == 0) z = euler.z();
-  if (!u.turn == 0) turn = quat.z();
+  if (!u.x == 0) x = j.x;
+  if (!u.y == 0) y = j.y;
+  if (!u.z == 0) z = j.z;
+  if (!u.turn == 0) turn = j.turn;
 
   m.d = u.z-5;//+(z-euler.z())*50.0;
   m.c1 = 0;
@@ -172,14 +177,18 @@ void contloler::setup()
   pinMode(pin_in4, INPUT);
   pinMode(pin_in5, INPUT);
   pinMode(pin_in6, INPUT);
+  x = 0;
+  y = 0;
+  z = 0;
+  turn = 0;
 }
 
 user contloler::read()
 {
-  int x = ((analogRead(set.x)-ud.x) * read_)*10;
-  int y = ((analogRead(set.y)-ud.y) * read_)*10;
-  int z = ((analogRead(set.z)-ud.z) * read_)*10;
-  int turn = ((analogRead(set.turn)-ud.turn) * read_)*10;
+  x = x/2+((analogRead(set.x)-ud.x) * read_)*5;
+  y = y/2+((analogRead(set.y)-ud.y) * read_)*5;
+  z = z/2+((analogRead(set.z)-ud.z) * read_)*5;
+  turn = turn/2+((analogRead(set.turn)-ud.turn) * read_)*5;
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
@@ -225,6 +234,10 @@ void bno_setup()
   Serial.println("Calibration status values: 0=uncalibrated, 3=fully calibrated");
   bno055ticker.attach_ms(BNO055interval, get_bno055_data);
 
+  j.x = 0;
+  j.y = 0;
+  j.z = 0;
+  j.turn = 0;
 
 }
 
@@ -288,13 +301,13 @@ void get_bno055_data(void)
   // センサフュージョンによる方向推定値の取得と表示
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
   bt.print(" DIR_x:");
-  bt.print(euler.x());
+  bt.print(j.x);
   bt.print(" DIR_y:");
-  bt.print(euler.y());
+  bt.print(j.y);
   bt.print(" DIR_z:");
-  bt.print(euler.z());
-
-
+  bt.print(j.x);
+  bt.print(" DIR_T:");
+  bt.print(j.turn);
 
   // センサフュージョンの方向推定値のクオータニオン
   quat = bno.getQuat();
@@ -308,7 +321,10 @@ void get_bno055_data(void)
   //Serial.print(quat.z(), 4);
   //Serial.print("\t\t");
 
-
+  j.x = j.x/2+euler.x()/2;
+  j.y = j.y/2+euler.y()/2;
+  j.z = j.z/2+euler.z()/2;
+  j.turn = j.turn/2+quat.z()/2;
 
   //Serial.println();
 }
