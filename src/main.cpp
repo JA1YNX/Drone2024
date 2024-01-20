@@ -4,7 +4,7 @@
 #include <Ticker.h>
 #include <BluetoothSerial.h>
 
-#define read_ 0.1 //analogread倍率
+#define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
 
 #define puls 200//pwm周波数
@@ -106,15 +106,26 @@ void loop(void)
   if (!u.turn == 0) turn = quat.z();
 
   m.d = u.z-5;//+(z-euler.z())*50.0;
-  m.c1 = 0;
-  m.c2 = 0;
-  m.c3 = 0;
-  m.c4 = 0;
+  m.c1 = 50;
+  m.c2 = 50;
+  m.c3 = 50;
+  m.c4 = 50;
 
-  m.c1 += ((0 + u.x - u.y) + u.turn);
-  m.c2 += ((0 - u.x - u.y) - u.turn);
-  m.c3 += ((0 + u.x + u.y) + u.turn);
-  m.c4 += ((0 - u.x + u.y) - u.turn);
+  m.c1 -= u.x;
+  m.c1 += u.y;
+  m.c1 += u.turn;
+
+  m.c2 += u.x;
+  m.c2 += u.y;
+  m.c2 -= u.turn;
+
+  m.c3 -= u.x;
+  m.c3 -= u.y;
+  m.c3 -= u.turn;
+
+  m.c4 += u.x;
+  m.c4 -= u.y;
+  m.c4 += u.turn;
 
   if (!u.x == 0) m.c1 += (x - euler.x()) * hob;
   if (!u.y == 0) m.c1 -= (y - euler.y()) * hob;
@@ -163,10 +174,16 @@ void contloler::setup()
 
 user contloler::read()
 {
-  int x = (analogRead(set.x) - ud.x) * read_;
-  int y = (analogRead(set.y) - ud.y) * read_;
-  int z = (analogRead(set.z) - ud.z) * read_;
-  int turn = (analogRead(set.turn) - ud.turn) * read_;
+  int x = analogRead(set.x) * read_*10;
+  int y = analogRead(set.y) * read_*10;
+  int z = analogRead(set.z) * read_*10;
+  int turn = (analogRead(set.turn) - ud.turn) * read_*10;
+  /*
+  int x = (analogRead(set.x) - ud.x) * read_*10;
+  int y = (analogRead(set.y) - ud.y) * read_*10;
+  int z = (analogRead(set.z) - ud.z) * read_*10;
+  int turn = (analogRead(set.turn) - ud.turn) * read_*10;
+  */
   bt.print("   cx:");
   bt.print(x);
   bt.print("   cy:");
@@ -297,10 +314,10 @@ void get_bno055_data(void)
 
 void motor::rotate()
 {
-  ledcWrite(ch1, dutys + abs(d + c1) * nf);
-  ledcWrite(ch2, dutys + abs(d + c2) * nf);
-  ledcWrite(ch3, dutys + abs(d + c3) * nf);
-  ledcWrite(ch4, dutys + abs(d + c4) * nf);
+  ledcWrite(ch1, dutys + abs(d + c1-50) * nf);
+  ledcWrite(ch2, dutys + abs(d + c2-50) * nf);
+  ledcWrite(ch3, dutys + abs(d + c3-50) * nf);
+  ledcWrite(ch4, dutys + abs(d + c4-50) * nf);
 
   bt.print("  ou1:");
   bt.print(dutys + abs(d + c1) * nf);
