@@ -4,7 +4,7 @@
 #include <Ticker.h>
 #include <BluetoothSerial.h>
 
-#define read_ 0.01 //analogread倍率
+#define read_ 0.1 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
 
 #define puls 200//pwm周波数
@@ -15,10 +15,10 @@
 #define BNO055interval 5 //何ms間隔でデータを取得するか
 
 struct user { //プロポ入力
-  double x;
-  double y;
-  double z;
-  double turn;
+  int x;
+  int y;
+  int z;
+  int turn;
 };
 
 class motor { //モーターチャンネルとピン設定
@@ -77,15 +77,15 @@ void bno_setup();
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
 user ud;//標準
-contloler c(32, 33, 34, 35, 12, 13, user{35, 33, 34, 32});
+contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
 
 void setup(void)
 {
-  bno_setup();
   c.setup();
   bt.begin("Drone2024");
 
-  ud = c.read();
+  bno_setup();
+  ud = user{static_cast<int>(analogRead(33)),static_cast<int>(analogRead(35)),static_cast<int>(analogRead(32)),static_cast<int>(analogRead(34))};
   m.setup();//初期化
   m.nf = 1;//モーターの回転ON
   m.d = -6;//esc初期化
@@ -105,7 +105,7 @@ void loop(void)
   if (!u.z == 0) z = euler.z();
   if (!u.turn == 0) turn = quat.z();
 
-  m.d = u.z;//+(z-euler.z())*50.0;
+  m.d = u.z-5;//+(z-euler.z())*50.0;
   m.c1 = 0;
   m.c2 = 0;
   m.c3 = 0;
@@ -163,10 +163,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  double x = (analogRead(set.x) - ud.x) * read_;
-  double y = (analogRead(set.y) - ud.y) * read_;
-  double z = (analogRead(set.z) - ud.z) * read_;
-  double turn = (analogRead(set.turn) - ud.turn) * read_;
+  int x = (analogRead(set.x) - ud.x) * read_;
+  int y = (analogRead(set.y) - ud.y) * read_;
+  int z = (analogRead(set.z) - ud.z) * read_;
+  int turn = (analogRead(set.turn) - ud.turn) * read_;
   bt.print("   cx:");
   bt.print(x);
   bt.print("   cy:");
@@ -175,7 +175,7 @@ user contloler::read()
   bt.print(z);
   bt.print("   ct:");
   bt.print(turn);
-  bt.println("     ");
+  bt.print("     ");
   return user{x, y, z, turn};
 }
 
@@ -274,7 +274,7 @@ void get_bno055_data(void)
   bt.print(" DIR_y:");
   bt.print(euler.y());
   bt.print(" DIR_z:");
-  bt.println(euler.z());
+  bt.print(euler.z());
 
 
 
@@ -309,7 +309,7 @@ void motor::rotate()
   bt.print("  ou3:");
   bt.print(dutys + abs(d + c3) * nf);
   bt.print("  ou4:");
-  bt.println(dutys + abs(d + c4) * nf);
+  bt.print(dutys + abs(d + c4) * nf);
 
   bt.print("      ch1:");
   bt.print(c1);
@@ -319,7 +319,7 @@ void motor::rotate()
   bt.print(c3);
   bt.print("  ch4:");
   bt.print(c4);
-  bt.println("     ");
+  bt.print("     ");
 }
 void motor::setup()
 {
