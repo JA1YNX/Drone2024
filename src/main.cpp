@@ -115,48 +115,54 @@ void loop(void)
   if (!u.turn == 0) turn = j.turn;
 
   m.d = u.z-5;//+(z-euler.z())*50.0;
-  m.c1 = 0;
-  m.c2 = 0;
-  m.c3 = 0;
-  m.c4 = 0;
+  m.c1 = 100;
+  m.c2 = 100;
+  m.c3 = 100;
+  m.c4 = 100;
 
   m.c1 -= u.x;
   m.c1 += u.y;
-  m.c1 += u.turn;
+  m.c1 -= u.turn;
 
   m.c2 += u.x;
   m.c2 += u.y;
-  m.c2 -= u.turn;
+  m.c2 += u.turn;
 
   m.c3 -= u.x;
   m.c3 -= u.y;
-  m.c3 -= u.turn;
+  m.c3 += u.turn;
 
   m.c4 += u.x;
   m.c4 -= u.y;
-  m.c4 += u.turn;
+  m.c4 -= u.turn;
 
-  if (!u.x == 0) m.c1 += (x - euler.x()) * hob;
-  if (!u.y == 0) m.c1 -= (y - euler.y()) * hob;
-  if (!u.turn == 0) m.c1 += (turn - quat.z()) / hob;
+  if (!u.x == 0) m.c1 += (x - j.x) * hob;
+  if (!u.y == 0) m.c1 -= (y - j.y) * hob;
+  if (!u.turn == 0) m.c1 += (turn - j.turn) / hob;
 
-  if (!u.x == 0) m.c2 -= (x - euler.x()) * hob;
-  if (!u.y == 0) m.c2 -= (y - euler.y()) * hob;
-  if (!u.turn == 0) m.c2 -= (turn - quat.z()) / hob;
+  if (!u.x == 0) m.c2 -= (x - j.x) * hob;
+  if (!u.y == 0) m.c2 -= (y - j.y) * hob;
+  if (!u.turn == 0) m.c2 -= (turn - j.turn) / hob;
 
-  if (!u.x == 0) m.c3 += (x - euler.x()) * hob;
-  if (!u.y == 0) m.c3 += (y - euler.y()) * hob;
-  if (!u.turn == 0) m.c3 += (turn - quat.z()) / hob;
+  if (!u.x == 0) m.c3 += (x - j.x) * hob;
+  if (!u.y == 0) m.c3 += (y - j.y) * hob;
+  if (!u.turn == 0) m.c3 += (turn - j.turn) / hob;
 
-  if (!u.x == 0) m.c4 -= (x - euler.x()) * hob;
-  if (!u.y == 0) m.c4 += (y - euler.y()) * hob;
-  if (!u.turn == 0) m.c4 -= (turn - quat.z()) / hob;
+  if (!u.x == 0) m.c4 -= (x - j.x) * hob;
+  if (!u.y == 0) m.c4 += (y - j.y) * hob;
+  if (!u.turn == 0) m.c4 -= (turn - j.turn) / hob;
   /*
     m.c1 += (0+(x-euler.x())-(y-euler.y()))*2.0+turn/2.0;
     m.c2 += (0-(x-euler.x())-(y-euler.y()))*2.0-turn/2.0;
     m.c3 += (0+(x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
     m.c4 += (0-(x-euler.x())+(y-euler.y()))*2.0-turn/2.0;
   */
+
+  m.c1 -= 100;
+  m.c2 -= 100;
+  m.c3 -= 100;
+  m.c4 -= 100;
+
   m.rotate();
   bt.println("    } ");
 
