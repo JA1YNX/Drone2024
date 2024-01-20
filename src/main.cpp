@@ -84,20 +84,27 @@ motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
 user ud;//標準
 user j;//BNO055値
-contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
+contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
 
 void setup(void)
 {
-  Serial.begin(9600);
-  c.setup();
+  Serial.begin(115200);
   bt.begin("Drone2024");
 
   bno_setup();
+  c.setup();
   delay(5000);
   ud = user(analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
   m.setup();//初期化
-  m.nf = 1;//モーターの回転ON
+  m.nf = 0;//モーターの回転ON
   m.d = -6;//esc初期化
+  m.rotate();//回転
+  delay(500);
+  m.nf = 1;//モーターの回転ON
+  m.d = 5;//esc初期化
+  m.rotate();//回転
+  delay(1000);
+  m.d = 0;//esc初期化
   m.rotate();//回転
 }
 
@@ -114,49 +121,44 @@ void loop(void)
   if (!u.z == 0) z = j.z;
   if (!u.turn == 0) turn = j.turn;
 
-  m.d = u.z-5;//+(z-euler.z())*50.0;
+  m.d = u.z-5;
   m.c1 = 100;
   m.c2 = 100;
   m.c3 = 100;
   m.c4 = 100;
-
+//m_c1
   m.c1 -= u.x;
   m.c1 += u.y;
   m.c1 -= u.turn;
-
+//m_c2
   m.c2 += u.x;
   m.c2 += u.y;
   m.c2 += u.turn;
-
+//m_c3
   m.c3 -= u.x;
   m.c3 -= u.y;
   m.c3 += u.turn;
-
+//m_c4
   m.c4 += u.x;
   m.c4 -= u.y;
   m.c4 -= u.turn;
 
+//s_c1
   if (!u.x == 0) m.c1 += (x - j.x) * hob;
   if (!u.y == 0) m.c1 -= (y - j.y) * hob;
   if (!u.turn == 0) m.c1 += (turn - j.turn) / hob;
-
+//s_c2
   if (!u.x == 0) m.c2 -= (x - j.x) * hob;
   if (!u.y == 0) m.c2 -= (y - j.y) * hob;
   if (!u.turn == 0) m.c2 -= (turn - j.turn) / hob;
-
+//s_c3
   if (!u.x == 0) m.c3 += (x - j.x) * hob;
   if (!u.y == 0) m.c3 += (y - j.y) * hob;
   if (!u.turn == 0) m.c3 += (turn - j.turn) / hob;
-
+//s_c4
   if (!u.x == 0) m.c4 -= (x - j.x) * hob;
   if (!u.y == 0) m.c4 += (y - j.y) * hob;
   if (!u.turn == 0) m.c4 -= (turn - j.turn) / hob;
-  /*
-    m.c1 += (0+(x-euler.x())-(y-euler.y()))*2.0+turn/2.0;
-    m.c2 += (0-(x-euler.x())-(y-euler.y()))*2.0-turn/2.0;
-    m.c3 += (0+(x-euler.x())+(y-euler.y()))*2.0+turn/2.0;
-    m.c4 += (0-(x-euler.x())+(y-euler.y()))*2.0-turn/2.0;
-  */
 
   m.c1 -= 100;
   m.c2 -= 100;
@@ -193,10 +195,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  x = x/2+((analogRead(set.x)-ud.x) * read_)*5;
-  y = y/2+((analogRead(set.y)-ud.y) * read_)*5;
-  z = z/2+((analogRead(set.z)-ud.z) * read_)*5;
-  turn = turn/2+((analogRead(set.turn)-ud.turn) * read_)*5;
+  x = (x/2+((analogRead(set.x)-ud.x) * read_)*5);
+  y = (y/2+((analogRead(set.y)-ud.y) * read_)*5);
+  z = (z/2+((analogRead(set.z)-ud.z) * read_)*5);
+  turn = (turn/2+((analogRead(set.turn)-ud.turn) * read_)*5);
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
@@ -329,10 +331,10 @@ void get_bno055_data(void)
   //Serial.print(quat.z(), 4);
   //Serial.print("\t\t");
 
-  j.x = j.x/2+euler.x()/2;
-  j.y = j.y/2+euler.y()/2;
-  j.z = j.z/2+euler.z()/2;
-  j.turn = j.turn/2+quat.z()/2;
+  j.x = (j.x/2+euler.x()/2);
+  j.y = (j.y/2+euler.y()/2);
+  j.z = (j.z/2+euler.z()/2);
+  j.turn = (j.turn/2+quat.z()/2);
 
   //Serial.println();
 }
