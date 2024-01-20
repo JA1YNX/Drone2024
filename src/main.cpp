@@ -85,7 +85,8 @@ void setup(void)
   bt.begin("Drone2024");
 
   bno_setup();
-  ud = user{static_cast<int>(analogRead(33)),static_cast<int>(analogRead(35)),static_cast<int>(analogRead(32)),static_cast<int>(analogRead(34))};
+  delay(10000);
+  ud = user(analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
   m.setup();//初期化
   m.nf = 1;//モーターの回転ON
   m.d = -6;//esc初期化
@@ -106,10 +107,10 @@ void loop(void)
   if (!u.turn == 0) turn = quat.z();
 
   m.d = u.z-5;//+(z-euler.z())*50.0;
-  m.c1 = 50;
-  m.c2 = 50;
-  m.c3 = 50;
-  m.c4 = 50;
+  m.c1 = 0;
+  m.c2 = 0;
+  m.c3 = 0;
+  m.c4 = 0;
 
   m.c1 -= u.x;
   m.c1 += u.y;
@@ -174,10 +175,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  int x = analogRead(set.x) * read_*10;
-  int y = analogRead(set.y) * read_*10;
-  int z = analogRead(set.z) * read_*10;
-  int turn = (analogRead(set.turn) - ud.turn) * read_*10;
+  int x = ((analogRead(set.x)-ud.x) * read_)*10;
+  int y = ((analogRead(set.y)-ud.y) * read_)*10;
+  int z = ((analogRead(set.z)-ud.z) * read_)*10;
+  int turn = ((analogRead(set.turn)-ud.turn) * read_)*10;
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
@@ -314,10 +315,10 @@ void get_bno055_data(void)
 
 void motor::rotate()
 {
-  ledcWrite(ch1, dutys + abs(d + c1-50) * nf);
-  ledcWrite(ch2, dutys + abs(d + c2-50) * nf);
-  ledcWrite(ch3, dutys + abs(d + c3-50) * nf);
-  ledcWrite(ch4, dutys + abs(d + c4-50) * nf);
+  ledcWrite(ch1, dutys + abs(d + c1) * nf);
+  ledcWrite(ch2, dutys + abs(d + c2) * nf);
+  ledcWrite(ch3, dutys + abs(d + c3) * nf);
+  ledcWrite(ch4, dutys + abs(d + c4) * nf);
 
   bt.print("  ou1:");
   bt.print(dutys + abs(d + c1) * nf);
