@@ -81,11 +81,12 @@ contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
 
 void setup(void)
 {
+  Serial.begin(9600);
   c.setup();
   bt.begin("Drone2024");
 
   bno_setup();
-  delay(10000);
+  delay(5000);
   ud = user(analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
   m.setup();//初期化
   m.nf = 1;//モーターの回転ON
@@ -202,7 +203,6 @@ void bno_setup()
   pinMode(21, INPUT_PULLUP); //SDA 21番ピンのプルアップ(念のため)
   pinMode(22, INPUT_PULLUP); //SDA 22番ピンのプルアップ(念のため)
 
-  Serial.begin(9600);
   Serial.println("Orientation Sensor Raw Data Test"); Serial.println("");
 
   if (!bno.begin()) // センサの初期化
