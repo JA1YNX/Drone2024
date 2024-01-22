@@ -94,7 +94,7 @@ void setup(void)
   bno_setup();
   c.setup();
   delay(5000);
-  ud = user(analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
+  ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
   m.setup();//初期化
   m.nf = 0;//モーターの回転ON
   m.d = -6;//esc初期化
