@@ -95,7 +95,6 @@ user mode_set;
 
 void setup(void)
 {
-  if(mode)mode_setup();
   Serial.begin(115200);
   bt.begin("Drone2024");
 
@@ -103,6 +102,7 @@ void setup(void)
   c.setup();
   delay(5000);
   ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
+  if(mode)mode_setup();
   m.setup();//初期化
   m.nf = 0;//モーターの回転ON
   m.d = -6;//esc初期化
