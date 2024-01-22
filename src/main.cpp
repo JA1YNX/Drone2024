@@ -4,6 +4,8 @@
 #include <Ticker.h>
 #include <BluetoothSerial.h>
 
+#define mode 0//0:ハード1:ソフト
+
 #define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
 
@@ -79,15 +81,21 @@ uint8_t system_, gyro, accel, mag = 0;//キャリブレーション値
 void get_bno055_data(void);
 void bno_setup();
 
+void mode_setup();
+void mode_read();
 
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
 user ud;//標準
 user j;//BNO055値
 contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
+hw_timer_t * timer = NULL;
+user mode_timer;
+user mode_set;
 
 void setup(void)
 {
+  if(mode)mode_setup();
   Serial.begin(115200);
   bt.begin("Drone2024");
 
@@ -169,6 +177,37 @@ void loop(void)
   bt.println("    } ");
 
 }
+
+void mode_setup()
+{
+  timer = timerBegin(0,80,true);
+  timerAttachInterrupt(timer,&mode_read,true);
+  timerAlarmWrite(timer,1000000,true);
+  timerAlarmEnable(timer);
+}
+void mode_read()
+{
+  bool x = 0,y = 0,z = 0,turn = 0;
+  x = digitalRead(c.set.x);
+  y = digitalRead(c.set.y);
+  z = digitalRead(c.set.z);
+  turn = digitalRead(c.set.turn);
+  if(c.set.x)mode_timer.x++;
+  if(c.set.y)mode_timer.y++;
+  if(c.set.z)mode_timer.z++;
+  if(c.set.turn)mode_timer.turn++;
+
+  if(!c.set.x)mode_timer.x = 0;
+  if(!c.set.y)mode_timer.y = 0;
+  if(!c.set.z)mode_timer.z = 0;
+  if(!c.set.turn)mode_timer.turn = 0;
+
+  if(!c.set.x)mode_set.x = mode_timer.x;
+  if(!c.set.y)mode_set.y = mode_timer.y;
+  if(!c.set.z)mode_set.z = mode_timer.z;
+  if(!c.set.turn)mode_set.turn = mode_timer.turn;
+}
+
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
 {
   pin_in1 = pin1;
@@ -195,10 +234,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  x = (x/2+((analogRead(set.x)-ud.x) * read_)*5);
-  y = (y/2+((analogRead(set.y)-ud.y) * read_)*5);
-  z = (z/2+((analogRead(set.z)-ud.z) * read_)*5);
-  turn = (turn/2+((analogRead(set.turn)-ud.turn) * read_)*5);
+  x = (x/2+((!mode?analogRead(set.x):mode_set.x-ud.x) * read_)*5);
+  y = (y/2+((!mode?analogRead(set.y):mode_set.y-ud.y) * read_)*5);
+  z = (z/2+((!mode?analogRead(set.z):mode_set.z-ud.z) * read_)*5);
+  turn = (turn/2+((!mode?analogRead(set.turn):mode_set.turn-ud.turn) * read_)*5);
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
