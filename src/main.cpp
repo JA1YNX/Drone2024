@@ -90,8 +90,8 @@ user ud;//標準
 user j;//BNO055値
 contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
 hw_timer_t * timer = NULL;
-user mode_timer;
-user mode_set;
+volatile user mode_timer;
+volatile user mode_set;
 
 void setup(void)
 {
