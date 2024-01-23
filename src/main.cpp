@@ -186,7 +186,7 @@ void mode_setup()
 {
   timer = timerBegin(0,80,true);
   timerAttachInterrupt(timer,&mode_read,true);
-  timerAlarmWrite(timer,100000000,true);
+  timerAlarmWrite(timer,10000,true);
   timerAlarmEnable(timer);
 }
 void mode_read()
