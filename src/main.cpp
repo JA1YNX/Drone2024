@@ -5,6 +5,7 @@
 #include <BluetoothSerial.h>
 
 #define mode 1//0:ハード1:ソフト
+#define mode_clock 10000//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
@@ -186,7 +187,7 @@ void mode_setup()
 {
   timer = timerBegin(0,80,true);
   timerAttachInterrupt(timer,&mode_read,true);
-  timerAlarmWrite(timer,10000,true);
+  timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
 }
 void mode_read()
