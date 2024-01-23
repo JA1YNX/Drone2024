@@ -92,6 +92,10 @@ contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pi
 hw_timer_t * timer = NULL;
 volatile user mode_timer;
 volatile user mode_set;
+volatile bool mode_chx;
+volatile bool mode_chy;
+volatile bool mode_chz;
+volatile bool mode_chturn;
 
 void setup(void)
 {
@@ -188,24 +192,36 @@ void mode_setup()
 void mode_read()
 {
   bool x = 0,y = 0,z = 0,turn = 0;
+  //測る
   x = digitalRead(c.set.x);
   y = digitalRead(c.set.y);
   z = digitalRead(c.set.z);
   turn = digitalRead(c.set.turn);
+  //足す
   if(c.set.x)mode_timer.x++;
   if(c.set.y)mode_timer.y++;
   if(c.set.z)mode_timer.z++;
   if(c.set.turn)mode_timer.turn++;
-
+  //設定
+  if(c.set.x)mode_chx = 1;
+  if(c.set.y)mode_chy = 1;
+  if(c.set.z)mode_chz = 1;
+  if(c.set.turn)mode_chturn = 1;
+  //代入
+  if((!c.set.x)&&(mode_chx))mode_set.x = mode_timer.x;
+  if((!c.set.y)&&(mode_chy))mode_set.y = mode_timer.y;
+  if((!c.set.z)&&(mode_chz))mode_set.z = mode_timer.z;
+  if((!c.set.turn)&&(mode_chturn))mode_set.turn = mode_timer.turn;
+  //リセット
   if(!c.set.x)mode_timer.x = 0;
   if(!c.set.y)mode_timer.y = 0;
   if(!c.set.z)mode_timer.z = 0;
   if(!c.set.turn)mode_timer.turn = 0;
-
-  if(!c.set.x)mode_set.x = mode_timer.x;
-  if(!c.set.y)mode_set.y = mode_timer.y;
-  if(!c.set.z)mode_set.z = mode_timer.z;
-  if(!c.set.turn)mode_set.turn = mode_timer.turn;
+  //リセット
+  if(!c.set.x)mode_chx = 0;
+  if(!c.set.y)mode_chy = 0;
+  if(!c.set.z)mode_chz = 0;
+  if(!c.set.turn)mode_chturn = 0;
 }
 
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
