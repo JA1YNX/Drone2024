@@ -297,13 +297,13 @@ user contloler::read()
   int turn = (analogRead(set.turn) - ud.turn) * read_*10;
   */
   bt.print("   cx:");
-  bt.print(x);
+  bt.print(c_x);
   bt.print("   cy:");
-  bt.print(y);
+  bt.print(c_y);
   bt.print("   cz:");
-  bt.print(z);
+  bt.print(c_z);
   bt.print("   ct:");
-  bt.print(turn);
+  bt.print(c_turn);
   bt.print("     ");
   return user{c_x, c_y, c_z, c_turn};
 }
