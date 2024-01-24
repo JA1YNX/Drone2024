@@ -205,24 +205,7 @@ void mode_read()
     mode_timer.x++;
     mode_chx = 1;
   }
-  if(y == 1)
-  {
-    mode_timer.y++;
-    mode_chy = 1;
-  }
-  if(z == 1)
-  {
-    mode_timer.z++;
-    mode_chy = 1;
-  }
-  if(turn == 1)
-  {
-    mode_timer.turn++;
-    mode_chturn = 1;
-  }
-
-  //リセット
-  if(x == 0)
+  else
   {
     if(mode_chx == 1)
     {
@@ -231,7 +214,12 @@ void mode_read()
     mode_timer.x = 0;
     mode_chx = 0;
   }
-  if(y == 0)
+  if(y == 1)
+  {
+    mode_timer.y++;
+    mode_chy = 1;
+  }
+  else
   {
     if(mode_chy == 1)
     {
@@ -240,7 +228,12 @@ void mode_read()
     mode_timer.y = 0;
     mode_chy = 0;
   }
-  if(z == 0)
+  if(z == 1)
+  {
+    mode_timer.z++;
+    mode_chy = 1;
+  }
+  else
   {
     if(mode_chz == 1)
     {
@@ -249,7 +242,12 @@ void mode_read()
     mode_timer.z = 0;
     mode_chz = 0;
   }
-  if(turn == 0)
+  if(turn == 1)
+  {
+    mode_timer.turn++;
+    mode_chturn = 1;
+  }
+  else
   {
     if(mode_chturn == 1)
     {
@@ -257,7 +255,7 @@ void mode_read()
     }
     mode_timer.turn = 0;
     mode_chturn = 0;
-  } 
+  }
 }
 
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
