@@ -105,9 +105,10 @@ void setup(void)
 
   bno_setup();
   c.setup();
+  if(mode)mode_setup();
   delay(5000);
   ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
-  if(mode)mode_setup();
+  if(mode)ud = user{mode_set.x,mode_set.y,mode_set.z,mode_set.turn};
   m.setup();//初期化
   m.nf = 0;//モーターの回転ON
   m.d = -6;//esc初期化
@@ -219,7 +220,7 @@ void mode_read()
     mode_timer.turn++;
     mode_chturn = 1;
   }
-  
+
   //リセット
   if(!c.set.x == 1)
   {
