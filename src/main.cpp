@@ -5,7 +5,7 @@
 #include <BluetoothSerial.h>
 
 #define mode 1//0:ハード1:ソフト
-#define mode_clock 10000//esp32のカウント数
+#define mode_clock 1000//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
@@ -200,29 +200,29 @@ void mode_read()
   z = digitalRead(c.set.z);
   turn = digitalRead(c.set.turn);
   //足す
-  if(c.set.x == 1)
+  if(x == 1)
   {
     mode_timer.x++;
     mode_chx = 1;
   }
-  if(c.set.y == 1)
+  if(y == 1)
   {
     mode_timer.y++;
     mode_chy = 1;
   }
-  if(c.set.z == 1)
+  if(z == 1)
   {
     mode_timer.z++;
     mode_chy = 1;
   }
-  if(c.set.turn == 1)
+  if(turn == 1)
   {
     mode_timer.turn++;
     mode_chturn = 1;
   }
 
   //リセット
-  if(!c.set.x == 1)
+  if(x == 0)
   {
     if(mode_chx == 1)
     {
@@ -231,7 +231,7 @@ void mode_read()
     mode_timer.x = 0;
     mode_chx = 0;
   }
-  if(!c.set.y == 1)
+  if(y == 0)
   {
     if(mode_chy == 1)
     {
@@ -240,7 +240,7 @@ void mode_read()
     mode_timer.y = 0;
     mode_chy = 0;
   }
-  if(!c.set.z == 1)
+  if(z == 0)
   {
     if(mode_chz == 1)
     {
@@ -249,7 +249,7 @@ void mode_read()
     mode_timer.z = 0;
     mode_chz = 0;
   }
-  if(!c.set.turn == 1)
+  if(turn == 0)
   {
     if(mode_chturn == 1)
     {
