@@ -199,30 +199,52 @@ void mode_read()
   z = digitalRead(c.set.z);
   turn = digitalRead(c.set.turn);
   //足す
-  if(c.set.x)mode_timer.x++;
-  if(c.set.y)mode_timer.y++;
-  if(c.set.z)mode_timer.z++;
-  if(c.set.turn)mode_timer.turn++;
-  //設定
-  if(c.set.x)mode_chx = 1;
-  if(c.set.y)mode_chy = 1;
-  if(c.set.z)mode_chz = 1;
-  if(c.set.turn)mode_chturn = 1;
+  if(c.set.x)
+  {
+    mode_timer.x++;
+    mode_chx = 1;
+  }
+  if(c.set.y)
+  {
+    mode_timer.y++;
+    mode_chy = 1;
+  }
+  if(c.set.z)
+  {
+    mode_timer.z++;
+    mode_chy = 1;
+  }
+  if(c.set.turn)
+  {
+    mode_timer.turn++;
+    mode_chturn = 1;
+  }
   //代入
   if((!c.set.x)&&(mode_chx))mode_set.x = mode_timer.x;
   if((!c.set.y)&&(mode_chy))mode_set.y = mode_timer.y;
   if((!c.set.z)&&(mode_chz))mode_set.z = mode_timer.z;
   if((!c.set.turn)&&(mode_chturn))mode_set.turn = mode_timer.turn;
   //リセット
-  if(!c.set.x)mode_timer.x = 0;
-  if(!c.set.y)mode_timer.y = 0;
-  if(!c.set.z)mode_timer.z = 0;
-  if(!c.set.turn)mode_timer.turn = 0;
-  //リセット
-  if(!c.set.x)mode_chx = 0;
-  if(!c.set.y)mode_chy = 0;
-  if(!c.set.z)mode_chz = 0;
-  if(!c.set.turn)mode_chturn = 0;
+  if(!c.set.x)
+  {
+    mode_timer.x = 0;
+    mode_chx = 0;
+  }
+  if(!c.set.y)
+  {
+    mode_timer.y = 0;
+    mode_chy = 0;
+  }
+  if(!c.set.z)
+  {
+    mode_timer.z = 0;
+    mode_chz = 0;
+  }
+  if(!c.set.turn)
+  {
+    mode_timer.turn = 0;
+    mode_chturn = 0;
+  } 
 }
 
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
