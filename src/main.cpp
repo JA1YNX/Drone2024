@@ -59,10 +59,10 @@ class contloler {
     user read();
     contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
   private:
-    int x;
-    int y;
-    int z;
-    int turn;    
+    int c_x;
+    int c_y;
+    int c_z;
+    int c_turn;    
 };
 
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
@@ -105,10 +105,10 @@ void setup(void)
 
   bno_setup();
   c.setup();
-  if(mode)mode_setup();
+  if(mode == 1)mode_setup();
   delay(5000);
   ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
-  if(mode)ud = user{mode_set.x,mode_set.y,mode_set.z,mode_set.turn};
+  if(mode == 1)ud = user{mode_set.x,mode_set.y,mode_set.z,mode_set.turn};
   m.setup();//初期化
   m.nf = 0;//モーターの回転ON
   m.d = -6;//esc初期化
@@ -278,18 +278,18 @@ void contloler::setup()
   pinMode(pin_in4, INPUT);
   pinMode(pin_in5, INPUT);
   pinMode(pin_in6, INPUT);
-  x = 0;
-  y = 0;
-  z = 0;
-  turn = 0;
+  c_x = 0;
+  c_y = 0;
+  c_z = 0;
+  c_turn = 0;
 }
 
 user contloler::read()
 {
-  x = (x/2+((!mode?analogRead(set.x):mode_set.x-ud.x) * read_)*5);
-  y = (y/2+((!mode?analogRead(set.y):mode_set.y-ud.y) * read_)*5);
-  z = (z/2+((!mode?analogRead(set.z):mode_set.z-ud.z) * read_)*5);
-  turn = (turn/2+((!mode?analogRead(set.turn):mode_set.turn-ud.turn) * read_)*5);
+  c_x = (c_x/2+((mode == 0?analogRead(set.x):mode_set.x-ud.x) * read_)*5);
+  c_y = (c_y/2+((mode == 0?analogRead(set.y):mode_set.y-ud.y) * read_)*5);
+  c_z = (c_z/2+((mode == 0?analogRead(set.z):mode_set.z-ud.z) * read_)*5);
+  c_turn = (c_turn/2+((mode == 0?analogRead(set.turn):mode_set.turn-ud.turn) * read_)*5);
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
@@ -305,7 +305,7 @@ user contloler::read()
   bt.print("   ct:");
   bt.print(turn);
   bt.print("     ");
-  return user{x, y, z, turn};
+  return user{c_x, c_y, c_z, c_turn};
 }
 
 void bno_setup()
