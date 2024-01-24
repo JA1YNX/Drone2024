@@ -199,49 +199,61 @@ void mode_read()
   z = digitalRead(c.set.z);
   turn = digitalRead(c.set.turn);
   //足す
-  if(c.set.x)
+  if(c.set.x == 1)
   {
     mode_timer.x++;
     mode_chx = 1;
   }
-  if(c.set.y)
+  if(c.set.y == 1)
   {
     mode_timer.y++;
     mode_chy = 1;
   }
-  if(c.set.z)
+  if(c.set.z == 1)
   {
     mode_timer.z++;
     mode_chy = 1;
   }
-  if(c.set.turn)
+  if(c.set.turn == 1)
   {
     mode_timer.turn++;
     mode_chturn = 1;
   }
-  //代入
-  if((!c.set.x)&&(mode_chx))mode_set.x = mode_timer.x;
-  if((!c.set.y)&&(mode_chy))mode_set.y = mode_timer.y;
-  if((!c.set.z)&&(mode_chz))mode_set.z = mode_timer.z;
-  if((!c.set.turn)&&(mode_chturn))mode_set.turn = mode_timer.turn;
+  
   //リセット
-  if(!c.set.x)
+  if(!c.set.x == 1)
   {
+    if(mode_chx == 1)
+    {
+      mode_set.x = mode_timer.x;
+    }
     mode_timer.x = 0;
     mode_chx = 0;
   }
-  if(!c.set.y)
+  if(!c.set.y == 1)
   {
+    if(mode_chy == 1)
+    {
+      mode_set.y = mode_timer.y;
+    }
     mode_timer.y = 0;
     mode_chy = 0;
   }
-  if(!c.set.z)
+  if(!c.set.z == 1)
   {
+    if(mode_chz == 1)
+    {
+      mode_set.z = mode_timer.z;
+    }
     mode_timer.z = 0;
     mode_chz = 0;
   }
-  if(!c.set.turn)
+  if(!c.set.turn == 1)
   {
+    if(mode_chturn == 1)
+    {
+      mode_set.turn = mode_timer.turn;
+    }
     mode_timer.turn = 0;
     mode_chturn = 0;
   } 
