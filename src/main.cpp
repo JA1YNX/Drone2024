@@ -294,10 +294,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  c_x = mode2 == 0?(c_x/2+((mode == 0?analogRead(set.x):mode_set.x-ud.x) * read_)*5):(mode == 0?analogRead(set.x):mode_set.x-ud.x)*read_*10;
-  c_y = mode2 == 0?(c_y/2+((mode == 0?analogRead(set.y):mode_set.y-ud.y) * read_)*5):(mode == 0?analogRead(set.y):mode_set.y-ud.y)*read_*10;
-  c_z = mode2 == 0?(c_z/2+((mode == 0?analogRead(set.z):mode_set.z-ud.z) * read_)*5):(mode == 0?analogRead(set.z):mode_set.z-ud.z)*read_*10;
-  c_turn = mode2 == 0?(c_turn/2+((mode == 0?analogRead(set.turn):mode_set.turn-ud.turn) * read_)*5):(mode == 0?analogRead(set.turn):mode_set.turn-ud.turn)*read_*10;
+  c_x = (mode2 == 0?(c_x/2+(((mode == 0?analogRead(set.x):mode_set.x)-ud.x) * read_)*5):((mode == 0?analogRead(set.x):mode_set.x)-ud.x)*read_*10);
+  c_y = (mode2 == 0?(c_y/2+(((mode == 0?analogRead(set.y):mode_set.y)-ud.y) * read_)*5):((mode == 0?analogRead(set.y):mode_set.y)-ud.y)*read_*10);
+  c_z = (mode2 == 0?(c_z/2+(((mode == 0?analogRead(set.z):mode_set.z)-ud.z) * read_)*5):((mode == 0?analogRead(set.z):mode_set.z)-ud.z)*read_*10);
+  c_turn = (mode2 == 0?(c_turn/2+(((mode == 0?analogRead(set.turn):mode_set.turn)-ud.turn) * read_)*5):((mode == 0?analogRead(set.turn):mode_set.turn)-ud.turn)*read_*10);
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
