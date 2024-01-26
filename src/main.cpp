@@ -202,10 +202,15 @@ void mode_read()
 {
   bool x = 0,y = 0,z = 0,turn = 0;
   //測る
-  x = 1500 < analogRead(c.set.x);
-  y = 1500 < analogRead(c.set.y);
-  z = 1500 < analogRead(c.set.z);
-  turn = 1500 < analogRead(c.set.turn);
+  //x = 1500 < analogRead(c.set.x);
+  //y = 1500 < analogRead(c.set.y);
+  //z = 1500 < analogRead(c.set.z);
+  //turn = 1500 < analogRead(c.set.turn);
+
+  x = digitalRead(c.set.x);
+  y = digitalRead(c.set.y);
+  z = digitalRead(c.set.z);
+  turn = digitalRead(c.set.turn);
   //足す
   if(x == 1)
   {
