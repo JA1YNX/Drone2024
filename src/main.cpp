@@ -215,6 +215,7 @@ void mode_read()
     mode_timer.x = 0;
     mode_chx = 0;
   }
+
   if(y == 1)
   {
     mode_timer.y++;
@@ -229,6 +230,7 @@ void mode_read()
     mode_timer.y = 0;
     mode_chy = 0;
   }
+
   if(z == 1)
   {
     mode_timer.z++;
@@ -243,6 +245,7 @@ void mode_read()
     mode_timer.z = 0;
     mode_chz = 0;
   }
+  
   if(turn == 1)
   {
     mode_timer.turn++;
