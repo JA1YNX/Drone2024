@@ -5,7 +5,7 @@
 #include <BluetoothSerial.h>
 
 #define mode 1//0:ハード1:ソフト
-#define mode2 0//平均化有無0:有1:無
+#define mode2 1//平均化有無0:有1:無
 #define mode_clock 1000//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
