@@ -5,6 +5,7 @@
 #include <BluetoothSerial.h>
 
 #define mode 1//0:ハード1:ソフト
+#define mode2 0//平均化有無0:有1:無
 #define mode_clock 1000//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
@@ -284,10 +285,10 @@ void contloler::setup()
 
 user contloler::read()
 {
-  c_x = (c_x/2+((mode == 0?analogRead(set.x):mode_set.x-ud.x) * read_)*5);
-  c_y = (c_y/2+((mode == 0?analogRead(set.y):mode_set.y-ud.y) * read_)*5);
-  c_z = (c_z/2+((mode == 0?analogRead(set.z):mode_set.z-ud.z) * read_)*5);
-  c_turn = (c_turn/2+((mode == 0?analogRead(set.turn):mode_set.turn-ud.turn) * read_)*5);
+  c_x = mode2 == 0?(c_x/2+((mode == 0?analogRead(set.x):mode_set.x-ud.x) * read_)*5):(mode == 0?analogRead(set.x):mode_set.x-ud.x)*read_*10;
+  c_y = mode2 == 0?(c_y/2+((mode == 0?analogRead(set.y):mode_set.y-ud.y) * read_)*5):(mode == 0?analogRead(set.y):mode_set.y-ud.y)*read_*10;
+  c_z = mode2 == 0?(c_z/2+((mode == 0?analogRead(set.z):mode_set.z-ud.z) * read_)*5):(mode == 0?analogRead(set.z):mode_set.z-ud.z)*read_*10;
+  c_turn = mode2 == 0?(c_turn/2+((mode == 0?analogRead(set.turn):mode_set.turn-ud.turn) * read_)*5):(mode == 0?analogRead(set.turn):mode_set.turn-ud.turn)*read_*10;
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
