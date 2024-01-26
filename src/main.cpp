@@ -16,7 +16,7 @@
 #define dutys 56//最低回転58
 #define p_max 90//最高回転98
 
-#define BNO055interval 5 //何ms間隔でデータを取得するか
+#define BNO055interval 10 //何ms間隔でデータを取得するか
 
 struct user { //プロポ入力
   int x;
@@ -92,7 +92,7 @@ user ud;//標準
 user j;//BNO055値
 contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
 hw_timer_t * timer = NULL;
-volatile user mode_timer;
+user mode_timer;
 user mode_set;
 volatile bool mode_chx;
 volatile bool mode_chy;
@@ -137,10 +137,10 @@ void loop(void)
   if (!u.turn == 0) turn = j.turn;
 
   m.d = u.z-5;
-  m.c1 = 100;
-  m.c2 = 100;
-  m.c3 = 100;
-  m.c4 = 100;
+  m.c1 = 0;
+  m.c2 = 0;
+  m.c3 = 0;
+  m.c4 = 0;
 //m_c1
   m.c1 -= u.x;
   m.c1 += u.y;
@@ -175,10 +175,10 @@ void loop(void)
   if (!u.y == 0) m.c4 += (y - j.y) * hob;
   if (!u.turn == 0) m.c4 -= (turn - j.turn) / hob;
 
-  m.c1 -= 100;
-  m.c2 -= 100;
-  m.c3 -= 100;
-  m.c4 -= 100;
+  m.c1 -= 0;
+  m.c2 -= 0;
+  m.c3 -= 0;
+  m.c4 -= 0;
 
   m.rotate();
   bt.println("    } ");
@@ -187,6 +187,12 @@ void loop(void)
 
 void mode_setup()
 {
+  pinMode(c.pin_in1, INPUT);
+  pinMode(c.pin_in2, INPUT);
+  pinMode(c.pin_in3, INPUT);
+  pinMode(c.pin_in4, INPUT);
+  pinMode(c.pin_in5, INPUT);
+  pinMode(c.pin_in6, INPUT);
   timer = timerBegin(0,80,true);
   timerAttachInterrupt(timer,&mode_read,true);
   timerAlarmWrite(timer,mode_clock,true);
@@ -196,10 +202,10 @@ void mode_read()
 {
   bool x = 0,y = 0,z = 0,turn = 0;
   //測る
-  x = digitalRead(c.set.x);
-  y = digitalRead(c.set.y);
-  z = digitalRead(c.set.z);
-  turn = digitalRead(c.set.turn);
+  x = 2000 < analogRead(c.set.x);
+  y = 2000 < digitalRead(c.set.y);
+  z = 2000 < digitalRead(c.set.z);
+  turn = 2000 < digitalRead(c.set.turn);
   //足す
   if(x == 1)
   {
@@ -245,7 +251,7 @@ void mode_read()
     mode_timer.z = 0;
     mode_chz = 0;
   }
-  
+
   if(turn == 1)
   {
     mode_timer.turn++;
@@ -356,7 +362,7 @@ void get_bno055_data(void)
 
 
   // キャリブレーションのステータスの取得と表示
-  //bno.getCalibration(&system_, &gyro, &accel, &mag);
+  bno.getCalibration(&system_, &gyro, &accel, &mag);
   //Serial.print("CALIB Sys:");
   //Serial.print(system_, DEC);
   //Serial.print(", Gy");
@@ -408,7 +414,7 @@ void get_bno055_data(void)
   Serial.print(" DIR_y:");
   Serial.print(j.y);
   Serial.print(" DIR_z:");
-  Serial.print(j.x);
+  Serial.print(j.z);
   Serial.print(" DIR_T:");
   Serial.println(j.turn);
 
@@ -425,8 +431,8 @@ void get_bno055_data(void)
   //Serial.print("\t\t");
 
   j.x = (j.x/2+euler.x()/2);
-  j.y = (j.y/2+euler.y()/2);
-  j.z = (j.z/2+euler.z()/2);
+  j.z = (j.y/2+euler.y()/2);
+  j.y = (j.z/2+euler.z()/2);
   j.turn = (j.turn/2+quat.z()/2);
 
   //Serial.println();
