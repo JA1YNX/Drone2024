@@ -6,7 +6,7 @@
 
 #define mode 1//0:ハード1:ソフト
 #define mode2 1//平均化有無0:有1:無
-#define mode_clock 1000//esp32のカウント数
+#define mode_clock 200//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
@@ -202,10 +202,10 @@ void mode_read()
 {
   bool x = 0,y = 0,z = 0,turn = 0;
   //測る
-  x = 2000 < analogRead(c.set.x);
-  y = 2000 < digitalRead(c.set.y);
-  z = 2000 < digitalRead(c.set.z);
-  turn = 2000 < digitalRead(c.set.turn);
+  x = 1500 < analogRead(c.set.x);
+  y = 1500 < digitalRead(c.set.y);
+  z = 1500 < digitalRead(c.set.z);
+  turn = 1500 < digitalRead(c.set.turn);
   //足す
   if(x == 1)
   {
