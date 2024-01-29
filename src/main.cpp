@@ -104,10 +104,10 @@ contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pi
 hw_timer_t * timer = NULL;
 user mode_timer;
 user mode_set;
-volatile int mode_chx = 0;
-volatile int mode_chy = 0;
-volatile int mode_chz = 0;
-volatile int mode_chturn = 0;
+volatile bool mode_chx = 0;
+volatile bool mode_chy = 0;
+volatile bool mode_chz = 0;
+volatile bool mode_chturn = 0;
 
 void setup(void)
 {
@@ -219,42 +219,42 @@ void mode_setup()
 }
 void mode_count()
 {
- mode_chx++;
- mode_chy++;
- mode_chz++;
- mode_chturn++;
+ mode_timer.x++;
+ mode_timer.y++;
+ mode_timer.z++;
+ mode_timer.turn++;
 }
 void mode_x()
 {
-  mode_chx = 0;
+  mode_timer.x = 0;
 }
 void mode_xf()
 {
-  mode_set.x = mode_chx;
+  mode_set.x = mode_timer.x;
 }
 void mode_y()
 {
-  mode_chy = 0;
+  mode_timer.y = 0;
 }
 void mode_yf()
 {
-  mode_set.y = mode_chy;
+  mode_set.y = mode_timer.y;
 }
 void mode_z()
 {
-  mode_chz = 0;
+  mode_timer.z = 0;
 }
 void mode_zf()
 {
-  mode_set.z = mode_chz;
+  mode_set.z = mode_timer.z;
 }
 void mode_turn()
 {
-  mode_chturn = 0;
+  mode_timer.turn = 0;
 }
 void mode_turnf()
 {
-  mode_set.turn = mode_chturn;
+  mode_set.turn = mode_timer.turn;
 }
 void mode_read()
 {
