@@ -4,6 +4,8 @@
 #include <Ticker.h>
 #include <BluetoothSerial.h>
 
+#define out 1
+
 #define mode 1//0:ハード1:ソフト
 #define mode2 1//平均化有無0:有1:無
 #define mode3 1//カウント方法0:タイマーのみ1:ピン割込み
@@ -136,6 +138,17 @@ void setup(void)
 
 void loop(void)
 {
+  if(out == 1)
+  {
+    Serial.print("   x:");
+    Serial.print(mode_set.x);
+    Serial.print("   y:");
+    Serial.print(mode_set.y);
+    Serial.print("   z:");
+    Serial.print(mode_set.z);
+    Serial.print("   t:");
+    Serial.print(mode_set.turn);
+  }
   int x, y, z, turn; //諸々値
 
   bt.print("{   Drone2024:");
@@ -472,14 +485,17 @@ void get_bno055_data(void)
 
   // センサフュージョンによる方向推定値の取得と表示
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-  Serial.print(" DIR_x:");
-  Serial.print(j.x);
-  Serial.print(" DIR_y:");
-  Serial.print(j.y);
-  Serial.print(" DIR_z:");
-  Serial.print(j.z);
-  Serial.print(" DIR_T:");
-  Serial.println(j.turn);
+  if(out == 0)
+  {
+    Serial.print(" DIR_x:");
+    Serial.print(j.x);
+    Serial.print(" DIR_y:");
+    Serial.print(j.y);
+    Serial.print(" DIR_z:");
+    Serial.print(j.z);
+    Serial.print(" DIR_T:");
+    Serial.println(j.turn);
+  }
 
   // センサフュージョンの方向推定値のクオータニオン
   quat = bno.getQuat();
