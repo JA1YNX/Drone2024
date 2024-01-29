@@ -6,6 +6,7 @@
 
 #define mode 1//0:ハード1:ソフト
 #define mode2 1//平均化有無0:有1:無
+#define mode3 1//カウント方法
 #define mode_clock 200//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
@@ -85,6 +86,14 @@ void bno_setup();
 
 void mode_setup();
 void mode_read();
+void mode_x();
+void mode_xf();
+void mode_y();
+void mode_yf();
+void mode_z();
+void mode_zf();
+void mode_turn();
+void mode_turnf();
 
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 user u;//プロポ入力
@@ -94,10 +103,10 @@ contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pi
 hw_timer_t * timer = NULL;
 user mode_timer;
 user mode_set;
-volatile bool mode_chx;
-volatile bool mode_chy;
-volatile bool mode_chz;
-volatile bool mode_chturn;
+volatile int mode_chx = 0;
+volatile int mode_chy = 0;
+volatile int mode_chz = 0;
+volatile int mode_chturn = 0;
 
 void setup(void)
 {
@@ -187,16 +196,58 @@ void loop(void)
 
 void mode_setup()
 {
-  pinMode(c.pin_in1, INPUT);
-  pinMode(c.pin_in2, INPUT);
-  pinMode(c.pin_in3, INPUT);
-  pinMode(c.pin_in4, INPUT);
-  pinMode(c.pin_in5, INPUT);
-  pinMode(c.pin_in6, INPUT);
   timer = timerBegin(0,80,true);
-  timerAttachInterrupt(timer,&mode_read,true);
+  //timerAttachInterrupt(timer,&mode_read,true);
+  timerAttachInterrupt(timer,&mode_count,true);
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_x, HIGH);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_xf, LOW);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_y, HIGH);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_yf, LOW);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_z, HIGH);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_zf, LOW);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_turn, HIGH);
+  if(mode3 = 1)	attachInterrupt(c.set.x, mode_turnf, LOW);
+}
+void mode_count()
+{
+ mode_chx ++;
+ mode_chy ++;
+ mode_chz ++;
+ mode_chturn ++;
+}
+void mode_x()
+{
+  mode_chx = 0;
+}
+void mode_xf()
+{
+  mode_set.x = mode_chx;
+}
+void mode_y()
+{
+  mode_chy = 0;
+}
+void mode_yf()
+{
+  mode_set.y = mode_chy;
+}
+void mode_z()
+{
+  mode_chz = 0;
+}
+void mode_zf()
+{
+  mode_set.z = mode_chz;
+}
+void mode_turn()
+{
+  mode_chturn = 0;
+}
+void mode_turnf()
+{
+  mode_set.turn = mode_chturn;
 }
 void mode_read()
 {
@@ -217,7 +268,7 @@ void mode_read()
     mode_timer.x++;
     mode_chx = 1;
   }
-  else
+  else if(x == 0)
   {
     if(mode_chx == 1)
     {
@@ -232,7 +283,7 @@ void mode_read()
     mode_timer.y++;
     mode_chy = 1;
   }
-  else
+  else if(y == 0)
   {
     if(mode_chy == 1)
     {
@@ -247,7 +298,7 @@ void mode_read()
     mode_timer.z++;
     mode_chy = 1;
   }
-  else
+  else if(z == 0)
   {
     if(mode_chz == 1)
     {
@@ -262,7 +313,7 @@ void mode_read()
     mode_timer.turn++;
     mode_chturn = 1;
   }
-  else
+  else if(turn == 0)
   {
     if(mode_chturn == 1)
     {
