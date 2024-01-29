@@ -197,19 +197,25 @@ void loop(void)
 
 void mode_setup()
 {
-  timer = timerBegin(0,80,true);
-  //timerAttachInterrupt(timer,&mode_read,true);
-  timerAttachInterrupt(timer,&mode_count,true);
+  timer = timerBegin(0,20,true);
+  if(mode3 == 0)
+  {
+    timerAttachInterrupt(timer,&mode_read,true);
+  }
+  if(mode3 == 1)
+  {
+    timerAttachInterrupt(timer,&mode_count,true);
+  	attachInterrupt(c.set.x, &mode_x, HIGH);
+  	attachInterrupt(c.set.x, &mode_xf, LOW);
+  	attachInterrupt(c.set.x, &mode_y, HIGH);
+  	attachInterrupt(c.set.x, &mode_yf, LOW);
+  	attachInterrupt(c.set.x, &mode_z, HIGH);
+  	attachInterrupt(c.set.x, &mode_zf, LOW);
+  	attachInterrupt(c.set.x, &mode_turn, HIGH);
+  	attachInterrupt(c.set.x, &mode_turnf, LOW);
+  }
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_x, HIGH);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_xf, LOW);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_y, HIGH);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_yf, LOW);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_z, HIGH);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_zf, LOW);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_turn, HIGH);
-  if(mode3 == 1)	attachInterrupt(c.set.x, mode_turnf, LOW);
 }
 void mode_count()
 {
