@@ -6,7 +6,7 @@
 
 #define mode 1//0:ハード1:ソフト
 #define mode2 1//平均化有無0:有1:無
-#define mode3 1//カウント方法
+#define mode3 1//カウント方法0:タイマーのみ1:ピン割込み
 #define mode_clock 200//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
@@ -219,10 +219,10 @@ void mode_setup()
 }
 void mode_count()
 {
- mode_chx ++;
- mode_chy ++;
- mode_chz ++;
- mode_chturn ++;
+ mode_chx++;
+ mode_chy++;
+ mode_chz++;
+ mode_chturn++;
 }
 void mode_x()
 {
