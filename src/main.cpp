@@ -86,6 +86,7 @@ void bno_setup();
 
 void mode_setup();
 void mode_read();
+void mode_count();
 void mode_x();
 void mode_xf();
 void mode_y();
@@ -201,14 +202,14 @@ void mode_setup()
   timerAttachInterrupt(timer,&mode_count,true);
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_x, HIGH);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_xf, LOW);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_y, HIGH);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_yf, LOW);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_z, HIGH);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_zf, LOW);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_turn, HIGH);
-  if(mode3 = 1)	attachInterrupt(c.set.x, mode_turnf, LOW);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_x, HIGH);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_xf, LOW);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_y, HIGH);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_yf, LOW);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_z, HIGH);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_zf, LOW);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_turn, HIGH);
+  if(mode3 == 1)	attachInterrupt(c.set.x, mode_turnf, LOW);
 }
 void mode_count()
 {
