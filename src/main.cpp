@@ -99,13 +99,13 @@ void mode_turn();
 void mode_turnf();
 
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
-user u;//プロポ入力
-user ud;//標準
-user j;//BNO055値
+volatile user u;//プロポ入力
+volatile user ud;//標準
+volatile user j;//BNO055値
 contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
-hw_timer_t * timer = NULL;
-user mode_timer;
-user mode_set;
+volatile hw_timer_t * timer = NULL;
+volatile user mode_timer;
+volatile user mode_set;
 volatile bool mode_chx = 0;
 volatile bool mode_chy = 0;
 volatile bool mode_chz = 0;
@@ -147,7 +147,15 @@ void loop(void)
     Serial.print("   z:");
     Serial.print(mode_set.z);
     Serial.print("   t:");
-    Serial.print(mode_set.turn);
+    Serial.println(mode_set.turn);
+    Serial.print("   x:");
+    Serial.print(mode_timer.x);
+    Serial.print("   y:");
+    Serial.print(mode_timer.y);
+    Serial.print("   z:");
+    Serial.print(mode_timer.z);
+    Serial.print("   t:");
+    Serial.println(mode_timer.turn);
   }
   int x, y, z, turn; //諸々値
 
@@ -218,24 +226,26 @@ void mode_setup()
   if(mode3 == 1)
   {
     timerAttachInterrupt(timer,&mode_count,true);
-  	attachInterrupt(c.set.x, &mode_x, HIGH);
-  	attachInterrupt(c.set.x, &mode_xf, LOW);
-  	attachInterrupt(c.set.x, &mode_y, HIGH);
-  	attachInterrupt(c.set.x, &mode_yf, LOW);
-  	attachInterrupt(c.set.x, &mode_z, HIGH);
-  	attachInterrupt(c.set.x, &mode_zf, LOW);
-  	attachInterrupt(c.set.x, &mode_turn, HIGH);
-  	attachInterrupt(c.set.x, &mode_turnf, LOW);
+  	attachInterrupt(c.set.x, mode_x, HIGH);
+  	attachInterrupt(c.set.x, mode_xf, LOW);
+  	attachInterrupt(c.set.x, mode_y, HIGH);
+  	attachInterrupt(c.set.x, mode_yf, LOW);
+  	attachInterrupt(c.set.x, mode_z, HIGH);
+  	attachInterrupt(c.set.x, mode_zf, LOW);
+  	attachInterrupt(c.set.x, mode_turn, HIGH);
+  	attachInterrupt(c.set.x, mode_turnf, LOW);
   }
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
 }
 void mode_count()
 {
+ noInterrupts(); 
  mode_timer.x++;
  mode_timer.y++;
  mode_timer.z++;
  mode_timer.turn++;
+ interrupts(); 
 }
 void mode_x()
 {
