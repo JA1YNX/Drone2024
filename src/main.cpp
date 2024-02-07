@@ -97,13 +97,14 @@ void mode_z();
 void mode_zf();
 void mode_turn();
 void mode_turnf();
+void re();
 
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
-volatile user u;//プロポ入力
-volatile user ud;//標準
-volatile user j;//BNO055値
+user u;//プロポ入力
+user ud;//標準
+user j;//BNO055値
 contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
-volatile hw_timer_t * timer = NULL;
+hw_timer_t * timer = NULL;
 volatile user mode_timer;
 volatile user mode_set;
 volatile bool mode_chx = 0;
@@ -138,6 +139,7 @@ void setup(void)
 
 void loop(void)
 {
+  //re();
   if(out == 1)
   {
     Serial.print("   x:");
@@ -216,6 +218,42 @@ void loop(void)
 
 }
 
+void re()
+{
+  if(digitalRead(c.set.x))
+  {
+    mode_timer.x = 0;
+  }
+  else
+  {
+    mode_set.x = mode_timer.x;
+  }
+  if(digitalRead(c.set.y))
+  {
+    mode_timer.y = 0;
+  }
+  else
+  {
+    mode_set.y = mode_timer.y;
+  }
+  if(digitalRead(c.set.z))
+  {
+    mode_timer.z = 0;
+  }
+  else
+  {
+    mode_set.z = mode_timer.z;
+  }
+  if(digitalRead(c.set.turn))
+  {
+    mode_timer.turn = 0;
+  }
+  else
+  {
+    mode_set.turn = mode_timer.turn;
+  }
+}
+
 void mode_setup()
 {
   timer = timerBegin(0,20,true);
@@ -226,14 +264,14 @@ void mode_setup()
   if(mode3 == 1)
   {
     timerAttachInterrupt(timer,&mode_count,true);
-  	attachInterrupt(c.set.x, mode_x, HIGH);
-  	attachInterrupt(c.set.x, mode_xf, LOW);
-  	attachInterrupt(c.set.x, mode_y, HIGH);
-  	attachInterrupt(c.set.x, mode_yf, LOW);
-  	attachInterrupt(c.set.x, mode_z, HIGH);
-  	attachInterrupt(c.set.x, mode_zf, LOW);
-  	attachInterrupt(c.set.x, mode_turn, HIGH);
-  	attachInterrupt(c.set.x, mode_turnf, LOW);
+  	attachInterrupt(c.set.x, &mode_x, HIGH);
+  	attachInterrupt(c.set.x, &mode_xf, LOW);
+  	attachInterrupt(c.set.y, &mode_y, HIGH);
+  	attachInterrupt(c.set.y, &mode_yf, LOW);
+  	attachInterrupt(c.set.z, &mode_z, HIGH);
+  	attachInterrupt(c.set.z, &mode_zf, LOW);
+  	attachInterrupt(c.set.turn, &mode_turn, HIGH);
+  	attachInterrupt(c.set.turn, &mode_turnf, LOW);
   }
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
@@ -366,12 +404,12 @@ contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
 }
 void contloler::setup()
 {
-  pinMode(pin_in1, INPUT);
-  pinMode(pin_in2, INPUT);
-  pinMode(pin_in3, INPUT);
-  pinMode(pin_in4, INPUT);
-  pinMode(pin_in5, INPUT);
-  pinMode(pin_in6, INPUT);
+  pinMode(pin_in1, INPUT_PULLUP);
+  pinMode(pin_in2, INPUT_PULLUP);
+  pinMode(pin_in3, INPUT_PULLUP);
+  pinMode(pin_in4, INPUT_PULLUP);
+  pinMode(pin_in5, INPUT_PULLUP);
+  pinMode(pin_in6, INPUT_PULLUP);
   c_x = 0;
   c_y = 0;
   c_z = 0;
