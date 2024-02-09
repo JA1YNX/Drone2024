@@ -294,7 +294,7 @@ void mode_x()
 }
 void mode_xf()
 {
-  mode_set.x = counter-mode_set.x;
+  mode_set.x = counter-mode_timer.x;
 }
 void mode_y()
 {
@@ -302,7 +302,7 @@ void mode_y()
 }
 void mode_yf()
 {
-  mode_set.y = counter-mode_set.y;
+  mode_set.y = counter-mode_timer.y;
 }
 void mode_z()
 {
@@ -310,7 +310,7 @@ void mode_z()
 }
 void mode_zf()
 {
-  mode_set.z = counter-mode_set.z;
+  mode_set.z = counter-mode_timer.z;
 }
 void mode_turn()
 {
@@ -318,7 +318,7 @@ void mode_turn()
 }
 void mode_turnf()
 {
-  mode_set.turn = counter-mode_set.turn;
+  mode_set.turn = counter-mode_timer.turn;
 }
 void mode_read()
 {
