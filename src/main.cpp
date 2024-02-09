@@ -111,7 +111,7 @@ volatile bool mode_chx = 0;
 volatile bool mode_chy = 0;
 volatile bool mode_chz = 0;
 volatile bool mode_chturn = 0;
-volatile int counter = 0;
+volatile size_t counter = 0;
 
 void setup(void)
 {
@@ -262,8 +262,8 @@ void mode_setup()
   {
     timerAttachInterrupt(timer,&mode_read,true);
   }
-  if(mode3 == 1)
-  {
+  //if(mode3 == 1)
+  //{
     timerAttachInterrupt(timer,&mode_count,true);
   	attachInterrupt(c.set.x, &mode_x, HIGH);
   	attachInterrupt(c.set.x, &mode_xf, LOW);
@@ -273,7 +273,7 @@ void mode_setup()
   	attachInterrupt(c.set.z, &mode_zf, LOW);
   	attachInterrupt(c.set.turn, &mode_turn, HIGH);
   	attachInterrupt(c.set.turn, &mode_turnf, LOW);
-  }
+  //}
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
 }
@@ -294,7 +294,7 @@ void mode_x()
 }
 void mode_xf()
 {
-  mode_set.x = counter-mode_timer.x;
+  mode_set.x = counter-mode_set.x;
 }
 void mode_y()
 {
@@ -302,7 +302,7 @@ void mode_y()
 }
 void mode_yf()
 {
-  mode_set.y = counter-mode_timer.y;
+  mode_set.y = counter-mode_set.y;
 }
 void mode_z()
 {
@@ -310,7 +310,7 @@ void mode_z()
 }
 void mode_zf()
 {
-  mode_set.z = counter-mode_timer.z;
+  mode_set.z = counter-mode_set.z;
 }
 void mode_turn()
 {
@@ -318,7 +318,7 @@ void mode_turn()
 }
 void mode_turnf()
 {
-  mode_set.turn = counter-mode_timer.turn;
+  mode_set.turn = counter-mode_set.turn;
 }
 void mode_read()
 {
