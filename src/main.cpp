@@ -111,6 +111,7 @@ volatile bool mode_chx = 0;
 volatile bool mode_chy = 0;
 volatile bool mode_chz = 0;
 volatile bool mode_chturn = 0;
+volatile int counter = 0;
 
 void setup(void)
 {
@@ -278,44 +279,46 @@ void mode_setup()
 }
 void mode_count()
 {
+  counter++;
+  /*
  noInterrupts(); 
  mode_timer.x++;
  mode_timer.y++;
  mode_timer.z++;
  mode_timer.turn++;
- interrupts(); 
+ interrupts(); */
 }
 void mode_x()
 {
-  mode_timer.x = 0;
+  mode_timer.x = counter;
 }
 void mode_xf()
 {
-  mode_set.x = mode_timer.x;
+  mode_set.x = counter-mode_timer.x;
 }
 void mode_y()
 {
-  mode_timer.y = 0;
+  mode_timer.y = counter;
 }
 void mode_yf()
 {
-  mode_set.y = mode_timer.y;
+  mode_set.y = counter-mode_timer.y;
 }
 void mode_z()
 {
-  mode_timer.z = 0;
+  mode_timer.z = counter;
 }
 void mode_zf()
 {
-  mode_set.z = mode_timer.z;
+  mode_set.z = counter-mode_timer.z;
 }
 void mode_turn()
 {
-  mode_timer.turn = 0;
+  mode_timer.turn = counter;
 }
 void mode_turnf()
 {
-  mode_set.turn = mode_timer.turn;
+  mode_set.turn = counter-mode_timer.turn;
 }
 void mode_read()
 {
