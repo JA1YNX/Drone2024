@@ -265,60 +265,60 @@ void mode_setup()
   //if(mode3 == 1)
   //{
     timerAttachInterrupt(timer,&mode_count,true);
-  	attachInterrupt(c.set.x, mode_x, HIGH);
-  	attachInterrupt(c.set.x, mode_xf, LOW);
-  	attachInterrupt(c.set.y, mode_y, HIGH);
-  	attachInterrupt(c.set.y, mode_yf, LOW);
-  	attachInterrupt(c.set.z, mode_z, HIGH);
-  	attachInterrupt(c.set.z, mode_zf, LOW);
-  	attachInterrupt(c.set.turn, mode_turn, HIGH);
-  	attachInterrupt(c.set.turn, mode_turnf, LOW);
+  	attachInterrupt(c.set.x, mode_x, RISING);
+  	attachInterrupt(c.set.x, mode_xf, FALLING);
+  	attachInterrupt(c.set.y, mode_y, RISING);
+  	attachInterrupt(c.set.y, mode_yf, FALLING);
+  	attachInterrupt(c.set.z, mode_z, RISING);
+  	attachInterrupt(c.set.z, mode_zf, FALLING);
+  	attachInterrupt(c.set.turn, mode_turn, RISING);
+  	attachInterrupt(c.set.turn, mode_turnf, FALLING);
   //}
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
 }
 void mode_count()
 {
-  counter++;
-  /*
+  //counter++;
+  
  noInterrupts(); 
  mode_timer.x++;
  mode_timer.y++;
  mode_timer.z++;
  mode_timer.turn++;
- interrupts(); */
+ interrupts(); 
 }
 void mode_x()
 {
-  mode_timer.x = counter;
+  mode_timer.x = 0;
 }
 void mode_xf()
 {
-  mode_set.x = counter-mode_timer.x;
+  mode_set.x = mode_timer.x;
 }
 void mode_y()
 {
-  mode_timer.y = counter;
+  mode_timer.y = 0;
 }
 void mode_yf()
 {
-  mode_set.y = counter-mode_timer.y;
+  mode_set.y = mode_timer.y;
 }
 void mode_z()
 {
-  mode_timer.z = counter;
+  mode_timer.z = 0;
 }
 void mode_zf()
 {
-  mode_set.z = counter-mode_timer.z;
+  mode_set.z = mode_timer.z;
 }
 void mode_turn()
 {
-  mode_timer.turn = counter;
+  mode_timer.turn = 0;
 }
 void mode_turnf()
 {
-  mode_set.turn = counter-mode_timer.turn;
+  mode_set.turn = mode_timer.turn;
 }
 void mode_read()
 {
