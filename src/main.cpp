@@ -281,12 +281,12 @@ void mode_count()
 {
   //counter++;
   
- noInterrupts(); 
+ //noInterrupts(); 
  mode_timer.x++;
  mode_timer.y++;
  mode_timer.z++;
  mode_timer.turn++;
- interrupts(); 
+ //interrupts(); 
 }
 void mode_x()
 {
