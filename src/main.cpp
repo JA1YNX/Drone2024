@@ -9,7 +9,7 @@
 #define mode 1//0:ハード1:ソフト
 #define mode2 1//平均化有無0:有1:無
 #define mode3 1//カウント方法0:タイマーのみ1:ピン割込み
-#define mode_clock 200//esp32のカウント数
+#define mode_clock 50000//esp32のカウント数
 
 #define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
@@ -257,7 +257,7 @@ void re()
 
 void mode_setup()
 {
-  timer = timerBegin(0,20,true);
+  timer = timerBegin(0,80,true);
   if(mode3 == 0)
   {
     timerAttachInterrupt(timer,&mode_read,true);
