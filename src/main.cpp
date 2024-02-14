@@ -76,7 +76,12 @@ Ticker bno055ticker; //タイマー割り込み用のインスタンス
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 
 BluetoothSerial bt;
-
+/*
+EspEasyGPIOInterrupt gpioInt1;
+EspEasyGPIOInterrupt gpioInt2;
+EspEasyGPIOInterrupt gpioInt3;
+EspEasyGPIOInterrupt gpioInt4;
+*/
 imu::Vector<3> gyroscope;//ジャイロ
 imu::Vector<3> accelermetor;//加速度
 imu::Vector<3> magnetmetor;//磁気
@@ -121,10 +126,10 @@ void setup(void)
 
   bno_setup();
   c.setup();
-  if(mode == 1)mode_setup();
+  mode_setup();
   delay(5000);
   ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
-  if(mode == 1)ud = user{mode_set.x,mode_set.y,mode_set.z,mode_set.turn};
+  ud = user{mode_set.x,mode_set.y,mode_set.z,mode_set.turn};
   m.setup();//初期化
   m.nf = 0;//モーターの回転ON
   m.d = -6;//esc初期化
