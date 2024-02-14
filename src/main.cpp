@@ -3,6 +3,7 @@
 #include <Adafruit_BNO055.h>
 #include <Ticker.h>
 #include <BluetoothSerial.h>
+#include <EspEasyGPIOInterrupt.h>
 
 #define out 1
 
