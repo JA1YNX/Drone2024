@@ -265,14 +265,14 @@ void mode_setup()
   //if(mode3 == 1)
   //{
     timerAttachInterrupt(timer,&mode_count,true);
-  	attachInterrupt(c.set.x, &mode_x, HIGH);
-  	attachInterrupt(c.set.x, &mode_xf, LOW);
-  	attachInterrupt(c.set.y, &mode_y, HIGH);
-  	attachInterrupt(c.set.y, &mode_yf, LOW);
-  	attachInterrupt(c.set.z, &mode_z, HIGH);
-  	attachInterrupt(c.set.z, &mode_zf, LOW);
-  	attachInterrupt(c.set.turn, &mode_turn, HIGH);
-  	attachInterrupt(c.set.turn, &mode_turnf, LOW);
+  	attachInterrupt(c.set.x, mode_x, HIGH);
+  	attachInterrupt(c.set.x, mode_xf, LOW);
+  	attachInterrupt(c.set.y, mode_y, HIGH);
+  	attachInterrupt(c.set.y, mode_yf, LOW);
+  	attachInterrupt(c.set.z, mode_z, HIGH);
+  	attachInterrupt(c.set.z, mode_zf, LOW);
+  	attachInterrupt(c.set.turn, mode_turn, HIGH);
+  	attachInterrupt(c.set.turn, mode_turnf, LOW);
   //}
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
