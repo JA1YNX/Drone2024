@@ -10,7 +10,7 @@ void setup(void)
 {
   Serial.begin(115200);
   bt.begin("Drone2024");
-
+  
   bno_setup();
   delay(5000);
   ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
