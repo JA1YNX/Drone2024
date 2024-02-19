@@ -1,4 +1,3 @@
-
 #include "conf.h"
 
 class contloler {

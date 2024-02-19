@@ -1,4 +1,3 @@
-
 #include "conf.h"
 
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
