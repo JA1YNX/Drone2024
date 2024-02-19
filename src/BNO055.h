@@ -1,4 +1,4 @@
-#include <Arduino.h>
+
 #include "conf.h"
 
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
@@ -109,7 +109,7 @@ void get_bno055_data(void)
 
   // センサフュージョンによる方向推定値の取得と表示
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-  {
+  
     Serial.print(" DIR_x:");
     Serial.print(j.x);
     Serial.print(" DIR_y:");
@@ -118,7 +118,7 @@ void get_bno055_data(void)
     Serial.print(j.z);
     Serial.print(" DIR_T:");
     Serial.println(j.turn);
-  }
+  
 
   // センサフュージョンの方向推定値のクオータニオン
   quat = bno.getQuat();

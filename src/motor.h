@@ -1,4 +1,4 @@
-#include <Arduino.h>
+
 #include "conf.h"
 
 class motor { //モーターチャンネルとピン設定

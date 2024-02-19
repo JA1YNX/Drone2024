@@ -1,4 +1,3 @@
-#include <Arduino.h>
 
 #include "conf.h"
 #include "controler.h"
@@ -32,24 +31,6 @@ void setup(void)
 
 void loop(void)
 {
-  {
-    Serial.print("   x:");
-    Serial.print(mode_set.x);
-    Serial.print("   y:");
-    Serial.print(mode_set.y);
-    Serial.print("   z:");
-    Serial.print(mode_set.z);
-    Serial.print("   t:");
-    Serial.println(mode_set.turn);
-    Serial.print("   x:");
-    Serial.print(mode_timer.x);
-    Serial.print("   y:");
-    Serial.print(mode_timer.y);
-    Serial.print("   z:");
-    Serial.print(mode_timer.z);
-    Serial.print("   t:");
-    Serial.println(mode_timer.turn);
-  }
   int x, y, z, turn; //諸々値
 
   bt.print("{   Drone2024:");
