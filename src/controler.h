@@ -17,7 +17,7 @@ class contloler {
     int c_x;
     int c_y;
     int c_z;
-    int c_turn;    
+    int c_turn;
 };
 
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
@@ -48,8 +48,8 @@ user contloler::read()
 {
   c_x = (analogRead(set.x)-ud.x) * read_*5;
   c_y = (analogRead(set.y)-ud.y) * read_*5;
-  c_z = (mode2 == 0?(c_z/2+(((mode == 0?analogRead(set.z):mode_set.z)-ud.z) * read_)*5):((mode == 0?analogRead(set.z):mode_set.z)-ud.z)*read_*10);
-  c_turn = (mode2 == 0?(c_turn/2+(((mode == 0?analogRead(set.turn):mode_set.turn)-ud.turn) * read_)*5):((mode == 0?analogRead(set.turn):mode_set.turn)-ud.turn)*read_*10);
+  c_z = (analogRead(set.z)-ud.z) * read_*5;
+  c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
   /*
   int x = (analogRead(set.x) - ud.x) * read_*10;
   int y = (analogRead(set.y) - ud.y) * read_*10;
