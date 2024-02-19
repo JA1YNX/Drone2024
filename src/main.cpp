@@ -271,14 +271,14 @@ void mode_setup()
   //if(mode3 == 1)
   //{
     timerAttachInterrupt(timer,&mode_count,true);
-  	attachInterrupt(c.set.x, mode_x, RISING);
-  	attachInterrupt(c.set.x, mode_xf, FALLING);
-  	attachInterrupt(c.set.y, mode_y, RISING);
-  	attachInterrupt(c.set.y, mode_yf, FALLING);
-  	attachInterrupt(c.set.z, mode_z, RISING);
-  	attachInterrupt(c.set.z, mode_zf, FALLING);
-  	attachInterrupt(c.set.turn, mode_turn, RISING);
-  	attachInterrupt(c.set.turn, mode_turnf, FALLING);
+    attachInterrupt(c.set.x, mode_x, RISING);
+    attachInterrupt(c.set.x, mode_xf, FALLING);
+    attachInterrupt(c.set.y, mode_y, RISING);
+    attachInterrupt(c.set.y, mode_yf, FALLING);
+    attachInterrupt(c.set.z, mode_z, RISING);
+    attachInterrupt(c.set.z, mode_zf, FALLING);
+    attachInterrupt(c.set.turn, mode_turn, RISING);
+    attachInterrupt(c.set.turn, mode_turnf, FALLING);
   //}
   timerAlarmWrite(timer,mode_clock,true);
   timerAlarmEnable(timer);
@@ -288,11 +288,11 @@ void mode_count()
   //counter++;
   
  //noInterrupts(); 
- mode_timer.x++;
- mode_timer.y++;
- mode_timer.z++;
- mode_timer.turn++;
- //interrupts(); 
+  mode_timer.x++;
+  mode_timer.y++;
+  mode_timer.z++;
+  mode_timer.turn++;
+ //interrupts();
 }
 void mode_x()
 {
