@@ -3,6 +3,7 @@
 
 class contloler {
   public:
+    contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
     int pin_in1;
     int pin_in2;
     int pin_in3;
@@ -12,7 +13,6 @@ class contloler {
     user set;
     void setup();
     user read();
-    contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
   private:
     int c_x;
     int c_y;

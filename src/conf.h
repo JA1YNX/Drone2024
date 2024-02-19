@@ -1,3 +1,5 @@
+#program once
+
 #include <Arduino.h>
 
 #include <Wire.h>
@@ -15,15 +17,15 @@
 
 #define BNO055interval 10 //何ms間隔でデータを取得するか
 
-BluetoothSerial bt;
-
-user u;//プロポ入力
-user ud;//標準
-user j;//BNO055値
-
 struct user { //プロポ入力
     int x;
     int y;
     int z;
     int turn;
 };
+
+BluetoothSerial bt;
+
+user u;//プロポ入力
+user ud;//標準
+user j;//BNO055値
