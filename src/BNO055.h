@@ -1,4 +1,6 @@
 #include <Arduino.h>
+#include "conf.h"
+
 Ticker bno055ticker; //タイマー割り込み用のインスタンス
 
 //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
@@ -107,7 +109,6 @@ void get_bno055_data(void)
 
   // センサフュージョンによる方向推定値の取得と表示
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-  if(out == 0)
   {
     Serial.print(" DIR_x:");
     Serial.print(j.x);

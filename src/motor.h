@@ -1,4 +1,6 @@
 #include <Arduino.h>
+#include "conf.h"
+
 class motor { //モーターチャンネルとピン設定
     public:
         int nf;//モーターの回転ON/OFF

@@ -5,12 +5,7 @@
 #include "motor.h"
 #include "BNO055.h"
 
-BluetoothSerial bt;
-
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
-user u;//プロポ入力
-user ud;//標準
-user j;//BNO055値
 contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
 
 void setup(void)
