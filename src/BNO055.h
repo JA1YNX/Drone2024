@@ -1,21 +1,24 @@
 #include "conf.h"
 
-Ticker bno055ticker; //タイマー割り込み用のインスタンス
+class bno055{
+public:
+  void get_bno055_data(void);
+  void bno_setup();
+  user bno_read();
+private:
+  user j;
+  Ticker bno055ticker; //タイマー割り込み用のインスタンス
 
-//Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
-Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
-
-imu::Vector<3> gyroscope;//ジャイロ
-imu::Vector<3> accelermetor;//加速度
-imu::Vector<3> magnetmetor;//磁気
-imu::Vector<3> euler;//センサフュージョン
-imu::Quaternion quat;//クオータニオン絶対角度？
-uint8_t system_, gyro, accel, mag = 0;//キャリブレーション値
-
-void get_bno055_data(void);
-void bno_setup();
-
-void bno_setup()
+  //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
+  Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
+  imu::Vector<3> gyroscope;//ジャイロ
+  imu::Vector<3> accelermetor;//加速度
+  imu::Vector<3> magnetmetor;//磁気
+  imu::Vector<3> euler;//センサフュージョン
+  imu::Quaternion quat;//クオータニオン絶対角度？
+  uint8_t system_, gyro, accel, mag = 0;//キャリブレーション値
+};
+void bno055::bno_setup()
 {
   pinMode(21, INPUT_PULLUP); //SDA 21番ピンのプルアップ(念のため)
   pinMode(22, INPUT_PULLUP); //SDA 22番ピンのプルアップ(念のため)
@@ -49,7 +52,7 @@ void bno_setup()
 
 }
 
-void get_bno055_data(void)
+void bno055::get_bno055_data(void)
 {
   // Possible vector values can be:
   // - VECTOR_ACCELEROMETER - m/s^2
@@ -137,4 +140,8 @@ void get_bno055_data(void)
   j.turn = (j.turn/2+quat.z()/2);
 
   //Serial.println();
+}
+user bno055::bno_read()
+{
+  return j;
 }

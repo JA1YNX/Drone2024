@@ -2,22 +2,26 @@
 #include "interrupt.h"
 
 class contloler {
-  public:
-    contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
-    int pin_in1;
-    int pin_in2;
-    int pin_in3;
-    int pin_in4;
-    int pin_in5;
-    int pin_in6;
-    user set;
-    void setup();
-    user read();
-  private:
-    int c_x;
-    int c_y;
-    int c_z;
-    int c_turn;
+public:
+  contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
+  int pin_in1;
+  int pin_in2;
+  int pin_in3;
+  int pin_in4;
+  int pin_in5;
+  int pin_in6;
+  user set;
+  void setup();
+  user read();
+private:
+  int c_x;
+  int c_y;
+  int c_z;
+  int c_turn;
+  #ifdef interrupt_on
+    interrupt i(pin_in1,pin_in2,pin_in3,pin_in4,pin_in5,pin_in6,set);
+    #endif
+  user ud;//標準
 };
 
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
@@ -42,6 +46,11 @@ void contloler::setup()
   c_y = 0;
   c_z = 0;
   c_turn = 0;
+  delay(5000);
+  ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
+  #ifdef interrupt_on
+    ud = user{i.read().x,i.read().y,i.read().z,i.read().turn};
+    #endif
   return 0;
 }
 
@@ -51,6 +60,12 @@ user contloler::read()
   c_y = (analogRead(set.y)-ud.y) * read_*5;
   c_z = (analogRead(set.z)-ud.z) * read_*5;
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
+  #ifdef interrupt_on
+    c_x = (analogRead(i.read().x)-ud.x) * read_*5;
+    c_y = (analogRead(i.read().y)-ud.y) * read_*5;
+    c_z = (analogRead(i.read().z)-ud.z) * read_*5;
+    c_turn = (analogRead(i.read().turn)-ud.turn) * read_*5;
+    #endif
   #ifdef output
     bt.print("   cx:");
     bt.print(c_x);

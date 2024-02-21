@@ -31,7 +31,3 @@ struct user { //プロポ入力
     int z;
     int turn;
 };
-
-user u;//プロポ入力
-user ud;//標準
-user j;//BNO055値
