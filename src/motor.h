@@ -47,7 +47,7 @@ void motor::rotate()
     bt.print(c4);
     bt.print("     ");
     #endif
-  return 0;
+  return;
 }
 void motor::setup()
 {
@@ -65,5 +65,5 @@ void motor::setup()
   ledcWrite(ch3, abs(duty_def) * 1);//58~90
   ledcWrite(ch4, abs(duty_def) * 1);//58~90
   delay(500);
-  return 0;
+  return;
 }

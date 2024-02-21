@@ -51,7 +51,7 @@ void contloler::setup()
   #ifdef interrupt_on
     ud = user{i.read().x,i.read().y,i.read().z,i.read().turn};
     #endif
-  return 0;
+  return;
 }
 
 user contloler::read()
