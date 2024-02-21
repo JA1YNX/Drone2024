@@ -3,7 +3,7 @@
 class motor { //モーターチャンネルとピン設定
     public:
         int nf;//モーターの回転ON/OFF
-        int d;//もとになる数値
+        int def;//もとになる数値
         int c1;//左前変更値
         int c2;//右前変更値
         int c3;//左後変更値
@@ -23,29 +23,31 @@ class motor { //モーターチャンネルとピン設定
 };
 void motor::rotate()
 {
-  ledcWrite(ch1, dutys + abs(d + c1) * nf);
-  ledcWrite(ch2, dutys + abs(d + c2) * nf);
-  ledcWrite(ch3, dutys + abs(d + c3) * nf);
-  ledcWrite(ch4, dutys + abs(d + c4) * nf);
+  ledcWrite(ch1, duty_min + abs(def + c1) * nf);
+  ledcWrite(ch2, duty_min + abs(def + c2) * nf);
+  ledcWrite(ch3, duty_min + abs(def + c3) * nf);
+  ledcWrite(ch4, duty_min + abs(def + c4) * nf);
+  #ifdef output
+    bt.print("  ou1:");
+    bt.print(duty_min + abs(def + c1) * nf);
+    bt.print("  ou2:");
+    bt.print(duty_min + abs(def + c2) * nf);
+    bt.print("  ou3:");
+    bt.print(duty_min + abs(def + c3) * nf);
+    bt.print("  ou4:");
+    bt.print(duty_min + abs(def + c4) * nf);
 
-  bt.print("  ou1:");
-  bt.print(dutys + abs(d + c1) * nf);
-  bt.print("  ou2:");
-  bt.print(dutys + abs(d + c2) * nf);
-  bt.print("  ou3:");
-  bt.print(dutys + abs(d + c3) * nf);
-  bt.print("  ou4:");
-  bt.print(dutys + abs(d + c4) * nf);
-
-  bt.print("      ch1:");
-  bt.print(c1);
-  bt.print("  ch2:");
-  bt.print(c2);
-  bt.print("  ch3:");
-  bt.print(c3);
-  bt.print("  ch4:");
-  bt.print(c4);
-  bt.print("     ");
+    bt.print("      ch1:");
+    bt.print(c1);
+    bt.print("  ch2:");
+    bt.print(c2);
+    bt.print("  ch3:");
+    bt.print(c3);
+    bt.print("  ch4:");
+    bt.print(c4);
+    bt.print("     ");
+    #endif
+  return 0;
 }
 void motor::setup()
 {
@@ -58,9 +60,10 @@ void motor::setup()
   ledcAttachPin(pin3, ch3);
   ledcAttachPin(pin4, ch4);
 
-  ledcWrite(ch1, abs(dutyd) * 1);//52...58~90
-  ledcWrite(ch2, abs(dutyd) * 1);//58~90
-  ledcWrite(ch3, abs(dutyd) * 1);//58~90
-  ledcWrite(ch4, abs(dutyd) * 1);//58~90
+  ledcWrite(ch1, abs(duty_def) * 1);//52...58~90
+  ledcWrite(ch2, abs(duty_def) * 1);//58~90
+  ledcWrite(ch3, abs(duty_def) * 1);//58~90
+  ledcWrite(ch4, abs(duty_def) * 1);//58~90
   delay(500);
+  return 0;
 }

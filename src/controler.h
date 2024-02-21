@@ -1,4 +1,5 @@
 #include "conf.h"
+#include "interrupt.h"
 
 class contloler {
   public:
@@ -31,16 +32,17 @@ contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
 }
 void contloler::setup()
 {
-  pinMode(pin_in1, INPUT_PULLUP);
-  pinMode(pin_in2, INPUT_PULLUP);
-  pinMode(pin_in3, INPUT_PULLUP);
-  pinMode(pin_in4, INPUT_PULLUP);
-  pinMode(pin_in5, INPUT_PULLUP);
-  pinMode(pin_in6, INPUT_PULLUP);
+  pinMode(pin_in1, INPUT);
+  pinMode(pin_in2, INPUT);
+  pinMode(pin_in3, INPUT);
+  pinMode(pin_in4, INPUT);
+  pinMode(pin_in5, INPUT);
+  pinMode(pin_in6, INPUT);
   c_x = 0;
   c_y = 0;
   c_z = 0;
   c_turn = 0;
+  return 0;
 }
 
 user contloler::read()
@@ -49,20 +51,16 @@ user contloler::read()
   c_y = (analogRead(set.y)-ud.y) * read_*5;
   c_z = (analogRead(set.z)-ud.z) * read_*5;
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
-  /*
-  int x = (analogRead(set.x) - ud.x) * read_*10;
-  int y = (analogRead(set.y) - ud.y) * read_*10;
-  int z = (analogRead(set.z) - ud.z) * read_*10;
-  int turn = (analogRead(set.turn) - ud.turn) * read_*10;
-  */
-  bt.print("   cx:");
-  bt.print(c_x);
-  bt.print("   cy:");
-  bt.print(c_y);
-  bt.print("   cz:");
-  bt.print(c_z);
-  bt.print("   ct:");
-  bt.print(c_turn);
-  bt.print("     ");
+  #ifdef output
+    bt.print("   cx:");
+    bt.print(c_x);
+    bt.print("   cy:");
+    bt.print(c_y);
+    bt.print("   cz:");
+    bt.print(c_z);
+    bt.print("   ct:");
+    bt.print(c_turn);
+    bt.print("     ");
+    #endif
   return user{c_x, c_y, c_z, c_turn};
 }

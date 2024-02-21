@@ -108,7 +108,7 @@ void get_bno055_data(void)
 
   // センサフュージョンによる方向推定値の取得と表示
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-  
+  #ifdef output
     Serial.print(" DIR_x:");
     Serial.print(j.x);
     Serial.print(" DIR_y:");
@@ -117,7 +117,7 @@ void get_bno055_data(void)
     Serial.print(j.z);
     Serial.print(" DIR_T:");
     Serial.println(j.turn);
-  
+    #endif
 
   // センサフュージョンの方向推定値のクオータニオン
   quat = bno.getQuat();
