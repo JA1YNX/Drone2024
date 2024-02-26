@@ -10,9 +10,9 @@ public:
 private:
     static void interrupt_fun();
     hw_timer_t * timer = NULL;
-    static user set;
-    static user read;
-    static user count;
+    user set;
+    volatile static user read;
+    volatile static user count;
 };
 
 interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
