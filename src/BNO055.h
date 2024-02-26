@@ -18,9 +18,10 @@ private:
   static imu::Vector<3> magnetmetor;//磁気
   static imu::Vector<3> euler;//センサフュージョン
   static imu::Quaternion quat;//クオータニオン絶対角度？
-  static uint8_t system_, gyro, accel, mag = 0;//キャリブレーション値
+  static uint8_t system_, gyro, accel, mag;//キャリブレーション値
 };
 bno055::bno = Adafruit_BNO055(55, 0x28);
+bno055::mag = 0;//キャリブレーション値
 
 void bno055::bno_setup()
 {
