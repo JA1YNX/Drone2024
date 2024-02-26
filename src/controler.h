@@ -22,7 +22,7 @@ private:
   int c_turn;
   user ud;//標準
 #ifdef interrupt_on
-  static interrupt contloler::i;
+  static interrupt i;
 #endif
 };
 
