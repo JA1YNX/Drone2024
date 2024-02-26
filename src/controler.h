@@ -36,7 +36,7 @@ contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
   pin_in6 = pin6;
   set = set_;
 #ifdef interrupt_on
-  i = i(pin_in1,pin_in2,pin_in3,pin_in4,pin_in5,pin_in6,set);
+  i = interrupt{pin_in1,pin_in2,pin_in3,pin_in4,pin_in5,pin_in6,set};
 #endif
 }
 void contloler::setup()
