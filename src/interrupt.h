@@ -10,6 +10,9 @@ public:
 private:
     static void interrupt_fun();
     hw_timer_t * timer = NULL;
+    static user interrupt::set;
+    static user interrupt::read;
+    static user interrupt::count;
 };
 static user interrupt::set;
 static user interrupt::read;
