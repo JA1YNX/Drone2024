@@ -4,7 +4,7 @@
 
 class bno055{
 public:
-  void get_bno055_data(void);
+  static void get_bno055_data(void);
   void bno_setup();
   user bno_read();
   bno055();

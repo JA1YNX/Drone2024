@@ -9,7 +9,7 @@ public:
     user out();
 private:
     user set;
-    void interrupt_fun();
+    static void interrupt_fun();
     user read;
     user count;
     hw_timer_t * timer = NULL;
