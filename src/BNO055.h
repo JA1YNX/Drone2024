@@ -10,17 +10,17 @@ public:
   bno055();
 private:
   Ticker bno055ticker; //タイマー割り込み用のインスタンス
-
+  static user j;
+  //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
+  static Adafruit_BNO055 bno;
+  static imu::Vector<3> gyroscope;//ジャイロ
+  static imu::Vector<3> accelermetor;//加速度
+  static imu::Vector<3> magnetmetor;//磁気
+  static imu::Vector<3> euler;//センサフュージョン
+  static imu::Quaternion quat;//クオータニオン絶対角度？
+  static uint8_t system_, gyro, accel, mag = 0;//キャリブレーション値
 };
-static bno055::user j;
-//Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
-static Adafruit_BNO055 bno055::bno = Adafruit_BNO055(55, 0x28);
-static imu::Vector<3> bno055::gyroscope;//ジャイロ
-static imu::Vector<3> bno055::accelermetor;//加速度
-static imu::Vector<3> bno055::magnetmetor;//磁気
-static imu::Vector<3> bno055::euler;//センサフュージョン
-static imu::Quaternion bno055::quat;//クオータニオン絶対角度？
-static uint8_t bno055::system_, bno055::gyro, bno055::accel, bno055::mag = 0;//キャリブレーション値
+bno055::bno = Adafruit_BNO055(55, 0x28);
 
 void bno055::bno_setup()
 {
