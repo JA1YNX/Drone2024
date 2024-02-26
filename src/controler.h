@@ -66,10 +66,10 @@ user contloler::read()
   c_z = (analogRead(set.z)-ud.z) * read_*5;
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
   #ifdef interrupt_on
-    c_x = (analogRead(i.read().x)-ud.x) * read_*5;
-    c_y = (analogRead(i.read().y)-ud.y) * read_*5;
-    c_z = (analogRead(i.read().z)-ud.z) * read_*5;
-    c_turn = (analogRead(i.read().turn)-ud.turn) * read_*5;
+    c_x = (analogRead(i.out().x)-ud.x) * read_*5;
+    c_y = (analogRead(i.out().y)-ud.y) * read_*5;
+    c_z = (analogRead(i.out().z)-ud.z) * read_*5;
+    c_turn = (analogRead(i.out().turn)-ud.turn) * read_*5;
     #endif
   #ifdef output
     bt.print("   cx:");
