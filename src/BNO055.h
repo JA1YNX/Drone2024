@@ -20,7 +20,7 @@ private:
   static imu::Quaternion quat;//クオータニオン絶対角度？
   static uint8_t system_, gyro, accel, mag;//キャリブレーション値
 };
-Adafruit_BNO055 bno055::bno = Adafruit_BNO05(55, 0x28);
+Adafruit_BNO055 bno055::bno = Adafruit_BNO055(55, 0x28);
 uint8_t bno055::mag = 0;//キャリブレーション値
 
 bno055::bno055()
