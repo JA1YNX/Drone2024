@@ -31,10 +31,10 @@ user interrupt::out()
 
 void interrupt::interrupt_fun()
 {
-    bool x = digitalread(set.x);
-    bool y = digitalread(set.y);
-    bool z = digitalread(set.z);
-    bool turn = digitalread(set.turn);
+    bool x = digitalRead(set.x);
+    bool y = digitalRead(set.y);
+    bool z = digitalRead(set.z);
+    bool turn = digitalRead(set.turn);
     if(x)
     {
         count.x ++;
