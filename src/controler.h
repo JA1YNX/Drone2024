@@ -54,7 +54,7 @@ void contloler::setup()
   delay(5000);
   ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
   #ifdef interrupt_on
-    ud = user{i.read().x,i.read().y,i.read().z,i.read().turn};
+    ud = user{i.out().x,i.out().y,i.out().z,i.out().turn};
     #endif
   return;
 }
