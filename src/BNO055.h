@@ -12,7 +12,7 @@ private:
   Ticker bno055ticker; //タイマー割り込み用のインスタンス
   static user j;
   //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
-  static Adafruit_BNO055 bno(55, 0x28);
+  static Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
   static imu::Vector<3> gyroscope;//ジャイロ
   static imu::Vector<3> accelermetor;//加速度
   static imu::Vector<3> magnetmetor;//磁気
