@@ -23,6 +23,10 @@ private:
 bno055::bno = Adafruit_BNO055(55, 0x28);
 bno055::mag = 0;//キャリブレーション値
 
+bno055::bno055()
+{
+  
+}
 void bno055::bno_setup()
 {
   pinMode(21, INPUT_PULLUP); //SDA 21番ピンのプルアップ(念のため)
