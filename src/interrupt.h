@@ -8,10 +8,10 @@ public:
     interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
     user out();
 private:
-    user set;
+    static user set;
     static void interrupt_fun();
-    user read;
-    user count;
+    static user read;
+    static user count;
     hw_timer_t * timer = NULL;
 };
 
