@@ -1,7 +1,6 @@
 #pragma once
-#include <Arduino.h>
-#include "conf.h"
-#include "interrupt.h"
+#include "./conf.h"
+#include "./interrupt.h"
 
 class contloler {
 public:

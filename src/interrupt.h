@@ -1,6 +1,5 @@
 #pragma once
-#include <Arduino.h>
-#include "conf.h"
+#include "./conf.h"
 
 class interrupt
 {
