@@ -10,8 +10,8 @@ public:
 private:
     static void interrupt_fun();
     hw_timer_t * timer = NULL;
-    volatile static user set;
-    volatile static user read;
+    static user set;
+    static user read;
     volatile static user count;
 };
 
