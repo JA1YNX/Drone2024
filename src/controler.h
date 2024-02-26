@@ -53,9 +53,9 @@ void contloler::setup()
   c_turn = 0;
   delay(5000);
   ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
-  #ifdef interrupt_on
-    ud = user{i.out().x,i.out().y,i.out().z,i.out().turn};
-    #endif
+#ifdef interrupt_on
+  ud = user{i.out().x,i.out().y,i.out().z,i.out().turn};
+#endif
   return;
 }
 
@@ -65,22 +65,22 @@ user contloler::read()
   c_y = (analogRead(set.y)-ud.y) * read_*5;
   c_z = (analogRead(set.z)-ud.z) * read_*5;
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
-  #ifdef interrupt_on
-    c_x = (analogRead(i.out().x)-ud.x) * read_*5;
-    c_y = (analogRead(i.out().y)-ud.y) * read_*5;
-    c_z = (analogRead(i.out().z)-ud.z) * read_*5;
-    c_turn = (analogRead(i.out().turn)-ud.turn) * read_*5;
-    #endif
-  #ifdef output
-    bt.print("   cx:");
-    bt.print(c_x);
-    bt.print("   cy:");
-    bt.print(c_y);
-    bt.print("   cz:");
-    bt.print(c_z);
-    bt.print("   ct:");
-    bt.print(c_turn);
-    bt.print("     ");
-    #endif
+#ifdef interrupt_on
+  c_x = (analogRead(i.out().x)-ud.x) * read_*5;
+  c_y = (analogRead(i.out().y)-ud.y) * read_*5;
+  c_z = (analogRead(i.out().z)-ud.z) * read_*5;
+  c_turn = (analogRead(i.out().turn)-ud.turn) * read_*5;
+#endif
+#ifdef output
+  bt.print("   cx:");
+  bt.print(c_x);
+  bt.print("   cy:");
+  bt.print(c_y);
+  bt.print("   cz:");
+  bt.print(c_z);
+  bt.print("   ct:");
+  bt.print(c_turn);
+  bt.print("     ");
+#endif
   return user{c_x, c_y, c_z, c_turn};
 }
