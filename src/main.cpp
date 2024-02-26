@@ -10,9 +10,9 @@ bno055 b();
 void setup(void)
 {
   Serial.begin(115200);
-  #ifdef output
-    bt.begin("Drone2024");
-    #endif
+#ifdef output
+  bt.begin("Drone2024");
+#endif
   b.bno_setup();
   m.setup();//初期化
   m.nf = 0;//モーターの回転ON
@@ -86,7 +86,7 @@ void loop(void)
   m.c4 -= 0;
 
   m.rotate();
-  #ifdef
-    bt.println("    } ");
-    #endif
+#ifdef output
+  bt.println("    } ");
+#endif
 }

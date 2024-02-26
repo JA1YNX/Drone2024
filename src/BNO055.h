@@ -5,6 +5,7 @@ public:
   void get_bno055_data(void);
   void bno_setup();
   user bno_read();
+  bno055();
 private:
   user j;
   Ticker bno055ticker; //タイマー割り込み用のインスタンス

@@ -13,9 +13,9 @@
 #include <Adafruit_BNO055.h>
 #include <Ticker.h>
 #ifdef output
-    #include <BluetoothSerial.h>
+#include <BluetoothSerial.h>
     BluetoothSerial bt;
-    #endif
+#endif
 
 #define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
