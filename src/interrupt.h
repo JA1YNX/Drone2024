@@ -62,9 +62,9 @@ void interrupt::interrupt_fun()
         read.z  = count.z;
         count.z = 0;
     }
-    if()
+    if(turn)
     {
-        count. ++;
+        count.turn ++;
     }
     else if(!count.turn == 0)
     {
