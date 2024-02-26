@@ -8,12 +8,12 @@ public:
     interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
     user out();
 private:
-    static user set;
     static void interrupt_fun();
-    static user read;
-    static user count;
     hw_timer_t * timer = NULL;
 };
+static user interrupt::set;
+static user interrupt::read;
+static user interrupt::count;
 
 interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
 {
