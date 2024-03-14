@@ -70,7 +70,7 @@ user contloler::read()
   c_x = (i.out().x-ud.x) *5;
   c_y = (i.out().y-ud.y) *5;
   c_z = (i.out().z-ud.z) *5;
-  c_turn = (i.out().turn-ud.turn) * read_*5;
+  c_turn = (i.out().turn-ud.turn) *5;
 #endif
 #ifdef output
   bt.print("   cx:");
