@@ -32,6 +32,14 @@ void setup(void)
 void loop(void)
 {
   user u = c.read();//プロポ入力
+  Serial.print("x");
+  Serial.print(u.x);
+  Serial.print(" y ");
+  Serial.print(u.y);
+  Serial.print(" z ");
+  Serial.print(u.z);
+  Serial.print(" t ");
+  Serial.print(u.turn);
   user j = b.bno_read();
   int x, y, z, turn; //諸々値
   #ifdef output
