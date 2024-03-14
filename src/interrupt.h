@@ -19,13 +19,13 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
 {
 
     set = set_;
-    
+    /*
     timer = timerBegin(0,80,true);
     timerAttachInterrupt(timer,&interrupt_fun,true);
     timerAlarmWrite(timer,interrupt_clock,true);
     timerAlarmEnable(timer);
-    
-    //xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
+    */
+    xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
 }
 
 user interrupt::out()
