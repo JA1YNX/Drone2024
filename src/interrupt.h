@@ -35,12 +35,13 @@ user interrupt::out()
 
 void interrupt::xcore(void *pvParameters)
 {
+    bool x,y,z,turn;
     while(1)
     {
-        bool x = !digitalRead(set.x);
-        bool y = !digitalRead(set.y);
-        bool z = !digitalRead(set.z);
-        bool turn = !digitalRead(set.turn);
+        x = !(analogRead(set.x)>3200);
+        y = !(analogRead(set.y)>3200);
+        z = !(analogRead(set.z)>3200);
+        turn = !(analogRead(set.turn)>3200);
         //Serial.print(x);
         //Serial.print(y);
         //Serial.print(z);
