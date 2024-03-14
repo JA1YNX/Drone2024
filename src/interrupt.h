@@ -41,6 +41,7 @@ void interrupt::xcore(void *pvParameters)
         bool y = !digitalRead(set.y);
         bool z = !digitalRead(set.z);
         bool turn = !digitalRead(set.turn);
+        Serial.print(int x, y, z, turn;);
         if(x)
         {
             count.x ++;
