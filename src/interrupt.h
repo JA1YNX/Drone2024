@@ -12,7 +12,7 @@ private:
     static void xcore(void *pvParameters);
 };
 user set;
-user read;
+user read_intr;
 volatile user count;
 
 interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
@@ -30,7 +30,7 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
 
 user interrupt::out()
 {
-    return read;
+    return read_intr;
 }
 
 void interrupt::xcore(void *pvParameters)
@@ -53,7 +53,7 @@ void interrupt::interrupt_fun()
     }
     else if(!count.x == 0)
     {
-        read.x  = count.x;
+        read_intr.x  = count.x;
         count.x = 0;
     }
     if(y)
@@ -62,7 +62,7 @@ void interrupt::interrupt_fun()
     }
     else if(!count.y == 0)
     {
-        read.y  = count.y;
+        read_intr.y  = count.y;
         count.y = 0;
     }
     if(z)
@@ -71,7 +71,7 @@ void interrupt::interrupt_fun()
     }
     else if(!count.z == 0)
     {
-        read.z  = count.z;
+        read_intr.z  = count.z;
         count.z = 0;
     }
     if(turn)
@@ -80,7 +80,7 @@ void interrupt::interrupt_fun()
     }
     else if(!count.turn == 0)
     {
-        read.turn  = count.turn;
+        read_intr.turn  = count.turn;
         count.turn = 0;
     }
 }
