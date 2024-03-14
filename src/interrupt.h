@@ -25,7 +25,7 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
     timerAlarmEnable(timer);
     */
     set = set_;
-    xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 3, NULL, 0); 
+    xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 3, NULL, ARDUINO_RUNNING_CORE); 
 }
 
 user interrupt::out()
