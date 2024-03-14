@@ -11,8 +11,6 @@ private:
     hw_timer_t * timer = NULL;
     static void xcore(void *pvParameters);
 };
-user sum;
-user sum_count;
 user set;
 user read_intr;
 volatile user count;
