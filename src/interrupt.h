@@ -56,7 +56,7 @@ void interrupt::xcore(void *pvParameters)
         {
             sum_count.x++;
             sum.x+=count.x;
-            read_intr.x = count.x/sum_count.x;
+            read_intr.x = sum.x/sum_count.x;
 
             //read_intr.x  = count.x;
             count.x = 0;
@@ -69,7 +69,7 @@ void interrupt::xcore(void *pvParameters)
         {
             sum_count.y++;
             sum.y+=count.y;
-            read_intr.y  = count.y/sum_count.y;
+            read_intr.y  = sum.y/sum_count.y;
 
             //read_intr.y  = count.y;
             count.y = 0;
@@ -82,7 +82,7 @@ void interrupt::xcore(void *pvParameters)
         {
             sum_count.z++;
             sum.z+=count.z;
-            read_intr.z  = count.z/sum_count.z;
+            read_intr.z  = sum.z/sum_count.z;
 
             //read_intr.z  = count.z;
             count.z = 0;
@@ -95,7 +95,7 @@ void interrupt::xcore(void *pvParameters)
         {
             sum_count.turn++;
             sum.turn+=count.turn;
-            read_intr.turn  = count.turn/sum_count.turn;
+            read_intr.turn  = sum.turn/sum_count.turn;
 
             //read_intr.turn  = count.turn;
             count.turn = 0;
