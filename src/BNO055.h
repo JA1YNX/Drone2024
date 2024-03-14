@@ -12,18 +12,20 @@ private:
 };
 user j;
 //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
-Adafruit_BNO055 bno;// = Adafruit_BNO055(55, 0x28);
+Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 imu::Vector<3> gyroscope;//ジャイロ
 imu::Vector<3> accelermetor;//加速度
 imu::Vector<3> magnetmetor;//磁気
 imu::Vector<3> euler;//センサフュージョン
 imu::Quaternion quat;//クオータニオン絶対角度？
-uint8_t system_, gyro, accel, mag;//キャリブレーション値
+uint8_t system_, gyro, accel, mag = 0;//キャリブレーション値
 
 bno055::bno055()
 {
+  /*
   bno055::bno = Adafruit_BNO055(55, 0x28);
   bno055::mag = 0;//キャリブレーション値
+  */
 }
 void bno055::bno_setup()
 {
