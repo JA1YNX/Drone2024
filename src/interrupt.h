@@ -40,10 +40,10 @@ void interrupt::xcore(void *pvParameters)
     bool x,y,z,turn;
     while(1)
     {
-        x = (analogRead(set.x)<3500);
-        y = (analogRead(set.y)<3500);
-        z = (analogRead(set.z)<3500);
-        turn = (analogRead(set.turn)<3500);
+        x = (analogRead(set.x)<3000);
+        y = (analogRead(set.y)<3000);
+        z = (analogRead(set.z)<3000);
+        turn = (analogRead(set.turn)<3000);
         //Serial.print(x);
         //Serial.print(y);
         //Serial.print(z);
@@ -90,10 +90,10 @@ void interrupt::xcore(void *pvParameters)
 void interrupt::interrupt_fun()
 {
     bool x,y,z,turn;
-    x = (analogRead(set.x)<3500);
-    y = (analogRead(set.y)<3500);
-    z = (analogRead(set.z)<3500);
-    turn = (analogRead(set.turn)<3500);
+    x = (analogRead(set.x)<3000);
+    y = (analogRead(set.y)<3000);
+    z = (analogRead(set.z)<3000);
+    turn = (analogRead(set.turn)<3000);
     //Serial.print(x);
     //Serial.print(y);
     //Serial.print(z);
