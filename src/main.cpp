@@ -39,7 +39,7 @@ void loop(void)
   Serial.print(" z ");
   Serial.print(u.z);
   Serial.print(" t ");
-  Serial.print(u.turn);
+  Serial.println(u.turn);
   user j = b.bno_read();
   int x, y, z, turn; //諸々値
   #ifdef output
