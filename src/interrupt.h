@@ -18,14 +18,14 @@ volatile user count;
 interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
 {
 
-    /*
+    set = set_;
+    
     timer = timerBegin(0,80,true);
     timerAttachInterrupt(timer,&interrupt_fun,true);
     timerAlarmWrite(timer,interrupt_clock,true);
     timerAlarmEnable(timer);
-    */
-    set = set_;
-    xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
+    
+    //xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
 }
 
 user interrupt::out()
@@ -87,13 +87,18 @@ void interrupt::xcore(void *pvParameters)
 
 void interrupt::interrupt_fun()
 {
-    bool x = digitalRead(set.x);
-    bool y = digitalRead(set.y);
-    bool z = digitalRead(set.z);
-    bool turn = digitalRead(set.turn);
+    bool x,y,z,turn;
+    x = (analogRead(set.x)<3500);
+    y = (analogRead(set.y)<3500);
+    z = (analogRead(set.z)<3500);
+    turn = (analogRead(set.turn)<3500);
+    //Serial.print(x);
+    //Serial.print(y);
+    //Serial.print(z);
+    //Serial.println(turn);
     if(x)
     {
-        count.x ++;
+        count.x++;
     }
     else if(!count.x == 0)
     {
@@ -102,7 +107,7 @@ void interrupt::interrupt_fun()
     }
     if(y)
     {
-        count.y ++;
+        count.y++;
     }
     else if(!count.y == 0)
     {
@@ -111,7 +116,7 @@ void interrupt::interrupt_fun()
     }
     if(z)
     {
-        count.z ++;
+        count.z++;
     }
     else if(!count.z == 0)
     {
@@ -120,7 +125,7 @@ void interrupt::interrupt_fun()
     }
     if(turn)
     {
-        count.turn ++;
+        count.turn++;
     }
     else if(!count.turn == 0)
     {
