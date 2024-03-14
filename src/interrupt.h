@@ -12,8 +12,7 @@ private:
     static user set;
     static user read;
     volatile static user count;
-    TaskHandle_t thp[1];//マルチスレッドのタスクハンドル格納用
-    static void xcore();
+    static void xcore(void *pvParameters);
 };
 
 interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
@@ -26,7 +25,7 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
     timerAlarmEnable(timer);
     */
     set = set_;
-    xTaskCreatePinnedToCore(xcore, "Core0a", 4096, NULL, 3, &thp[0], 0); 
+    xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 3, NULL, 0); 
 }
 
 user interrupt::out()
@@ -34,7 +33,7 @@ user interrupt::out()
     return read;
 }
 
-void interrupt::xcore()
+void interrupt::xcore(void *pvParameters)
 {
     while(1)
     {
