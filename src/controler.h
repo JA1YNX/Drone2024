@@ -20,10 +20,10 @@ private:
   int c_z;
   int c_turn;
   user ud;//標準
-#ifdef interrupt_on
-  static interrupt i;
-#endif
 };
+#ifdef interrupt_on
+  interrupt i;
+#endif
 
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
 {
