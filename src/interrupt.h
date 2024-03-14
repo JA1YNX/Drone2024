@@ -25,7 +25,7 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
     timerAlarmEnable(timer);
     */
     set = set_;
-    xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 3, NULL, ARDUINO_RUNNING_CORE); 
+    xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
 }
 
 user interrupt::out()
@@ -37,10 +37,10 @@ void interrupt::xcore(void *pvParameters)
 {
     while(1)
     {
-        bool x = digitalRead(set.x);
-        bool y = digitalRead(set.y);
-        bool z = digitalRead(set.z);
-        bool turn = digitalRead(set.turn);
+        bool x = !digitalRead(set.x);
+        bool y = !digitalRead(set.y);
+        bool z = !digitalRead(set.z);
+        bool turn = !digitalRead(set.turn);
         if(x)
         {
             count.x ++;
