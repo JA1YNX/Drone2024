@@ -22,7 +22,7 @@ private:
   user ud;//標準
 };
 #ifdef interrupt_on
-  interrupt i(NULL,NULL,NULL,NULL,NULL,NULL,user{});
+  interrupt i(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
 #endif
 
 contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
