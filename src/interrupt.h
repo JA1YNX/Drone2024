@@ -37,7 +37,46 @@ void interrupt::xcore(void *pvParameters)
 {
     while(1)
     {
-        interrupt_fun();
+        bool x = digitalRead(set.x);
+        bool y = digitalRead(set.y);
+        bool z = digitalRead(set.z);
+        bool turn = digitalRead(set.turn);
+        if(x)
+        {
+            count.x ++;
+        }
+        else if(!count.x == 0)
+        {
+            read_intr.x  = count.x;
+            count.x = 0;
+        }
+        if(y)
+        {
+            count.y ++;
+        }
+        else if(!count.y == 0)
+        {
+            read_intr.y  = count.y;
+            count.y = 0;
+        }
+        if(z)
+        {
+            count.z ++;
+        }
+        else if(!count.z == 0)
+        {
+            read_intr.z  = count.z;
+            count.z = 0;
+        }
+        if(turn)
+        {
+            count.turn ++;
+        }
+        else if(!count.turn == 0)
+        {
+            read_intr.turn  = count.turn;
+            count.turn = 0;
+        }
     }
 }
 
