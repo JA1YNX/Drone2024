@@ -10,7 +10,7 @@ private:
     static void interrupt_fun();
     hw_timer_t * timer = NULL;
     static void xcore(void *pvParameters);
-    void countup();
+    void count_up();
     size_t cont = 0;
 };
 user set;
@@ -28,13 +28,13 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
     timerAlarmEnable(timer);
     */
     timer = timerBegin(0,80,true);
-    timerAttachInterrupt(timer,&countup,true);
+    timerAttachInterrupt(timer,&count_up,true);
     timerAlarmWrite(timer,1000000,true);
     timerAlarmEnable(timer);
     xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
 }
 
-void interrupt::countup()
+void interrupt::count_up()
 {
     cont++;
 }
