@@ -28,7 +28,7 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
     timerAlarmEnable(timer);
     */
     timer = timerBegin(0,80,true);
-    timerAttachInterrupt(timer,&count_up,true);
+    timerAttachInterrupt(timer,&this->count_up,true);
     timerAlarmWrite(timer,1000000,true);
     timerAlarmEnable(timer);
     xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
