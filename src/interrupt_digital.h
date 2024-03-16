@@ -1,3 +1,4 @@
+#pragma once
 #include "./conf.h"
 
 uesr out();
