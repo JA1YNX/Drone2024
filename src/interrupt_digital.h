@@ -12,7 +12,7 @@ user inter_out;
 
 hw_timer_t * timer = NULL;
    
-void setup()
+void inter_setup()
 {
     contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
     attachInterrupt(33,inter_x,RISING);

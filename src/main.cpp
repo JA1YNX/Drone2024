@@ -10,6 +10,7 @@ bno055 b;
 
 void setup(void)
 {
+  inter_setup();
   Serial.begin(9600);
 #ifdef output
   bt.begin("Drone2024");
