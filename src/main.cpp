@@ -31,7 +31,8 @@ void setup(void)
 
 void loop(void)
 {
-  user u = c.read();//プロポ入力
+  //user u = c.read();//プロポ入力
+  user u = inter_digi::out();//プロポ入力
   Serial.print("x:");
   Serial.print(u.x);
   Serial.print(" y:");
