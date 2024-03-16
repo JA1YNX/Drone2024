@@ -26,7 +26,7 @@ void setup()
     timerAlarmEnable(timer);
 }
 
-uesr out()
+user out()
 {
     return inter_out;
 }
