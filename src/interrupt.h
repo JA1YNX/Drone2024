@@ -10,9 +10,9 @@ private:
     static void interrupt_fun();
     hw_timer_t * timer = NULL;
     static void xcore(void *pvParameters);
-    void count_up();
-    size_t cont = 0;
+    static void count_up();
 };
+static size_t cont = 0;
 user set;
 user read_intr;
 volatile user count;
@@ -28,7 +28,7 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
     timerAlarmEnable(timer);
     */
     timer = timerBegin(0,80,true);
-    timerAttachInterrupt(timer,&this->count_up,true);
+    timerAttachInterrupt(timer,&interrupt::count_up,true);
     timerAlarmWrite(timer,1000000,true);
     timerAlarmEnable(timer);
     xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
