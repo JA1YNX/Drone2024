@@ -1,24 +1,24 @@
 #pragma once
 #include "./conf.h"
 
-uesr out();
+user out();
 void inter_x();
 void inter_y();
 void inter_z();
 void inter_turn();
 void countup();
+user inter_count;
+user inter_out;
 
 hw_timer_t * timer = NULL;
    
 void setup()
 {
     contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
-    static user inter_count;
-    static user inter_out;
-    attachInterrupt(inter_x,33,RISING);
-    attachInterrupt(inter_y,35,RISING);
-    attachInterrupt(inter_z,32,RISING);
-    attachInterrupt(inter_turn,34,RISING);
+    attachInterrupt(33,inter_x,RISING);
+    attachInterrupt(35,inter_y,RISING);
+    attachInterrupt(32,inter_z,RISING);
+    attachInterrupt(34,inter_turn,RISING);
 
     timer = timerBegin(0, 80, true);
     timerAttachInterrupt(timer, &countup, true);
