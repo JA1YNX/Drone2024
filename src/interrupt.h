@@ -10,6 +10,8 @@ private:
     static void interrupt_fun();
     hw_timer_t * timer = NULL;
     static void xcore(void *pvParameters);
+    void countup();
+    size_t cont = 0;
 };
 user set;
 user read_intr;
@@ -25,7 +27,16 @@ interrupt::interrupt(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
     timerAlarmWrite(timer,interrupt_clock,true);
     timerAlarmEnable(timer);
     */
+    timer = timerBegin(0,80,true);
+    timerAttachInterrupt(timer,&countup,true);
+    timerAlarmWrite(timer,1000000,true);
+    timerAlarmEnable(timer);
     xTaskCreatePinnedToCore(xcore, "xcore", 4096, NULL, 0, NULL, 0); 
+}
+
+void interrupt::countup()
+{
+    cont++;
 }
 
 user interrupt::out()
@@ -36,8 +47,10 @@ user interrupt::out()
 void interrupt::xcore(void *pvParameters)
 {
     bool x,y,z,turn;
+    size_t wit = 0;
     while(1)
     {
+        while(wit>cont);
         x = (analogRead(set.x)<3000);
         y = (analogRead(set.y)<3000);
         z = (analogRead(set.z)<3000);
@@ -82,6 +95,9 @@ void interrupt::xcore(void *pvParameters)
             read_intr.turn  = count.turn;
             count.turn = 0;
         }
+
+        wit += 1000;
+
     }
 }
 
