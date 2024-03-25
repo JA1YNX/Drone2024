@@ -1,11 +1,11 @@
 #include "./conf.h"
-#include "./controler.h"
+//#include "./controler.h"
 #include "./motor.h"
 #include "./BNO055.h"
-//#include "./interrupt_digital.h"
+#include "./interrupt_digital.h"
 
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
-contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
+//contloler c(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});//pin1,2,3,4,5,6,ch1pin,ch2pin,ch3pin,ch4pin
 bno055 b;
 
 void setup(void)
@@ -15,13 +15,13 @@ void setup(void)
 #ifdef output
   bt.begin("Drone2024");
 #endif
-  b.bno_setup();
+  //b.bno_setup();
   m.setup();//初期化
   m.nf = 0;//モーターの回転ON
   m.def = -6;//esc初期化
   m.rotate();//回転
   delay(500);
-  c.setup();
+  //c.setup();
   m.nf = 1;//モーターの回転ON
   m.def = 5;//esc初期化
   m.rotate();//回転
@@ -33,7 +33,8 @@ void setup(void)
 
 void loop(void)
 {
-  user u = c.read();//プロポ入力
+  //user u = c.read();//プロポ入力
+  user u = out();//プロポ入力
   //user u = out();//プロポ入力
   Serial.print("x:");
   Serial.print(u.x);
