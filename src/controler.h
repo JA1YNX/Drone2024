@@ -40,7 +40,7 @@ void contloler::setup()
   ud = user{analogRead(set.x),analogRead(set.y),analogRead(set.z),analogRead(set.turn)};
 #endif
 #ifdef interrupt_on
-  ud = user{100,100,100,100};
+  ud = user{150,150,100,150};
 #endif
   return;
 }
