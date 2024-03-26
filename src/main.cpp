@@ -51,7 +51,7 @@ void loop(void)
   //if (!u.z == 0) z = j.z;
   //if (!u.turn == 0) turn = j.turn;
 
-  m.def = u.z-5;
+  m.def = u.z;
   m.c1 = 0;
   m.c2 = 0;
   m.c3 = 0;
