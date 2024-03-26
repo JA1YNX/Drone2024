@@ -1,6 +1,5 @@
 #pragma once
 #include "./conf.h"
-#include "./interrupt.h"
 
 class contloler {
 public:
@@ -22,9 +21,6 @@ private:
   int c_turn;
   user ud;//標準
 };
-#ifdef interrupt_on
-  interrupt i(32, 33, 34, 35, 12, 13, user{33, 35, 32, 34});
-#endif
 
 user contloler::pin()
 {
@@ -40,9 +36,6 @@ contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6,
   pin_in5 = pin5;
   pin_in6 = pin6;
   set = set_;
-#ifdef interrupt_on
-  i = interrupt{pin_in1,pin_in2,pin_in3,pin_in4,pin_in5,pin_in6,set};
-#endif
 }
 void contloler::setup()
 {
@@ -57,26 +50,26 @@ void contloler::setup()
   c_z = 0;
   c_turn = 0;
   delay(5000);
-  ud = user{analogRead(33),analogRead(35),analogRead(32),analogRead(34)};
+  ud = user{analogRead(set.x),analogRead(set.y),analogRead(set.z),analogRead(set.turn)};
 #ifdef interrupt_on
-  ud = user{i.out().x,i.out().y,i.out().z,i.out().turn};
+  ud = user{pulseIn(set.x,HIGH),pulseIn(set.y,HIGH),pulseIn(set.z,HIGH),pulseIn(set.turn,HIGH)};
 #endif
   return;
 }
 
 user contloler::read()
 {
-  #ifndef interrupt_on
+#ifndef interrupt_on
   c_x = (analogRead(set.x)-ud.x) * read_*5;
   c_y = (analogRead(set.y)-ud.y) * read_*5;
   c_z = (analogRead(set.z)-ud.z) * read_*5;
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
-  #endif
+#endif
 #ifdef interrupt_on
-  c_x = (i.out().x) *5;
-  c_y = (i.out().y) *5;
-  c_z = (i.out().z) *5;
-  c_turn = (i.out().turn) *5;
+  c_x = pulseIn(set.x,HIGH);
+  c_y = pulseIn(set.y,HIGH);
+  c_z = pulseIn(set.z,HIGH);
+  c_turn = pulseIn(set.turn,HIGH);
 #endif
 #ifdef output
   bt.print("   cx:");

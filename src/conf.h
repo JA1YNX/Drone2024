@@ -1,7 +1,7 @@
 #pragma once
 
 
-#define output
+//#define output
 #define interrupt_on
 
 
