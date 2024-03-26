@@ -3,13 +3,7 @@
 
 class contloler {
 public:
-  contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_);
-  int pin_in1;
-  int pin_in2;
-  int pin_in3;
-  int pin_in4;
-  int pin_in5;
-  int pin_in6;
+  contloler(user set_);
   user set;
   void setup();
   user read();
@@ -27,32 +21,26 @@ user contloler::pin()
   return set;
 }
 
-contloler::contloler(int pin1, int pin2, int pin3, int pin4, int pin5, int pin6, user set_)
+contloler::contloler(user set_)
 {
-  pin_in1 = pin1;
-  pin_in2 = pin2;
-  pin_in3 = pin3;
-  pin_in4 = pin4;
-  pin_in5 = pin5;
-  pin_in6 = pin6;
   set = set_;
 }
 void contloler::setup()
 {
-  pinMode(pin_in1, INPUT);
-  pinMode(pin_in2, INPUT);
-  pinMode(pin_in3, INPUT);
-  pinMode(pin_in4, INPUT);
-  pinMode(pin_in5, INPUT);
-  pinMode(pin_in6, INPUT);
+  pinMode(set.x, INPUT);
+  pinMode(set.y, INPUT);
+  pinMode(set.z, INPUT);
+  pinMode(set.turn, INPUT);
   c_x = 0;
   c_y = 0;
   c_z = 0;
   c_turn = 0;
   delay(5000);
+#ifndef interrupt_on
   ud = user{analogRead(set.x),analogRead(set.y),analogRead(set.z),analogRead(set.turn)};
+#endif
 #ifdef interrupt_on
-  ud = user{pulseIn(set.x,HIGH),pulseIn(set.y,HIGH),pulseIn(set.z,HIGH),pulseIn(set.turn,HIGH)};
+  //ud = user{pulseIn(set.x,HIGH),pulseIn(set.y,HIGH),pulseIn(set.z,HIGH),pulseIn(set.turn,HIGH)};
 #endif
   return;
 }

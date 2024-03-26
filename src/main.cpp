@@ -9,7 +9,6 @@ bno055 b;
 
 void setup(void)
 {
-  //inter_setup();
   Serial.begin(9600);
 #ifdef output
   bt.begin("Drone2024");
@@ -41,11 +40,12 @@ void loop(void)
   Serial.print(u.z);
   Serial.print(" t:");
   Serial.println(u.turn);
+  /*
   user j = b.bno_read();
   int x, y, z, turn; //諸々値
-  #ifdef output
+#ifdef output
     bt.print("{   Drone2024:");
-    #endif
+#endif
   if (!u.x == 0) x = j.x;
   if (!u.y == 0) y = j.y;
   if (!u.z == 0) z = j.z;
@@ -99,4 +99,5 @@ void loop(void)
 #ifdef output
   bt.println("    } ");
 #endif
+*/
 }
