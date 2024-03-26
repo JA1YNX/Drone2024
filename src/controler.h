@@ -40,7 +40,7 @@ void contloler::setup()
   ud = user{analogRead(set.x),analogRead(set.y),analogRead(set.z),analogRead(set.turn)};
 #endif
 #ifdef interrupt_on
-  ud = user{static_cast<int>(pulseIn(set.x,HIGH,100000)),static_cast<int>(pulseIn(set.y,HIGH,100000)),static_cast<int>(pulseIn(set.z,HIGH,100000)),static_cast<int>(pulseIn(set.turn,HIGH,100000))};
+  ud = user{static_cast<int>(pulseIn(set.x,HIGH,100000)/10),static_cast<int>(pulseIn(set.y,HIGH,100000)/10),static_cast<int>(pulseIn(set.z,HIGH,100000)/10),static_cast<int>(pulseIn(set.turn,HIGH,100000)/10)};
 #endif
   return;
 }
@@ -54,10 +54,10 @@ user contloler::read()
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
 #endif
 #ifdef interrupt_on
-  c_x = pulseIn(set.x,HIGH,100000)-ud.x;
-  c_y = pulseIn(set.y,HIGH,100000)-ud.y;
-  c_z = pulseIn(set.z,HIGH,100000)-ud.z;
-  c_turn = pulseIn(set.turn,HIGH,100000)-ud.turn;
+  c_x = pulseIn(set.x,HIGH,100000)/10-ud.x;
+  c_y = pulseIn(set.y,HIGH,100000)/10-ud.y;
+  c_z = pulseIn(set.z,HIGH,100000)/10-ud.z;
+  c_turn = pulseIn(set.turn,HIGH,100000)/10-ud.turn;
 #endif
 #ifdef output
   bt.print("   cx:");
