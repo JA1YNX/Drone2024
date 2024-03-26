@@ -40,16 +40,16 @@ void loop(void)
   Serial.print(u.z);
   Serial.print(" t:");
   Serial.println(u.turn);
-  /*
-  user j = b.bno_read();
+  
+  //user j = b.bno_read();
   int x, y, z, turn; //諸々値
 #ifdef output
     bt.print("{   Drone2024:");
 #endif
-  if (!u.x == 0) x = j.x;
-  if (!u.y == 0) y = j.y;
-  if (!u.z == 0) z = j.z;
-  if (!u.turn == 0) turn = j.turn;
+  //if (!u.x == 0) x = j.x;
+  //if (!u.y == 0) y = j.y;
+  //if (!u.z == 0) z = j.z;
+  //if (!u.turn == 0) turn = j.turn;
 
   m.def = u.z-5;
   m.c1 = 0;
@@ -72,7 +72,7 @@ void loop(void)
   m.c4 += u.x;
   m.c4 -= u.y;
   m.c4 -= u.turn;
-
+/*
 //s_c1
   if (!u.x == 0) m.c1 += (x - j.x) * hob;
   if (!u.y == 0) m.c1 -= (y - j.y) * hob;
@@ -89,7 +89,7 @@ void loop(void)
   if (!u.x == 0) m.c4 -= (x - j.x) * hob;
   if (!u.y == 0) m.c4 += (y - j.y) * hob;
   if (!u.turn == 0) m.c4 -= (turn - j.turn) / hob;
-
+*/
   m.c1 -= 0;
   m.c2 -= 0;
   m.c3 -= 0;
@@ -99,5 +99,5 @@ void loop(void)
 #ifdef output
   bt.println("    } ");
 #endif
-*/
+
 }
