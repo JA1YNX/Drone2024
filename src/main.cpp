@@ -57,20 +57,20 @@ void loop(void)
   m.c3 = 0;
   m.c4 = 0;
 //m_c1
-  m.c1 -= u.x;
-  m.c1 += u.y;
+  m.c1 += u.x;
+  m.c1 -= u.y;
   m.c1 -= u.turn;
 //m_c2
-  m.c2 += u.x;
-  m.c2 += u.y;
+  m.c2 -= u.x;
+  m.c2 -= u.y;
   m.c2 += u.turn;
 //m_c3
-  m.c3 -= u.x;
-  m.c3 -= u.y;
+  m.c3 += u.x;
+  m.c3 += u.y;
   m.c3 += u.turn;
 //m_c4
-  m.c4 += u.x;
-  m.c4 -= u.y;
+  m.c4 -= u.x;
+  m.c4 += u.y;
   m.c4 -= u.turn;
 /*
 //s_c1
