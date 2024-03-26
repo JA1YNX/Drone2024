@@ -19,7 +19,7 @@ void setup(void)
   m.def = -6;//esc初期化
   m.rotate();//回転
   delay(500);
-  //c.setup();
+  c.setup();
   m.nf = 1;//モーターの回転ON
   m.def = 5;//esc初期化
   m.rotate();//回転
