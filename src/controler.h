@@ -54,8 +54,10 @@ user contloler::read()
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
 #endif
 #ifdef interrupt_on
-  c_x = (pulseIn(set.x,HIGH,100000)-ud.x)*(-1)/100;
-  c_y = (pulseIn(set.y,HIGH,100000)-ud.y)*(-1)/100;
+  c_x = (pulseIn(set.x,HIGH,100000)-ud.x)/100;
+  //c_x = (pulseIn(set.x,HIGH,100000)-ud.x)*(-1)/100;
+  c_y = (pulseIn(set.y,HIGH,100000)-ud.y)/100;
+  //c_y = (pulseIn(set.y,HIGH,100000)-ud.y)*(-1)/100;
   c_z = (pulseIn(set.z,HIGH,100000)-ud.z)/100;
   c_turn = (pulseIn(set.turn,HIGH,100000)-ud.turn)/100;
 
