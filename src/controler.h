@@ -40,7 +40,7 @@ void contloler::setup()
   ud = user{analogRead(set.x),analogRead(set.y),analogRead(set.z),analogRead(set.turn)};
 #endif
 #ifdef interrupt_on
-  ud = user{1500,1500,1100,1500};
+  ud = user{1500,1500,900,1500};
 #endif
   return;
 }
@@ -56,7 +56,7 @@ user contloler::read()
 #ifdef interrupt_on
   c_x = (static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(-1)/100;
   c_y = (static_cast<int>(pulseIn(set.y,HIGH,100000))-ud.y)*(-1)/100;
-  c_z = (static_cast<int>(pulseIn(set.z,HIGH,100000))-ud.z)/100;
+  c_z = (static_cast<int>(pulseIn(set.z,HIGH,100000))-ud.z)/80;
   c_turn = (static_cast<int>(pulseIn(set.turn,HIGH,100000))-ud.turn)/100;
 
   //c_x = ((pulseIn(set.x,HIGH,100000)*-1)/10-ud.x)/10;

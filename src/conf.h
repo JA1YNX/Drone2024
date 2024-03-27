@@ -22,7 +22,7 @@
 
 #define puls 200//pwm周波数
 #define duty_def 52//初期値
-#define duty_min 60//最低回転58
+#define duty_min 59//最低回転58
 #define duty_max 90//最高回転98
 
 #define BNO055interval 10 //何ms間隔でデータを取得するか
