@@ -54,10 +54,10 @@ user contloler::read()
   c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
 #endif
 #ifdef interrupt_on
-  c_x = (static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(-1)/100;
-  c_y = (static_cast<int>(pulseIn(set.y,HIGH,100000))-ud.y)*(-1)/100;
-  c_z = (static_cast<int>(pulseIn(set.z,HIGH,100000))-ud.z)/80;
-  c_turn = (static_cast<int>(pulseIn(set.turn,HIGH,100000))-ud.turn)/100;
+  c_x = ((static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(-1)/100)*0.8;
+  c_y = ((static_cast<int>(pulseIn(set.y,HIGH,100000))-ud.y)*(-1)/100)*0.8;
+  c_z = ((static_cast<int>(pulseIn(set.z,HIGH,100000))-ud.z)/80)*1.0;
+  c_turn = ((static_cast<int>(pulseIn(set.turn,HIGH,100000))-ud.turn)/100)*1.0;
 
   //c_x = ((pulseIn(set.x,HIGH,100000)*-1)/10-ud.x)/10;
   //c_y = ((pulseIn(set.y,HIGH,100000)*-1)/10-ud.y)/10;
