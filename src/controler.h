@@ -57,7 +57,7 @@ user contloler::read()
   c_x = ((static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(1.0)/10.0)*0.12;
   c_y = ((static_cast<int>(pulseIn(set.y,HIGH,100000))-ud.y)*(-1.0)/10.0)*0.12;
   c_z = ((static_cast<int>(pulseIn(set.z,HIGH,100000))-ud.z)*(1.0)/8.0)*0.15;
-  c_turn = ((static_cast<int>(pulseIn(set.turn,HIGH,100000))-ud.turn)*(1.0)/10.0)*0.11;
+  c_turn = ((static_cast<int>(pulseIn(set.turn,HIGH,100000))-ud.turn)*(-1.0)/10.0)*0.11;
 
   //c_x = ((pulseIn(set.x,HIGH,100000)*-1)/10-ud.x)/10;
   //c_y = ((pulseIn(set.y,HIGH,100000)*-1)/10-ud.y)/10;
