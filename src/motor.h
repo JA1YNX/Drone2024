@@ -24,7 +24,7 @@ class motor { //モーターチャンネルとピン設定
 };
 void motor::rotate()
 {
-  user real = {duty_min + abs(def + c1) * nf,duty_min + abs(def + c1) * nf,duty_min + abs(def + c2) * nf,duty_min + abs(def + c3) * nfduty_min + abs(def + c4) * nf};
+  user real = {duty_min + abs(def + c1) * nf,duty_min + abs(def + c2) * nf,duty_min + abs(def + c3) * nf,duty_min + abs(def + c4) * nf};
   ledcWrite(ch1, real.x < def ? def : real.x);
   ledcWrite(ch2, real.y < def ? def : real.y);
   ledcWrite(ch3, real.z < def ? def : real.z);
