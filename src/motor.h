@@ -24,10 +24,17 @@ class motor { //モーターチャンネルとピン設定
 };
 void motor::rotate()
 {
+  user real({duty_min + abs(def + c1) * nf,duty_min + abs(def + c1) * nf,duty_min + abs(def + c2) * nf,duty_min + abs(def + c3) * nfduty_min + abs(def + c4) * nf});
+  ledcWrite(ch1, real.x < def ? def : real.x);
+  ledcWrite(ch2, real.y < def ? def : real.y);
+  ledcWrite(ch3, real.z < def ? def : real.z);
+  ledcWrite(ch4, real.turn < def ? def : real.turn);
+/*
   ledcWrite(ch1, duty_min + abs(def + c1) * nf);
   ledcWrite(ch2, duty_min + abs(def + c2) * nf);
   ledcWrite(ch3, duty_min + abs(def + c3) * nf);
   ledcWrite(ch4, duty_min + abs(def + c4) * nf);
+  */
   #ifdef output
     bt.print("  ou1:");
     bt.print(duty_min + abs(def + c1) * nf);
