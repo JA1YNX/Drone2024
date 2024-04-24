@@ -3,36 +3,70 @@
 #include "./motor.h"
 #include "./BNO055.h"
 
+//モーター制御クラスインスタンス化
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
-//contloler c(user{33, 35, 32, 34});//ch1pin,ch2pin,ch3pin,ch4pin
+
+//コントローラー制御用クラスインスタンス化
 contloler c(user{32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
+//contloler c(user{33, 35, 32, 34});//ch1pin,ch2pin,ch3pin,ch4pin
+
+//BNO055制御用クラスインスタンス化
 bno055 b;
 
+//セットアップ関数
 void setup(void)
 {
+  //シリアルモニタ開始
   Serial.begin(9600);
 #ifdef output
+
+  //outputが定義されていたらbluetooth開始
   bt.begin("Drone2024");
 #endif
   //b.bno_setup();
+
+  //モーター初期化
   m.setup();//初期化
+
+  //回転OFF
   m.nf = 0;//モーターの回転ON
+
+  //初期値設定
   m.def = -6;//esc初期化
+
+  //回転数更新
   m.rotate();//回転
   //delay(500);
+
+  //コントローラー初期化
   c.setup();
+
+  //モーター回転ON
   m.nf = 1;//モーターの回転ON
+
+  //ESC初期化
   m.def = 1;//esc初期化
+
+  //回転数更新
   m.rotate();//回転
+
+  //動作確認
   delay(500);
+
+  //回転ストップ
   m.def = 0;//esc初期化
+
+  //更新
   m.rotate();//回転
 }
 
 
 void loop(void)
 {
+  //プロポの入力取得
   user u = c.read();//プロポ入力
+
+  //シリアルモニタにプロポの入力を出力
   Serial.print("x:");
   Serial.print(u.x);
   Serial.print(" y:");
@@ -43,6 +77,8 @@ void loop(void)
   Serial.println(u.turn);
   
   //user j = b.bno_read();
+
+  //処理に使う変数定義
   int x, y, z, turn; //諸々値
 #ifdef output
     bt.print("{   Drone2024:");
@@ -52,23 +88,32 @@ void loop(void)
   //if (!u.z == 0) z = j.z;
   //if (!u.turn == 0) turn = j.turn;
 
+  //各モーター標準値設定
   m.def = u.z;
   m.c1 = 0;
   m.c2 = 0;
   m.c3 = 0;
   m.c4 = 0;
+
+  //一番モーター（左上）調整値設定
 //m_c1
   m.c1 += u.x;
   m.c1 -= u.y;
   m.c1 -= u.turn;
+  
+  //二番モーター（右上）調整値設定
 //m_c2
   m.c2 -= u.x;
   m.c2 -= u.y;
   m.c2 += u.turn;
+  
+  //三番モーター（左下）調整値設定
 //m_c3
   m.c3 += u.x;
   m.c3 += u.y;
   m.c3 += u.turn;
+  
+  //四番モーター（右下）調整値設定
 //m_c4
   m.c4 -= u.x;
   m.c4 += u.y;
@@ -96,6 +141,7 @@ void loop(void)
   m.c3 -= 0;
   m.c4 -= 0;
 
+  //回転数更新
   m.rotate();
 #ifdef output
   bt.println("    } ");
