@@ -1,19 +1,26 @@
 #pragma once
 #include "./conf.h"
 
+//制御用クラス
 class contloler {
 public:
+  //コンストラクタ
   contloler(user set_);
+  //入力ピン格納用変数構造体
   user set;
+  //プロポセットアップ
   void setup();
+  //プロポ読み込み
   user read();
+  //入力ピン出力
   user pin();
 private:
+  //スタック用変数
   int c_x;
   int c_y;
   int c_z;
   int c_turn;
-  user ud;//標準
+  user ud;//標準値
 };
 
 user contloler::pin()
@@ -27,10 +34,12 @@ contloler::contloler(user set_)
 }
 void contloler::setup()
 {
+  //モード設定
   pinMode(set.x, INPUT);
   pinMode(set.y, INPUT);
   pinMode(set.z, INPUT);
   pinMode(set.turn, INPUT);
+  //値リセット
   c_x = 0;
   c_y = 0;
   c_z = 0;

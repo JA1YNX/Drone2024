@@ -1,14 +1,16 @@
 #pragma once
 
-
+//bluetoothの出力をするかどうか
 #define output
+
+//割り込み使うか
 #define interrupt_on
 
-
+//割り込み周期
 #define interrupt_clock 1000000
 
+//使うライブラリインクルード
 #include <Arduino.h>
-
 #include <Wire.h>
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
@@ -16,6 +18,7 @@
 #include <Ticker.h>
 #ifdef output
 #include <BluetoothSerial.h>
+    //bluetooth インスタンス化
     BluetoothSerial bt;
 #endif
 
@@ -29,7 +32,7 @@
 
 #define BNO055interval 10 //何ms間隔でデータを取得するか
 
-struct user { //プロポ入力
+struct user { 
     int x;
     int y;
     int z;
