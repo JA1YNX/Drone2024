@@ -118,7 +118,7 @@ void loop(void)
   m.c4 -= u.x;
   m.c4 += u.y;
   m.c4 -= u.turn;
-/*
+
 //s_c1
   if (!u.x == 0) m.c1 += (x - j.x) * hob;
   if (!u.y == 0) m.c1 -= (y - j.y) * hob;
@@ -135,7 +135,7 @@ void loop(void)
   if (!u.x == 0) m.c4 -= (x - j.x) * hob;
   if (!u.y == 0) m.c4 += (y - j.y) * hob;
   if (!u.turn == 0) m.c4 -= (turn - j.turn) / hob;
-*/
+
   m.c1 -= 0;
   m.c2 -= 0;
   m.c3 -= 0;
@@ -144,6 +144,14 @@ void loop(void)
   //回転数更新
   m.rotate();
 #ifdef output
+  bt.print("     x:");
+  bt.print(j.x);
+  bt.print("  y:");
+  bt.print(j.y);
+  bt.print("  z:");
+  bt.print(j.z);
+  bt.print("  t:");
+  bt.print(j.turn);
   bt.println("    } ");
 #endif
 
