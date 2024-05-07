@@ -73,7 +73,7 @@ void bno055::get_bno055_data(void)
 
 
   // キャリブレーションのステータスの取得と表示
-  bno.getCalibration(&system_, &gyro, &accel, &mag);
+  //bno.getCalibration(&system_, &gyro, &accel, &mag);
   //Serial.print("CALIB Sys:");
   //Serial.print(system_, DEC);
   //Serial.print(", Gy");
