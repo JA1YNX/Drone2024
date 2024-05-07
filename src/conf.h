@@ -30,7 +30,7 @@
 #define duty_min 56//最低回転58
 #define duty_max 90//最高回転98
 
-#define BNO055interval 10 //何ms間隔でデータを取得するか
+#define BNO055interval 100 //何ms間隔でデータを取得するか
 
 struct user { 
     int x;

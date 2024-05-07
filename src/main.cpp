@@ -23,7 +23,7 @@ void setup(void)
   //outputが定義されていたらbluetooth開始
   bt.begin("Drone2024");
 #endif
-  //b.bno_setup();
+  b.bno_setup();
 
   //モーター初期化
   m.setup();//初期化
