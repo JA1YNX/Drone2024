@@ -97,7 +97,7 @@ void bno055::get_bno055_data(void)
 
 
   // 加速度センサ値の取得と表示
-  //accelermetor = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
+  accelermetor = bno.getVector(Adafruit_BNO055::VECTOR_ACCELEROMETER);
   //Serial.print(" Ac_xyz:");
   //Serial.print(accelermetor.x());
   //Serial.print(", ");
@@ -119,7 +119,7 @@ void bno055::get_bno055_data(void)
 
 
   // センサフュージョンによる方向推定値の取得と表示
-  euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
+  //euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
   #ifdef output_old
     Serial.print(" DIR_x:");
     Serial.print(j.x);
@@ -143,9 +143,9 @@ void bno055::get_bno055_data(void)
   //Serial.print(quat.z(), 4);
   //Serial.print("\t\t");
 
-  j.x = euler.x();
-  j.y = euler.y();
-  j.z = euler.z();
+  j.x += accelermetor.x();
+  j.y += accelermetor.y();
+  j.z += accelermetor.z();
 
   //j.x = (j.x/2+euler.x()/2);
   //j.z = (j.y/2+euler.y()/2);
