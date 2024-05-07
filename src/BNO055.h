@@ -40,7 +40,7 @@ void bno055::bno_setup()
     while (1);
   }
 
-  delay(1000);
+  delay(500);
 
   /* Display the current temperature */
   int8_t temp = bno.getTemp();
@@ -120,7 +120,7 @@ void bno055::get_bno055_data(void)
 
   // センサフュージョンによる方向推定値の取得と表示
   euler = bno.getVector(Adafruit_BNO055::VECTOR_EULER);
-  #ifdef output
+  #ifdef output_old
     Serial.print(" DIR_x:");
     Serial.print(j.x);
     Serial.print(" DIR_y:");
@@ -143,11 +143,25 @@ void bno055::get_bno055_data(void)
   //Serial.print(quat.z(), 4);
   //Serial.print("\t\t");
 
-  j.x = (j.x/2+euler.x()/2);
-  j.z = (j.y/2+euler.y()/2);
-  j.y = (j.z/2+euler.z()/2);
+  j.x = euler.x();
+  j.y = euler.y();
+  j.z = euler.z();
+
+  //j.x = (j.x/2+euler.x()/2);
+  //j.z = (j.y/2+euler.y()/2);
+  //j.y = (j.z/2+euler.z()/2);
   j.turn = (j.turn/2+quat.z()/2);
 
+  #ifdef output
+    Serial.print(" DIR_x:");
+    Serial.print(j.x);
+    Serial.print(" DIR_y:");
+    Serial.print(j.y);
+    Serial.print(" DIR_z:");
+    Serial.print(j.z);
+    Serial.print(" DIR_T:");
+    Serial.println(j.turn);
+    #endif
   //Serial.println();
 }
 user bno055::bno_read()
