@@ -147,10 +147,10 @@ void bno055::get_bno055_data(void)
 
   normal = j_stack;
 
-  j_stack.x += (static_cast<int>(accelermetor.x()*10)/10.0);
-  j_stack.y += (static_cast<int>(accelermetor.y()*10)/10.0);
-  j_stack.z += (static_cast<int>(accelermetor.z()*10)/10.0)-9.8;
-  j_stack.turn += (static_cast<int>(gyroscope.x()*10)/10.0);
+  j_stack.x = (static_cast<int>(accelermetor.x()*10)/10.0);
+  j_stack.y = (static_cast<int>(accelermetor.y()*10)/10.0);
+  j_stack.z = (static_cast<int>(accelermetor.z()*10)/10.0)-9.8;
+  j_stack.turn = (static_cast<int>(gyroscope.x()*10)/10.0);
 
   if(normal.x == j_stack.x)
   {
@@ -158,7 +158,7 @@ void bno055::get_bno055_data(void)
   }
   else
   {
-    j.x = j_stack.x;
+    j.x += j_stack.x;
     normal.x = j_stack.x;
   }
 
@@ -168,7 +168,7 @@ void bno055::get_bno055_data(void)
   }
   else
   {
-    j.y = j_stack.y;
+    j.y += j_stack.y;
     normal.y = j_stack.y;
   }
   
@@ -178,7 +178,7 @@ void bno055::get_bno055_data(void)
   }
   else
   {
-    j.z = j_stack.z;
+    j.z += j_stack.z;
     normal.z = j_stack.z;
   }
   
@@ -188,7 +188,7 @@ void bno055::get_bno055_data(void)
   }
   else
   {
-    j.turn = j_stack.turn;
+    j.turn += j_stack.turn;
     normal.turn = j_stack.turn;
   }
 
