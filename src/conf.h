@@ -33,8 +33,8 @@
 #define BNO055interval 2 //何ms間隔でデータを取得するか
 
 struct user { 
-    int x;
-    int y;
-    int z;
-    int turn;
+    float x;
+    float y;
+    float z;
+    float turn;
 };
