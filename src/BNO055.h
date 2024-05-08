@@ -145,7 +145,7 @@ void bno055::get_bno055_data(void)
 
   j.x += (static_cast<int>(accelermetor.x()*10)/10.0);
   j.y += (static_cast<int>(accelermetor.y()*10)/10.0);
-  j.z += (static_cast<int>(accelermetor.z()*10)/10)-9.8;
+  j.z += (static_cast<int>(accelermetor.z()*10)/10.0)-9.8;
   j.turn += (static_cast<int>(gyroscope.x()*10)/10.0);
 
   //j.x = (j.x/2+euler.x()/2);
