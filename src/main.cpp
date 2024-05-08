@@ -65,7 +65,7 @@ void loop(void)
 {
   //プロポの入力取得
   user u = c.read();//プロポ入力
-
+/*
   //シリアルモニタにプロポの入力を出力
   Serial.print("x:");
   Serial.print(u.x);
@@ -75,7 +75,7 @@ void loop(void)
   Serial.print(u.z);
   Serial.print(" t:");
   Serial.println(u.turn);
-  
+  */
   //user j = b.bno_read();
 
   //処理に使う変数定義
