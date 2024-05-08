@@ -144,6 +144,8 @@ void bno055::get_bno055_data(void)
   //Serial.print(quat.z(), 4);
   //Serial.print("\t\t");
 
+  normal = j;
+
   j.x += (static_cast<int>(accelermetor.x()*10)/10.0);
   j.y += (static_cast<int>(accelermetor.y()*10)/10.0);
   j.z += (static_cast<int>(accelermetor.z()*10)/10.0)-9.8;
