@@ -86,7 +86,7 @@ void bno055::get_bno055_data(void)
 
 
   // ジャイロセンサ値の取得と表示
-  //gyroscope = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
+  gyroscope = bno.getVector(Adafruit_BNO055::VECTOR_GYROSCOPE);
   //Serial.print(" Gy_xyz:");
   //Serial.print(gyroscope.x());
   //Serial.print(", ");
@@ -132,7 +132,7 @@ void bno055::get_bno055_data(void)
     #endif
 
   // センサフュージョンの方向推定値のクオータニオン
-  quat = bno.getQuat();
+  //quat = bno.getQuat();
   //Serial.print("qW: ");
   //Serial.print(quat.w(), 4);
   //Serial.print(" qX: ");
@@ -146,21 +146,22 @@ void bno055::get_bno055_data(void)
   j.x += accelermetor.x();
   j.y += accelermetor.y();
   j.z += accelermetor.z();
+  j.turn += gyroscope.x();
 
   //j.x = (j.x/2+euler.x()/2);
   //j.z = (j.y/2+euler.y()/2);
   //j.y = (j.z/2+euler.z()/2);
-  j.turn = (j.turn/2+quat.z()/2);
+  //j.turn = (j.turn/2+quat.z()/2);
 
   #ifdef output
     Serial.print(" DIR_x:");
-    Serial.print(j.x);
+    Serial.print(accelermetor.x());
     Serial.print(" DIR_y:");
-    Serial.print(j.y);
+    Serial.print(accelermetor.y());
     Serial.print(" DIR_z:");
-    Serial.print(j.z);
+    Serial.print(accelermetor.z());
     Serial.print(" DIR_T:");
-    Serial.println(j.turn);
+    Serial.println(gyroscope.turn());
     #endif
   //Serial.println();
 }
