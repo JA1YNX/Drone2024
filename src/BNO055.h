@@ -200,13 +200,13 @@ void bno055::get_bno055_data(void)
 
   #ifdef output
     Serial.print(" DIR_x:");
-    Serial.print((static_cast<int>(accelermetor.x()*10)/10.0));
+    Serial.print(j.x);
     Serial.print(" DIR_y:");
-    Serial.print((static_cast<int>(accelermetor.y()*10)/10.0));
+    Serial.print(j.y);
     Serial.print(" DIR_z:");
-    Serial.print((static_cast<int>(accelermetor.z()*10)/10)-9.8);
+    Serial.print(j.z);
     Serial.print(" DIR_T:");
-    Serial.println((static_cast<int>(gyroscope.x()*10)/10.0));
+    Serial.println(j.turn);
     #endif
   //Serial.println();
 }
