@@ -143,10 +143,10 @@ void bno055::get_bno055_data(void)
   //Serial.print(quat.z(), 4);
   //Serial.print("\t\t");
 
-  j.x += accelermetor.x();
-  j.y += accelermetor.y();
-  j.z += accelermetor.z();
-  j.turn += gyroscope.x();
+  j.x += static_cast<int>(accelermetor.x());
+  j.y += static_cast<int>(accelermetor.y());
+  j.z += static_cast<int>(accelermetor.z()-9.8);
+  j.turn += static_cast<int>(gyroscope.x());
 
   //j.x = (j.x/2+euler.x()/2);
   //j.z = (j.y/2+euler.y()/2);
@@ -155,13 +155,13 @@ void bno055::get_bno055_data(void)
 
   #ifdef output
     Serial.print(" DIR_x:");
-    Serial.print(accelermetor.x());
+    Serial.print(static_cast<int>(accelermetor.x()));
     Serial.print(" DIR_y:");
-    Serial.print(accelermetor.y());
+    Serial.print(static_cast<int>(accelermetor.y()));
     Serial.print(" DIR_z:");
-    Serial.print(accelermetor.z());
+    Serial.print(static_cast<int>(accelermetor.z()-9.8));
     Serial.print(" DIR_T:");
-    Serial.println(gyroscope.turn());
+    Serial.println(static_cast<int>(gyroscope.x()));
     #endif
   //Serial.println();
 }
