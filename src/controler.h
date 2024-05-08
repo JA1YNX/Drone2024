@@ -84,5 +84,5 @@ user contloler::read()
   bt.print(c_turn);
   bt.print("     ");
 #endif
-  return user{c_x, c_y, c_z, c_turn};
+  return user{static_cast<double>(c_x), static_cast<double>(c_y), static_cast<double>(c_z), static_cast<double>(c_turn)};
 }
