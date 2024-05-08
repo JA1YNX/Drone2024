@@ -12,6 +12,7 @@ private:
 };
 user j;
 user normal;
+user j_stack;
 //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 imu::Vector<3> gyroscope;//ジャイロ
@@ -144,47 +145,51 @@ void bno055::get_bno055_data(void)
   //Serial.print(quat.z(), 4);
   //Serial.print("\t\t");
 
-  normal = j;
+  normal = j_stack;
 
-  j.x += (static_cast<int>(accelermetor.x()*10)/10.0);
-  j.y += (static_cast<int>(accelermetor.y()*10)/10.0);
-  j.z += (static_cast<int>(accelermetor.z()*10)/10.0)-9.8;
-  j.turn += (static_cast<int>(gyroscope.x()*10)/10.0);
+  j_stack.x += (static_cast<int>(accelermetor.x()*10)/10.0);
+  j_stack.y += (static_cast<int>(accelermetor.y()*10)/10.0);
+  j_stack.z += (static_cast<int>(accelermetor.z()*10)/10.0)-9.8;
+  j_stack.turn += (static_cast<int>(gyroscope.x()*10)/10.0);
 
-  if(normal.x == j.x)
+  if(normal.x == j_stack.x)
   {
     j.x = 0;
   }
   else
   {
-    normal.x = j.x;
+    j.x = j_stack.x;
+    normal.x = j_stack.x;
   }
 
-  if(normal.y == j.y)
+  if(normal.y == j_stack.y)
   {
     j.y = 0;
   }
   else
   {
-    normal.y = j.y;
+    j.y = j_stack.y;
+    normal.y = j_stack.y;
   }
   
-  if(normal.z == j.z)
+  if(normal.z == j_stack.z)
   {
     j.z = 0;
   }
   else
   {
-    normal.z = j.z;
+    j.z = j_stack.z;
+    normal.z = j_stack.z;
   }
   
-  if(normal.turn == j.turn)
+  if(normal.turn == j_stack.turn)
   {
     j.turn = 0;
   }
   else
   {
-    normal.turn = j.turn;
+    j.turn = j_stack.turn;
+    normal.turn = j_stack.turn;
   }
 
   
