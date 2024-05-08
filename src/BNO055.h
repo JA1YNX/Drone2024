@@ -8,6 +8,7 @@ public:
   user bno_read();
   bno055();
 private:
+  user normal;
   Ticker bno055ticker; //タイマー割り込み用のインスタンス
 };
 user j;
@@ -148,6 +149,43 @@ void bno055::get_bno055_data(void)
   j.z += (static_cast<int>(accelermetor.z()*10)/10.0)-9.8;
   j.turn += (static_cast<int>(gyroscope.x()*10)/10.0);
 
+  if(normal.x == j.x)
+  {
+    j.x = 0;
+  }
+  else
+  {
+    normal.x = j.x;
+  }
+
+  if(normal.y == j.y)
+  {
+    j.y = 0;
+  }
+  else
+  {
+    normal.y = j.y;
+  }
+  
+  if(normal.z == j.z)
+  {
+    j.z = 0;
+  }
+  else
+  {
+    normal.z = j.;
+  }
+  
+  if(normal.turn == j.turn)
+  {
+    j.turn = 0;
+  }
+  else
+  {
+    normal.turn = j.;
+  }
+
+  
   //j.x = (j.x/2+euler.x()/2);
   //j.z = (j.y/2+euler.y()/2);
   //j.y = (j.z/2+euler.z()/2);
