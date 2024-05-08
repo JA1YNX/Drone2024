@@ -8,10 +8,10 @@ public:
   user bno_read();
   bno055();
 private:
-  user normal;
   Ticker bno055ticker; //タイマー割り込み用のインスタンス
 };
 user j;
+user normal;
 //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 imu::Vector<3> gyroscope;//ジャイロ
@@ -173,7 +173,7 @@ void bno055::get_bno055_data(void)
   }
   else
   {
-    normal.z = j.;
+    normal.z = j.z;
   }
   
   if(normal.turn == j.turn)
@@ -182,7 +182,7 @@ void bno055::get_bno055_data(void)
   }
   else
   {
-    normal.turn = j.;
+    normal.turn = j.turn;
   }
 
   
