@@ -1,4 +1,4 @@
-#include "BluetoothSerial.h"
+//#include "BluetoothSerial.h"
 
 #define echoPin2 34  // Echo Pin
 #define trigPin2 27  // Trigger Pin
