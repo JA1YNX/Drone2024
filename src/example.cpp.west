@@ -1,0 +1,186 @@
+#include "BluetoothSerial.h"
+
+#define echoPin2 34  // Echo Pin
+#define trigPin2 27  // Trigger Pin
+#define echoPin 35   // Echo Pin
+#define trigPin 33   // Trigger Pin
+
+BluetoothSerial SerialBT;  //インスタンス化
+
+double Duration = 0;   //受信した間隔
+double Distance = 0;   //距離
+double Duration2 = 0;  //受信した間隔
+double Distance2 = 0;  //距離
+float ox = 0;
+float oy = 0;
+float xs = 0;
+float ys = 0;
+float xa = 0;
+float ya = 0;
+int xflag, yflag;
+int mt1 = 25;
+int mt3 = 12;
+int a, b = 0;
+
+void setup() {
+
+  SerialBT.begin("西島様の作品");  //デバイス名を指定する
+  Serial.begin(115200);            //Arduino Unoは9600,ESPで試す場合はは115200
+  pinMode(echoPin, INPUT);
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin2, INPUT);
+  pinMode(trigPin2, OUTPUT);
+  pinMode(mt1, OUTPUT);
+  pinMode(mt3, OUTPUT);
+  pinMode(26, OUTPUT);
+  pinMode(32, OUTPUT);
+  pinMode(13, HIGH);
+  pinMode(14, HIGH);
+  int i;
+  for (i = 0; i < 100; i++) {
+    ox = ox + analogRead(13);
+    oy = oy + analogRead(14);
+    delay(10);
+  }
+  ox = ox / 100;
+  oy = oy / 100;
+}
+
+void distance();
+
+void loop() {
+  distance();
+  if (SerialBT.available()) {
+    a = SerialBT.read() - 48;
+    if (a >= 0) {
+      Serial.println(a);
+      b = a;
+      while (b == 1) {
+        if (SerialBT.available()) {
+          a = SerialBT.read() - 48;
+          if (a >= 0) {
+            b = a;
+          }
+        }
+        if (b = 0) {
+          break;
+        }
+
+        if (Distance2 < 35) {  //  20cm以内になるとLED1が点灯
+          digitalWrite(mt1, HIGH);
+          digitalWrite(26, HIGH);
+
+        }
+        else {
+
+          digitalWrite(mt1, LOW);
+          digitalWrite(26, HIGH);
+        }
+
+
+        if (Distance < 35) {  //  20cm以内になるとLED1が点灯
+          digitalWrite(mt3, HIGH);
+          digitalWrite(32, HIGH);
+
+        }
+        else {
+
+          digitalWrite(mt3, LOW);
+          digitalWrite(32, HIGH);
+        }
+        if (Distance < 40 && Distance2 < 40 && Distance < Distance2) {
+          digitalWrite(26, HIGH);
+          digitalWrite(32, LOW);
+          digitalWrite(25, LOW);
+        }
+        if (Distance < 40 && Distance2 < 40 && Distance > Distance2) {
+          digitalWrite(32, HIGH);
+          digitalWrite(26, LOW);
+          digitalWrite(12, HIGH);
+        }
+
+
+
+        if (xa < 0.1 && xa > -0.1) {
+          xa = 0;
+          // xs = 0;
+        }
+        if (ya < 0.1 && ya > -0.1) {
+          ya = 0;
+          // ys = 0;
+        }
+        if (xa == 0.00) {
+          xflag++;
+        }
+        if (xflag > 50) {
+          xs = 0;
+          xflag = 0;
+        }
+        if (ya == 0.00) {
+          yflag++;
+        }
+        if (yflag > 50) {
+          ys = 0;
+          yflag = 0;
+        }
+        xs = xs + (xa * 0.1);
+        ys = ys + (ya * 0.1);
+
+        SerialBT.print("XS:");
+        SerialBT.print(xs);
+        SerialBT.print(" YS:");
+        SerialBT.println(ys);
+      }
+      if (b == 0) {
+        digitalWrite(mt1, LOW);
+        digitalWrite(mt3, LOW);
+        digitalWrite(26, LOW);
+        digitalWrite(32, LOW);
+        digitalWrite(25, LOW);
+        digitalWrite(12, LOW);
+      }
+    }
+  }
+}
+
+
+
+
+void distance() {
+
+  digitalWrite(trigPin, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+
+  Duration = pulseIn(echoPin, HIGH);
+
+  digitalWrite(trigPin2, LOW);
+  delayMicroseconds(2);
+  digitalWrite(trigPin2, HIGH);  //超音波を出力
+  delayMicroseconds(10);
+  digitalWrite(trigPin2, LOW);
+
+  Duration2 = pulseIn(echoPin2, HIGH);  //センサからの入力
+
+  float y = (analogRead(14));
+  float x = (analogRead(13));
+
+  x = x - ox;
+  y = y - oy;
+
+  xa = x / 819.2 * 9.8;
+  ya = y / 819.2 * 9.8;
+  if (Duration > 0 && Duration > 0) {
+    Duration = Duration / 2;  //往復距離を半分にする
+    Duration2 = Duration2 / 2;
+    Distance = Duration * 340 * 100 / 1000000;  // 音速を340m/sに設定
+    Distance2 = Duration2 * 340 * 100 / 1000000;
+    Serial.print("Distance:");
+    Serial.print(Distance);
+    Serial.print(" cm,");
+    Serial.print(Distance2);
+    Serial.println(" cm");
+  }
+}
