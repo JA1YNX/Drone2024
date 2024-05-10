@@ -154,7 +154,7 @@ void bno055::get_bno055_data(void)
 
   if(normal.x == j_stack.x)
   {
-    j.x = 0;
+    j_stack.x = 0;
   }
   else
   {
@@ -164,7 +164,7 @@ void bno055::get_bno055_data(void)
 
   if(normal.y == j_stack.y)
   {
-    j.y = 0;
+    j_stack.y = 0;
   }
   else
   {
@@ -174,7 +174,7 @@ void bno055::get_bno055_data(void)
   
   if(normal.z == j_stack.z)
   {
-    j.z = 0;
+    j_stack.z = 0;
   }
   else
   {
@@ -184,7 +184,7 @@ void bno055::get_bno055_data(void)
   
   if(normal.turn == j_stack.turn)
   {
-    j.turn = 0;
+    j_stack.turn = 0;
   }
   else
   {
