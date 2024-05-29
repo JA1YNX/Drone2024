@@ -118,7 +118,7 @@ void loop(void)
   m.c4 -= u.x;
   m.c4 += u.y;
   m.c4 -= u.turn;
-j = kxr.read();
+  user<double> j = kxr.read();
 //s_c1
   if (!u.x == 0) m.c1 += (x - j.x) * hob;
   if (!u.y == 0) m.c1 -= (y - j.y) * hob;
