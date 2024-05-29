@@ -23,7 +23,7 @@ void setup(void)
   bt.begin("Drone2024");
 #endif
 
-  kxr.setup();
+  kxr.setup(user<int>{2,0,4});
 
   //モーター初期化
   m.setup();//初期化
