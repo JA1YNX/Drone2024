@@ -7,7 +7,7 @@
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 
 //コントローラー制御用クラスインスタンス化
-contloler c(user{32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
+contloler c(user<int>{32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 //contloler c(user{33, 35, 32, 34});//ch1pin,ch2pin,ch3pin,ch4pin
 
 //BNO055制御用クラスインスタンス化
@@ -64,7 +64,7 @@ void setup(void)
 void loop(void)
 {
   //プロポの入力取得
-  user u = c.read();//プロポ入力
+  user<double> u = c.read();//プロポ入力
 /*
   //シリアルモニタにプロポの入力を出力
   Serial.print("x:");

@@ -5,30 +5,30 @@
 class contloler {
 public:
   //コンストラクタ
-  contloler(user set_);
+  contloler(user<int> set_);
   //入力ピン格納用変数構造体
-  user set;
+  user<int> set;
   //プロポセットアップ
   void setup();
   //プロポ読み込み
-  user read();
+  user<double> read();
   //入力ピン出力
-  user pin();
+  user<int> pin();
 private:
   //スタック用変数
   int c_x;
   int c_y;
   int c_z;
   int c_turn;
-  user ud;//標準値
+  user<double> ud;//標準値
 };
 
-user contloler::pin()
+user<int> contloler::pin()
 {
   return set;
 }
 
-contloler::contloler(user set_)
+contloler::contloler(user<int> set_)
 {
   set = set_;
 }
@@ -49,12 +49,12 @@ void contloler::setup()
   ud = user{analogRead(set.x),analogRead(set.y),analogRead(set.z),analogRead(set.turn)};
 #endif
 #ifdef interrupt_on
-  ud = user{1500,1500,900,1500};
+  ud = user<double>{1500,1500,900,1500};
 #endif
   return;
 }
 
-user contloler::read()
+user<double> contloler::read()
 {
 #ifndef interrupt_on
   c_x = (analogRead(set.x)-ud.x) * read_*5;
@@ -84,5 +84,5 @@ user contloler::read()
   bt.print(c_turn);
   bt.print("     ");
 #endif
-  return user{static_cast<double>(c_x), static_cast<double>(c_y), static_cast<double>(c_z), static_cast<double>(c_turn)};
+  return user<double>{static_cast<double>(c_x), static_cast<double>(c_y), static_cast<double>(c_z), static_cast<double>(c_turn)};
 }

@@ -5,14 +5,14 @@ class bno055{
 public:
   static void get_bno055_data(void);
   void bno_setup();
-  user bno_read();
+  user<double> bno_read();
   bno055();
 private:
   Ticker bno055ticker; //タイマー割り込み用のインスタンス
 };
-user j;
-user normal;
-user j_stack;
+user<double> j;
+user<double> normal;
+user<double> j_stack;
 //Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); //ICSの名前, デフォルトアドレス, 謎
 Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28);
 imu::Vector<3> gyroscope;//ジャイロ
@@ -210,7 +210,7 @@ void bno055::get_bno055_data(void)
     #endif
   //Serial.println();
 }
-user bno055::bno_read()
+user<double> bno055::bno_read()
 {
   return j;
 }

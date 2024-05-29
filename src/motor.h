@@ -24,7 +24,7 @@ class motor { //モーターチャンネルとピン設定
 };
 void motor::rotate()
 {
-  user real = {static_cast<double>(duty_min + abs(def + c1) * nf),
+  user<double> real = {static_cast<double>(duty_min + abs(def + c1) * nf),
               static_cast<double>(duty_min + abs(def + c2) * nf),
               static_cast<double>(duty_min + abs(def + c3) * nf),
               static_cast<double>(duty_min + abs(def + c4) * nf)};
