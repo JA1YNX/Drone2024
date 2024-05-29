@@ -32,9 +32,10 @@
 
 #define BNO055interval 2 //何ms間隔でデータを取得するか
 
+template <typename T>
 struct user { 
-    double x;
-    double y;
-    double z;
-    double turn;
+    T x;
+    T y;
+    T z;
+    T turn;
 };
