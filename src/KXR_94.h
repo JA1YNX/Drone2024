@@ -9,6 +9,7 @@ class KXR_94
     
     private:
     user pin;
+
 };
 
 void KXR_94::setup(user pin_in)
@@ -23,8 +24,8 @@ void KXR_94::setup(user pin_in)
 user KXR_94::read()
 {
     user ret;
-    ret.x = analogRead(pin.x);
-    ret.y = analogRead(pin.y);
-    ret.z = analogRead(pin.z);
+    ret.x = analogRead(pin.x)/4096*5-2.5;
+    ret.y = analogRead(pin.y)/4096*5-2.5;
+    ret.z = analogRead(pin.z)/4096*5-2.5;
     return ret;
 }
