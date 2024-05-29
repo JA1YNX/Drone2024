@@ -6,5 +6,5 @@
 #include "./main.hpp"
 #endif
 #ifdef KXR94
-#include "./main_KXR.hpp"
+#include "./main_KXR94.hpp"
 #endif
