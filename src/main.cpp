@@ -4,6 +4,7 @@
 
 #ifdef MAIN
 #include "./main.hpp"
-#elif KXR94
+#endif
+#ifdef KXR94
 #include "./main_KXR.hpp"
 #endif
