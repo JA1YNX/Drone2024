@@ -1,6 +1,6 @@
 
-#define MAIN
-//#define KXR94
+//#define MAIN
+#define KXR94
 
 #ifdef MAIN
 #include "./main.hpp"
