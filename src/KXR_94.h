@@ -24,8 +24,8 @@ void KXR_94::setup(user<int> pin_in)
 user<double> KXR_94::read()
 {
     user<double> ret;
-    ret.x = analogRead(pin.x)/4096.0*5.0-2.5;
-    ret.y = analogRead(pin.y)/4096.0*5.0-1.0;
-    ret.z = analogRead(pin.z)/4096.0*5.0-5.0;
+    ret.x = analogRead(pin.x)/10.0;
+    ret.y = analogRead(pin.y)/10.0;
+    ret.z = analogRead(pin.z)/10.0;
     return ret;
 }
