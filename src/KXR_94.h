@@ -8,6 +8,7 @@ class KXR_94
     user<double> read();
     
     private:
+    user<double> def;
     user<int> pin;
 
 };
@@ -18,14 +19,15 @@ void KXR_94::setup(user<int> pin_in)
     pinMode(pin_in.x,INPUT);
     pinMode(pin_in.y,INPUT);
     pinMode(pin_in.z,INPUT);
+    def = read();
     return;
 }
 
 user<double> KXR_94::read()
 {
     user<double> ret;
-    ret.x = analogRead(pin.x)/10.0-270.0;
-    ret.y = analogRead(pin.y)/10.0-145.0;
-    ret.z = analogRead(pin.z)/10.0-409.5;
+    ret.x = analogRead(pin.x)/10.0-def.x;
+    ret.y = analogRead(pin.y)/10.0-def.y;
+    ret.z = analogRead(pin.z)/10.0-def.z;
     return ret;
 }
