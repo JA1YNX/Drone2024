@@ -19,15 +19,15 @@ void KXR_94::setup(user<int> pin_in)
     pinMode(pin_in.x,INPUT);
     pinMode(pin_in.y,INPUT);
     pinMode(pin_in.z,INPUT);
-    def = read();
+    def = {2740,970,4090};
     return;
 }
 
 user<double> KXR_94::read()
 {
     user<double> ret;
-    ret.x = analogRead(pin.x)/10.0-def.x;
-    ret.y = analogRead(pin.y)/10.0-def.y;
-    ret.z = analogRead(pin.z)/10.0-def.z;
+    ret.x = (analogRead(pin.x)-def.x)/10.0;
+    ret.y = (analogRead(pin.y)-def.y)/10.0;
+    ret.z = (analogRead(pin.z)-def.z)/10.0;
     return ret;
 }
