@@ -3,6 +3,8 @@
 #include "./motor.h"
 #include "./KXR_94.h"
 
+#define debug_mode
+
 //モーター制御クラスインスタンス化
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 
@@ -65,17 +67,21 @@ void loop(void)
 {
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
-/*
+#ifdef debug_mode
+
+  user<double> d = kxr.read();//プロポ入力
   //シリアルモニタにプロポの入力を出力
   Serial.print("x:");
-  Serial.print(u.x);
+  Serial.print(d.x);
   Serial.print(" y:");
-  Serial.print(u.y);
+  Serial.print(d.y);
   Serial.print(" z:");
-  Serial.print(u.z);
+  Serial.print(d.z);
   Serial.print(" t:");
-  Serial.println(u.turn);
-  */
+  Serial.println(d.turn);
+  
+#endif //debug_mode
+#ifndef debug_mode
   //user j = b.bno_read();
 
   //処理に使う変数定義
@@ -154,5 +160,5 @@ void loop(void)
   bt.print(j.turn);
   bt.println("    } ");
 #endif
-
+#endif //debug_mode
 }
