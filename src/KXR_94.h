@@ -38,7 +38,7 @@ user<double> KXR_94::setreal()
     user<double> val = read();
     if(val.x>5||val.x<5)
     {
-        real+=val.x;
+        real.x+=val.x;
     }
     else
     {
@@ -46,7 +46,7 @@ user<double> KXR_94::setreal()
     }
     if(val.y>5||val.y<5)
     {
-        real+=val.y;
+        real.y+=val.y;
     }
     else
     {
@@ -54,7 +54,7 @@ user<double> KXR_94::setreal()
     }
     if(val.z>5||val.z<5)
     {
-        real+=val.z;
+        real.z+=val.z;
     }
     else
     {
