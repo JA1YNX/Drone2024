@@ -65,8 +65,6 @@ void setup(void)
 
 void loop(void)
 {
-  //プロポの入力取得
-  user<double> u = c.read();//プロポ入力
 #ifdef debug_mode
 
   user<double> d = kxr.read();//プロポ入力
@@ -82,6 +80,8 @@ void loop(void)
   
 #endif //debug_mode
 #ifndef debug_mode
+  //プロポの入力取得
+  user<double> u = c.read();//プロポ入力
   //user j = b.bno_read();
 
   //処理に使う変数定義
