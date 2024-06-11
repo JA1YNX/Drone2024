@@ -6,10 +6,11 @@ class KXR_94
     public:
     void setup(user<int>);
     user<double> read();
-
+    user<double> setreal();
     private:
     user<double> def;
     user<int> pin;
+    user<double> real;
 
 };
 
@@ -30,4 +31,34 @@ user<double> KXR_94::read()
     ret.y = (analogRead(pin.y)-def.y)/10.0;
     ret.z = (analogRead(pin.z)-def.z)/10.0;
     return ret;
+}
+
+user<double> KXR_94::setreal()
+{
+    user<double> val = read();
+    if(val.x>5||val.x<5)
+    {
+        real+=val.x;
+    }
+    else
+    {
+        real.x = 0;
+    }
+    if(val.y>5||val.y<5)
+    {
+        real+=val.y;
+    }
+    else
+    {
+        real.y = 0;
+    }
+    if(val.z>5||val.z<5)
+    {
+        real+=val.z;
+    }
+    else
+    {
+        real.z = 0;
+    }
+
 }
