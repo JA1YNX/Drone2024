@@ -67,7 +67,7 @@ void loop(void)
 {
 #ifdef debug_mode
 
-  user<double> d = kxr.read();//プロポ入力
+  user<double> d = kxr.setresal();//プロポ入力
   //シリアルモニタにプロポの入力を出力
   Serial.print("x:");
   Serial.print(d.x);
