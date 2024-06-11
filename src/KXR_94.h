@@ -1,6 +1,8 @@
 #pragma once
 #include "./conf.h"
 
+#define toti (2)
+
 class KXR_94
 {
     public:
@@ -36,7 +38,7 @@ user<double> KXR_94::read()
 user<double> KXR_94::setreal()
 {
     user<double> val = read();
-    if(val.x>5||val.x<-5)
+    if(val.x>toti||val.x<toti*(-1))
     {
         real.x+=val.x;
     }
@@ -44,7 +46,7 @@ user<double> KXR_94::setreal()
     {
         real.x = 0;
     }
-    if(val.y>5||val.y<-5)
+    if(val.y>toti||val.y<toti*(-1))
     {
         real.y+=val.y;
     }
@@ -52,7 +54,7 @@ user<double> KXR_94::setreal()
     {
         real.y = 0;
     }
-    if(val.z>5||val.z<-5)
+    if(val.z>toti||val.z<toti*(-1))
     {
         real.z+=val.z;
     }
