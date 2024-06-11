@@ -60,5 +60,5 @@ user<double> KXR_94::setreal()
     {
         real.z = 0;
     }
-
+    return real;
 }
