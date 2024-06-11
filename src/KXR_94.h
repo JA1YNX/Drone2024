@@ -40,7 +40,7 @@ user<double> KXR_94::setreal()
     user<double> val = read();
     if(val.x>toti||val.x<toti*(-1))
     {
-        real.x+=val.x;
+        real.x-=val.x;
     }
     else
     {
@@ -48,7 +48,7 @@ user<double> KXR_94::setreal()
     }
     if(val.y>toti||val.y<toti*(-1))
     {
-        real.y+=val.y;
+        real.y-=val.y;
     }
     else
     {

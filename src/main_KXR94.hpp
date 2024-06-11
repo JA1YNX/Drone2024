@@ -124,7 +124,46 @@ void loop(void)
   m.c4 -= u.x;
   m.c4 += u.y;
   m.c4 -= u.turn;
-  user<double> j = kxr.read();
+  user<double> j = kxr.setreal();
+
+  if(u.x!=0&&u.turn=0)
+  {
+    if(j.x>0)
+    {
+      m.c1--;
+      m.c3--;
+      m.c2++;
+      m.c4++;
+    }
+    else
+    {
+      m.c1++;
+      m.c3++;
+      m.c2--;
+      m.c4--;
+    }
+  }
+
+
+  if(u.y!=0&&u.turn=0)
+  {
+    if(j.y>0)
+    {
+      m.c1++;
+      m.c2++;
+      m.c3--;
+      m.c4--;
+    }
+    else
+    {
+      m.c1--;
+      m.c2--;
+      m.c3++;
+      m.c4++;
+    }
+  }
+
+/*
 //s_c1
   if (!u.x == 0) m.c1 += (x - j.x) * hob;
   if (!u.y == 0) m.c1 -= (y - j.y) * hob;
@@ -141,7 +180,7 @@ void loop(void)
   if (!u.x == 0) m.c4 -= (x - j.x) * hob;
   if (!u.y == 0) m.c4 += (y - j.y) * hob;
   if (!u.turn == 0) m.c4 -= (turn - j.turn) / hob;
-
+*/
   m.c1 -= 0;
   m.c2 -= 0;
   m.c3 -= 0;
