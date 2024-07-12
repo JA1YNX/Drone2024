@@ -3,7 +3,7 @@
 #include "./motor.h"
 #include "./KXR_94.h"
 
-#define debug_mode
+//#define debug_mode
 
 #define R_pin 16
 #define Y_pin 5
@@ -145,7 +145,7 @@ void loop(void)
   m.c4 -= u.turn;
   user<double> j = kxr.setreal();
 
-  if(u.x!=0&&u.turn=0)
+  if(u.x!=0&&u.turn==0)
   {
     if(j.x>0)
     {
@@ -164,7 +164,7 @@ void loop(void)
   }
 
 
-  if(u.y!=0&&u.turn=0)
+  if(u.y!=0&&u.turn==0)
   {
     if(j.y>0)
     {
