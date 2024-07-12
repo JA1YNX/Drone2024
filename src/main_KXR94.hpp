@@ -26,7 +26,7 @@ void setup(void)
   pinMode(G_pin,OUTPUT);
   digitalWrite(R_pin,HIGH);
   digitalWrite(Y_pin,HIGH);
-  digitalWrite(R_pin,LOW);
+  //digitalWrite(R_pin,LOW);
   ledcSetup(Y_pin, puls, 8);
   ledcAttachPin(Y_pin, Y_pin);
   ledcWrite(Y_pin, 255);
@@ -67,6 +67,7 @@ void setup(void)
 
   //動作確認
   delay(500);
+  digitalWrite(R_pin,LOW);
 
   //回転ストップ
   m.def = 0;//esc初期化
