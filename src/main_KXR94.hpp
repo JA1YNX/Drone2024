@@ -22,14 +22,14 @@ KXR_94 kxr;
 void setup(void)
 {
   pinMode(R_pin,OUTPUT);
-  pinMode(Y_pin,OUTPUT);
+  //pinMode(Y_pin,OUTPUT);
   pinMode(G_pin,OUTPUT);
   digitalWrite(R_pin,HIGH);
   digitalWrite(Y_pin,HIGH);
   digitalWrite(R_pin,LOW);
   ledcSetup(Y_pin, puls, 8);
   ledcAttachPin(Y_pin, Y_pin);
-  ledcWrite(Y_pin, 0);//52...58~90
+  ledcWrite(Y_pin, 255);
   //シリアルモニタ開始
   Serial.begin(9600);
 #ifdef output
@@ -75,7 +75,7 @@ void setup(void)
   m.rotate();//回転
   
   digitalWrite(G_pin,HIGH);
-  digitalWrite(Y_pin,LOW);
+  ledcWrite(Y_pin, 0);
 }
 
 
