@@ -42,6 +42,7 @@ void setup(void)
 
   //モーター初期化
   m.setup();//初期化
+  digitalWrite(R_pin,LOW);
 
   //回転OFF
   m.nf = 0;//モーターの回転ON
@@ -67,7 +68,6 @@ void setup(void)
 
   //動作確認
   delay(500);
-  digitalWrite(R_pin,LOW);
 
   //回転ストップ
   m.def = 0;//esc初期化
