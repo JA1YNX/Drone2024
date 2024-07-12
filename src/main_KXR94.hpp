@@ -5,6 +5,10 @@
 
 #define debug_mode
 
+#define R_pin 16
+#define Y_pin 5
+#define G_pin 19
+
 //モーター制御クラスインスタンス化
 motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 
@@ -17,6 +21,12 @@ KXR_94 kxr;
 //セットアップ関数
 void setup(void)
 {
+  pinMode(R_pin,OUTPUT);
+  pinMode(Y_pin,OUTPUT);
+  pinMode(G_pin,OUTPUT);
+  digitalWrite(R_pin,HIGH);
+  digitalWrite(Y_pin,HIGH);
+  digitalWrite(R_pin,LOW);
   //シリアルモニタ開始
   Serial.begin(9600);
 #ifdef output
@@ -60,6 +70,9 @@ void setup(void)
 
   //更新
   m.rotate();//回転
+  
+  digitalWrite(G_pin,HIGH);
+  digitalWrite(Y_pin,LOW);
 }
 
 
@@ -80,6 +93,7 @@ void loop(void)
   
 #endif //debug_mode
 #ifndef debug_mode
+  digitalWrite(Y_pin,HIGH);
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
   //user j = b.bno_read();
@@ -186,6 +200,8 @@ void loop(void)
   m.c3 -= 0;
   m.c4 -= 0;
 
+  digitalWrite(Y_pin,LOW);
+  
   //回転数更新
   m.rotate();
 #ifdef output
