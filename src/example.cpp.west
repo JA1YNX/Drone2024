@@ -24,7 +24,7 @@ int a, b = 0;
 
 void setup() {
 
-  SerialBT.begin("西島様の作品");  //デバイス名を指定する
+  SerialBT.begin("---");  //デバイス名を指定する
   Serial.begin(115200);            //Arduino Unoは9600,ESPで試す場合はは115200
   pinMode(echoPin, INPUT);
   pinMode(trigPin, OUTPUT);
