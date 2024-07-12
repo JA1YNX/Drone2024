@@ -1,7 +1,7 @@
 #pragma once
 #include "./conf.h"
 
-#define toti (36)
+#define toti (40)
 
 class KXR_94
 {
