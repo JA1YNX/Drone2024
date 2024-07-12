@@ -27,6 +27,9 @@ void setup(void)
   digitalWrite(R_pin,HIGH);
   digitalWrite(Y_pin,HIGH);
   digitalWrite(R_pin,LOW);
+  ledcSetup(Y_pin, puls, 8);
+  ledcAttachPin(Y_pin, Y_pin);
+  ledcWrite(Y_pin, 0);//52...58~90
   //シリアルモニタ開始
   Serial.begin(9600);
 #ifdef output
@@ -91,9 +94,11 @@ void loop(void)
   Serial.print(" t:");
   Serial.println(d.turn);
   
+  ledcWrite(Y_pin,d.z*10);
+
 #endif //debug_mode
 #ifndef debug_mode
-  digitalWrite(Y_pin,HIGH);
+
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
   //user j = b.bno_read();
@@ -200,8 +205,8 @@ void loop(void)
   m.c3 -= 0;
   m.c4 -= 0;
 
-  digitalWrite(Y_pin,LOW);
-  
+
+
   //回転数更新
   m.rotate();
 #ifdef output
