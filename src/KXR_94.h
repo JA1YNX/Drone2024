@@ -29,9 +29,9 @@ void KXR_94::setup(user<int> pin_in)
 user<double> KXR_94::read()
 {
     user<double> ret = {static_cast<double>(analogRead(pin.x)),static_cast<double>(analogRead(pin.y)),static_cast<double>(analogRead(pin.z))};
-    (def.x-ret.x)*(def.x-ret.x)>toti?ret.x = def.x:ret.x = 0;
-    (def.y-ret.y)*(def.y-ret.y)>toti?ret.y = def.y:ret.y = 0;
-    (def.z-ret.z)*(def.z-ret.z)>toti?ret.z = def.z:ret.z = 0;
+    ret.x = (def.x-ret.x)*(def.x-ret.x)/toti;
+    ret.y = (def.y-ret.y)*(def.y-ret.y)/toti;
+    ret.z = (def.z-ret.z)*(def.z-ret.z)/toti;
     def = {static_cast<double>(analogRead(pin.x)),static_cast<double>(analogRead(pin.y)),static_cast<double>(analogRead(pin.z))};
     return ret;
 }
