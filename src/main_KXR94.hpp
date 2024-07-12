@@ -94,7 +94,6 @@ void loop(void)
   Serial.print(" t:");
   Serial.println(d.turn);
   
-  ledcWrite(Y_pin,d.z*10);
 
 #endif //debug_mode
 #ifndef debug_mode
@@ -102,6 +101,7 @@ void loop(void)
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
   //user j = b.bno_read();
+  ledcWrite(Y_pin,u.z*20);
 
   //処理に使う変数定義
   int x, y, z, turn; //諸々値
