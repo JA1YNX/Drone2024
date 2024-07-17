@@ -6,8 +6,6 @@
 class KXR_94
 {
     public:
-    KER_94();
-    ~KER_94();
     void setup(user<int>);
     user<double> read();
     user<double> setreal();
