@@ -32,12 +32,6 @@ void motor::rotate()
   ledcWrite(ch2, static_cast<int>(real.y) < def ? def : real.y);
   ledcWrite(ch3, static_cast<int>(real.z) < def ? def : real.z);
   ledcWrite(ch4, static_cast<int>(real.turn) < def ? def : real.turn);
-/*
-  ledcWrite(ch1, duty_min + abs(def + c1) * nf);
-  ledcWrite(ch2, duty_min + abs(def + c2) * nf);
-  ledcWrite(ch3, duty_min + abs(def + c3) * nf);
-  ledcWrite(ch4, duty_min + abs(def + c4) * nf);
-  */
   #ifdef output
     bt.print("  ou1:");
     bt.print(real.x);
