@@ -109,10 +109,6 @@ void loop(void)
 #ifdef output
     bt.print("{   Drone2024:");
 #endif
-  //if (!u.x == 0) x = j.x;
-  //if (!u.y == 0) y = j.y;
-  //if (!u.z == 0) z = j.z;
-  //if (!u.turn == 0) turn = j.turn;
 
   //各モーター標準値設定
   m.def = u.z;
