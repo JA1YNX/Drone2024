@@ -15,7 +15,7 @@ motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 //コントローラー制御用クラスインスタンス化
 contloler c(user<int>{32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 
-KXR_94 kxr;
+KXR_94 kxr();
 
 //セットアップ関数
 void setup(void)
