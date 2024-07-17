@@ -14,7 +14,6 @@ motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 
 //コントローラー制御用クラスインスタンス化
 contloler c(user<int>{32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
-//contloler c(user{33, 35, 32, 34});//ch1pin,ch2pin,ch3pin,ch4pin
 
 KXR_94 kxr;
 
@@ -22,14 +21,11 @@ KXR_94 kxr;
 void setup(void)
 {
   pinMode(R_pin,OUTPUT);
-  //pinMode(Y_pin,OUTPUT);
-  pinMode(G_pin,OUTPUT);
   digitalWrite(R_pin,HIGH);
-  digitalWrite(Y_pin,HIGH);
-  //digitalWrite(R_pin,LOW);
   ledcSetup(Y_pin, puls, 8);
   ledcAttachPin(Y_pin, Y_pin);
   ledcWrite(Y_pin, 255);
+  pinMode(G_pin,OUTPUT);
   //シリアルモニタ開始
   Serial.begin(9600);
 #ifdef output
