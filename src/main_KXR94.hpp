@@ -94,7 +94,12 @@ void loop(void)
 
 #endif //debug_mode
 #ifndef debug_mode
-  while(pulseIn(22,HIGH,100000)>1500)digitalWrite(R_pin,HIGH);
+  while(pulseIn(22,HIGH,100000)>1500)
+  {
+    m.nf = 0;
+    m.rotate();
+    digitalWrite(R_pin,HIGH);
+  }
   digitalWrite(R_pin,LOW);
   Serial.println(pulseIn(22,HIGH,100000));
   //プロポの入力取得
