@@ -94,6 +94,7 @@ void loop(void)
 
 #endif //debug_mode
 #ifndef debug_mode
+  while(digitalRead(22));
 
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
