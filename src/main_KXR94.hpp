@@ -94,8 +94,9 @@ void loop(void)
 
 #endif //debug_mode
 #ifndef debug_mode
-  while(pulseIn(22,HIGH,100000)<10000)digitalWrite(R_pin,HIGH);
+  //while(pulseIn(22,HIGH,100000)<10000)digitalWrite(R_pin,HIGH);
   digitalWrite(R_pin,LOW);
+  Serial.println(pulseIn(22,HIGH,100000));
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
   //user j = b.bno_read();
