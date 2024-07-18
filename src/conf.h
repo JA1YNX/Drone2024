@@ -22,7 +22,8 @@
     BluetoothSerial bt;
 #endif
 
-#define read_ 0.01 //analogread倍率
+#define read_ 0.005 //analogread倍率
+//#define read_ 0.01 //analogread倍率
 #define hob 2.0 //ホバリング時センサ倍率
 
 #define puls 200//pwm周波数
