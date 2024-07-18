@@ -100,6 +100,7 @@ void loop(void)
     m.rotate();
     digitalWrite(R_pin,HIGH);
   }
+  m.nf = 1;
   digitalWrite(R_pin,LOW);
   Serial.println(pulseIn(22,HIGH,100000));
   //プロポの入力取得
