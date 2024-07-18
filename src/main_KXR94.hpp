@@ -136,7 +136,7 @@ void loop(void)
   m.c4 -= u.x;
   m.c4 += u.y;
   m.c4 -= u.turn;
-  user<double> j = kxr.setreal();
+  user<double> j = kxr.read();
 
   if(u.x!=0&&u.turn==0)
   {
