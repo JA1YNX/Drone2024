@@ -57,10 +57,10 @@ void contloler::setup()
 user<double> contloler::read()
 {
 #ifndef interrupt_on
-  c_x = (analogRead(set.x)-ud.x) * read_*5;
-  c_y = (analogRead(set.y)-ud.y) * read_*5;
-  c_z = (analogRead(set.z)-ud.z) * read_*5;
-  c_turn = (analogRead(set.turn)-ud.turn) * read_*5;
+  c_x = (analogRead(set.x)-ud.x) * read_*5*x_;
+  c_y = (analogRead(set.y)-ud.y) * read_*5*y_;
+  c_z = (analogRead(set.z)-ud.z) * read_*5*z_;
+  c_turn = (analogRead(set.turn)-ud.turn) * read_*5*t_;
 #endif
 #ifdef interrupt_on
   c_x = ((static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(1.0)/10.0)*0.12;
