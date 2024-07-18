@@ -94,7 +94,7 @@ void loop(void)
 
 #endif //debug_mode
 #ifndef debug_mode
-  while(pulseIn(22,HIGH,100000)<1000)digitalWrite(R_pin,HIGH);
+  while(pulseIn(22,HIGH,100000)<10000)digitalWrite(R_pin,HIGH);
   digitalWrite(R_pin,LOW);
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
