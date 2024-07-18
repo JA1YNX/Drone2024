@@ -99,9 +99,11 @@ void loop(void)
     m.nf = 0;
     m.rotate();
     digitalWrite(R_pin,HIGH);
+    digitalWrite(G_pin,LOW);
   }
   m.nf = 1;
   digitalWrite(R_pin,LOW);
+  digitalWrite(G_pin,HIGH);
   Serial.println(pulseIn(22,HIGH,100000));
   //プロポの入力取得
   user<double> u = c.read();//プロポ入力
