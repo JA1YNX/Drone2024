@@ -30,6 +30,7 @@
 
 #define BNO055interval 2 //何ms間隔でデータを取得するか
 
+//とりあえずデータ入れるやつ
 template <typename T>
 struct user {
     T x;

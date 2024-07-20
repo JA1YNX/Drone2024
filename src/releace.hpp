@@ -3,8 +3,6 @@
 #include "./motor.h"
 #include "./KXR_94.h"
 
-//#define debug_mode
-
 #define R_pin 16
 #define Y_pin 5
 #define G_pin 19

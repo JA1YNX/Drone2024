@@ -23,15 +23,17 @@ private:
   user<double> ud;//標準値
 };
 
+//今使ってるピン返すやつ
 user<int> contloler::pin()
 {
   return set;
 }
-
+//コンストラクタピン渡す
 contloler::contloler(user<int> set_)
 {
   set = set_;
 }
+//ピン設定
 void contloler::setup()
 {
   //モード設定
@@ -48,7 +50,7 @@ void contloler::setup()
   ud = user<double>{1500,1500,900,1500};
   return;
 }
-
+//読んで返す
 user<double> contloler::read()
 {
   c_x = ((static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(1.0)/10.0)*0.12*x_;

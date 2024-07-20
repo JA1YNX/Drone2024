@@ -9,9 +9,9 @@ class motor { //モーターチャンネルとピン設定
         int c2;//右前変更値
         int c3;//左後変更値
         int c4;//右後変更値
-        void rotate();
+        void rotate();//設定反映
         motor(int pin_1, int pin_2, int pin_3, int pin_4, int cha1, int cha2, int cha3, int cha4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4), ch1(cha1), ch2(cha2), ch3(cha3), ch4(cha4) {}
-        void setup();
+        void setup();//初期設定
     private:
         int ch1;
         int ch2;
