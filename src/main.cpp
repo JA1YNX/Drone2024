@@ -2,8 +2,8 @@
 //#define releace
 #define releace
 
-#ifdef releace
-#include "./main.hpp"
+#ifndef releace
+#include "./debug.hpp"
 #endif
 #ifdef releace
 #include "./releace.hpp"
