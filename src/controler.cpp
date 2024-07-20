@@ -1,4 +1,4 @@
-#include "./contloler.h"
+#include "./controler.h"
 
 user<int> contloler::pin()
 {
