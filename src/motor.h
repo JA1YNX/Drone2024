@@ -68,6 +68,6 @@ void motor::setup()
   ledcWrite(ch2, abs(duty_def) * 1);//58~90
   ledcWrite(ch3, abs(duty_def) * 1);//58~90
   ledcWrite(ch4, abs(duty_def) * 1);//58~90
-  delay(500);
+  //delay(500);
   return;
 }

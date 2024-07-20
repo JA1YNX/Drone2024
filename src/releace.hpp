@@ -138,29 +138,40 @@ void loop(void)
     m.c3 += u.x;
   }
 
+  if(u.turn<0)
+  {
+    m.c2 -= u.turn;
+    m.c3 -= u.turn;
+  }
+  else
+  {
+    m.c1 += u.turn;
+    m.c4 += u.turn;
+  }
+
   //一番モーター（左上）調整値設定
 //m_c1
   //m.c1 += u.x;
   //m.c1 -= u.y;
-  m.c1 += u.turn;
+  //m.c1 += u.turn;
   
   //二番モーター（右上）調整値設定
 //m_c2
   //m.c2 -= u.x;
   //m.c2 -= u.y;
-  m.c2 -= u.turn;
+  //m.c2 -= u.turn;
   
   //三番モーター（左下）調整値設定
 //m_c3
   //m.c3 += u.x;
   //m.c3 += u.y;
-  m.c3 -= u.turn;
+  //m.c3 -= u.turn;
   
   //四番モーター（右下）調整値設定
 //m_c4
   //m.c4 -= u.x;
   //m.c4 += u.y;
-  m.c4 += u.turn;
+  //m.c4 += u.turn;
 
   user<double> j = {0,0,0,0};
   /*
