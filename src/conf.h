@@ -11,16 +11,9 @@
 
 //使うライブラリインクルード
 #include <Arduino.h>
-#include <Wire.h>
-#include <Adafruit_Sensor.h>
-#include <Adafruit_BNO055.h>
-#include <utility/imumaths.h>
-#include <Ticker.h>
-#ifdef output
 #include <BluetoothSerial.h>
     //bluetooth インスタンス化
     BluetoothSerial bt;
-#endif
 
 #define read_ (0.01) //analogread倍率
 #define x_ ((0.1)*(1.1))
