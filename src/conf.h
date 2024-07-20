@@ -16,8 +16,8 @@
     BluetoothSerial bt;
 
 #define read_ (0.01) //analogread倍率
-#define x_ (0.11)
-#define y_ (0.11)
+#define x_ (1.1)
+#define y_ (1.1)
 #define z_ (1)
 #define t_ (1)
 
