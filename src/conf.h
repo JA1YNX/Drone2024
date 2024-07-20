@@ -16,9 +16,9 @@
     BluetoothSerial bt;
 
 #define read_ (0.01) //analogread倍率
-#define x_ ((0.1)*(1.1))
-#define y_ ((0.1)*(1.1))
-#define z_ ((1)*(1))
+#define x_ (0.11)
+#define y_ (0.11)
+#define z_ (1)
 #define t_ (1)
 
 #define hob 2.0 //ホバリング時センサ倍率
