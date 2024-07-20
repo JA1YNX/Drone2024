@@ -1,10 +1,10 @@
 
-//#define MAIN
-#define KXR94
+//#define releace
+#define releace
 
-#ifdef MAIN
+#ifdef releace
 #include "./main.hpp"
 #endif
-#ifdef KXR94
-#include "./main_KXR94.hpp"
+#ifdef releace
+#include "./releace.hpp"
 #endif

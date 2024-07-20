@@ -45,31 +45,17 @@ void contloler::setup()
   c_z = 0;
   c_turn = 0;
   delay(5000);
-#ifndef interrupt_on
-  ud = user{analogRead(set.x),analogRead(set.y),analogRead(set.z),analogRead(set.turn)};
-#endif
-#ifdef interrupt_on
   ud = user<double>{1500,1500,900,1500};
-#endif
   return;
 }
 
 user<double> contloler::read()
 {
-#ifndef interrupt_on
-  c_x = (analogRead(set.x)-ud.x) * read_*5*x_;
-  c_y = (analogRead(set.y)-ud.y) * read_*5*y_;
-  c_z = (analogRead(set.z)-ud.z) * read_*5*z_;
-  c_turn = (analogRead(set.turn)-ud.turn) * read_*5*t_;
-#endif
-#ifdef interrupt_on
-  c_x = ((static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(1.0)/10.0)*0.12;
-  c_y = ((static_cast<int>(pulseIn(set.y,HIGH,100000))-ud.y)*(-1.0)/10.0)*0.12;
-  c_z = ((static_cast<int>(pulseIn(set.z,HIGH,100000))-ud.z)*(1.0)/8.0)*0.15;
-  c_turn = ((static_cast<int>(pulseIn(set.turn,HIGH,100000))-ud.turn)*(-1.0)/10.0)*0.11;
+  c_x = ((static_cast<int>(pulseIn(set.x,HIGH,100000))-ud.x)*(1.0)/10.0)*0.12*x_;
+  c_y = ((static_cast<int>(pulseIn(set.y,HIGH,100000))-ud.y)*(-1.0)/10.0)*0.12*y_;
+  c_z = ((static_cast<int>(pulseIn(set.z,HIGH,100000))-ud.z)*(1.0)/8.0)*0.15*x_;
+  c_turn = ((static_cast<int>(pulseIn(set.turn,HIGH,100000))-ud.turn)*(-1.0)/10.0)*0.11*t_;
 
-#endif
-#ifdef output
   bt.print("   cx:");
   bt.print(c_x);
   bt.print("   cy:");
@@ -79,6 +65,5 @@ user<double> contloler::read()
   bt.print("   ct:");
   bt.print(c_turn);
   bt.print("     ");
-#endif
   return user<double>{static_cast<double>(c_x), static_cast<double>(c_y), static_cast<double>(c_z), static_cast<double>(c_turn)};
 }

@@ -28,11 +28,8 @@ void setup(void)
   pinMode(G_pin,OUTPUT);
   //シリアルモニタ開始
   Serial.begin(9600);
-#ifdef output
-
   //outputが定義されていたらbluetooth開始
   bt.begin("Drone2024");
-#endif
 
   kxr.setup(user<int>{36,0,39});
 
@@ -112,9 +109,7 @@ void loop(void)
 
   //処理に使う変数定義
   int x, y, z, turn; //諸々値
-#ifdef output
-    bt.print("{   Drone2024:");
-#endif
+  bt.print("{   Drone2024:");
 
   //各モーター標準値設定
   m.def = u.z;
@@ -185,24 +180,6 @@ void loop(void)
     }
   }
 
-/*
-//s_c1
-  if (!u.x == 0) m.c1 += (x - j.x) * hob;
-  if (!u.y == 0) m.c1 -= (y - j.y) * hob;
-  if (!u.turn == 0) m.c1 += (turn - j.turn) / hob;
-//s_c2
-  if (!u.x == 0) m.c2 -= (x - j.x) * hob;
-  if (!u.y == 0) m.c2 -= (y - j.y) * hob;
-  if (!u.turn == 0) m.c2 -= (turn - j.turn) / hob;
-//s_c3
-  if (!u.x == 0) m.c3 += (x - j.x) * hob;
-  if (!u.y == 0) m.c3 += (y - j.y) * hob;
-  if (!u.turn == 0) m.c3 += (turn - j.turn) / hob;
-//s_c4
-  if (!u.x == 0) m.c4 -= (x - j.x) * hob;
-  if (!u.y == 0) m.c4 += (y - j.y) * hob;
-  if (!u.turn == 0) m.c4 -= (turn - j.turn) / hob;
-*/
   m.c1 -= 0;
   m.c2 -= 0;
   m.c3 -= 0;
@@ -212,7 +189,7 @@ void loop(void)
 
   //回転数更新
   m.rotate();
-#ifdef output
+  
   bt.print("     x:");
   bt.print(j.x);
   bt.print("  y:");
@@ -222,6 +199,5 @@ void loop(void)
   bt.print("  t:");
   bt.print(j.turn);
   bt.println("    } ");
-#endif
 #endif //debug_mode
 }
