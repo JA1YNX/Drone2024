@@ -24,10 +24,10 @@ class motor { //モーターチャンネルとピン設定
 };
 void motor::rotate()
 {
-  user<double> real = {static_cast<double>(duty_min + abs(def + c1) * nf),
-              static_cast<double>(duty_min + abs(def + c2) * nf),
-              static_cast<double>(duty_min + abs(def + c3) * nf),
-              static_cast<double>(duty_min + abs(def + c4) * nf)};
+  user<int> real = {static_cast<int>(duty_min + abs(def + c1) * nf),
+              static_cast<int>(duty_min + abs(def + c2) * nf),
+              static_cast<int>(duty_min + abs(def + c3) * nf),
+              static_cast<int>(duty_min + abs(def + c4) * nf)};
   ledcWrite(ch1, static_cast<int>(real.x) < def ? def : real.x);
   ledcWrite(ch2, static_cast<int>(real.y) < def ? def : real.y);
   ledcWrite(ch3, static_cast<int>(real.z) < def ? def : real.z);

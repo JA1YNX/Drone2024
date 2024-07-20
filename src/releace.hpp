@@ -161,9 +161,9 @@ void loop(void)
   //m.c4 -= u.x;
   //m.c4 += u.y;
   m.c4 += u.turn;
-  //user<double> j = kxr.read();
-  user<double> j = {0,0,0,0};
-
+  /*
+  user<double> j = kxr.read();
+  
   if(u.x!=0&&u.turn==0)
   {
     if(j.x>0)
@@ -200,7 +200,7 @@ void loop(void)
       m.c4++;
     }
   }
-
+*/
   m.c1 -= 0;
   m.c2 -= 0;
   m.c3 -= 0;
