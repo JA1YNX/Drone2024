@@ -67,9 +67,9 @@ void setup(void)
   m.rotate();//回転
   
   digitalWrite(G_pin,HIGH);
-  while((pulseIn(22,HIGH,100000)<1500)&&(c.read().z>15))
+  while((pulseIn(22,HIGH,15000)<1500)&&(c.read().z>15))
     digitalWrite(R_pin,HIGH);
-  while((pulseIn(22,HIGH,100000)>1500)&&(c.read().z<2))
+  while((pulseIn(22,HIGH,15000)>1500)&&(c.read().z<2))
     digitalWrite(R_pin,LOW);
   while(c.read().z>2);
   ledcWrite(Y_pin, 0);
@@ -94,7 +94,7 @@ void loop(void)
 
 #endif //debug_mode
 #ifndef debug_mode
-  if(pulseIn(22,HIGH,100000)>1500)
+  if(pulseIn(22,HIGH,15000)>1500)
   {
     m.nf = 0;
     m.rotate();
@@ -105,7 +105,7 @@ void loop(void)
   m.nf = 1;
   digitalWrite(R_pin,LOW);
   digitalWrite(G_pin,HIGH);
-  Serial.println(pulseIn(22,HIGH,100000));
+  Serial.println(pulseIn(22,HIGH,15000));
   //プロポの入力取得
   user<int> u = c.read();//プロポ入力
   //user j = b.bno_read();
