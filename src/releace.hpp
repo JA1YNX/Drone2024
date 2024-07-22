@@ -94,12 +94,13 @@ void loop(void)
 
 #endif //debug_mode
 #ifndef debug_mode
-  while(pulseIn(22,HIGH,100000)>1500)
+  if(pulseIn(22,HIGH,100000)>1500)
   {
     m.nf = 0;
     m.rotate();
     digitalWrite(R_pin,HIGH);
     digitalWrite(G_pin,LOW);
+    while(c.read().z>2);
   }
   m.nf = 1;
   digitalWrite(R_pin,LOW);
