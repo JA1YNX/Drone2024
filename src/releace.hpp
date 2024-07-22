@@ -95,7 +95,7 @@ void loop(void)
     m.rotate();
     digitalWrite(R_pin,HIGH);
     digitalWrite(G_pin,LOW);
-    bt.print(j.turn);
+    bt.println("");
   }
   m.nf = 1;
   digitalWrite(R_pin,LOW);
