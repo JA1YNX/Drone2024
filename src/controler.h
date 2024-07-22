@@ -47,7 +47,7 @@ void contloler::setup()
   c_z = 0;
   c_turn = 0;
   delay(5000);
-  ud = user<double>{1520,1510,1020,1550};
+  ud = user<double>{1500,1500,1000,1500};
   return;
 }
 //読んで返す
