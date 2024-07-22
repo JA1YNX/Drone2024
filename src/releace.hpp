@@ -71,6 +71,7 @@ void setup(void)
     digitalWrite(R_pin,HIGH);
   while((pulseIn(22,HIGH,100000)>1500)&&(c.read().z<2))
     digitalWrite(R_pin,LOW);
+  while(c.read().z>2);
   ledcWrite(Y_pin, 0);
 }
 
