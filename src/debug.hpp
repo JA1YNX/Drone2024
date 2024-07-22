@@ -1,4 +1,7 @@
 #include "./conf.h"
+#include "./controler.h"
+#include "./motor.h"
+#include "./KXR_94.h"
 
 void setup(void)
 {
