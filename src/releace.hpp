@@ -105,7 +105,7 @@ void loop(void)
   digitalWrite(G_pin,HIGH);
   Serial.println(pulseIn(22,HIGH,100000));
   //プロポの入力取得
-  user<double> u = c.read();//プロポ入力
+  user<int> u = c.read();//プロポ入力
   //user j = b.bno_read();
   ledcWrite(Y_pin,u.z*7);
 
