@@ -12,11 +12,11 @@ contloler c(user<int>{32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 void loop(void)
 {
     Serial.print("x:");
-    Serial.print((int)pulseIn(32,HIGH,100000));
+    Serial.print((double)pulseIn(32,HIGH));
     Serial.print("y:");
-    Serial.print((int)pulseIn(35,HIGH,100000));
+    Serial.print((double)pulseIn(35,HIGH));
     Serial.print("z:");
-    Serial.print((int)pulseIn(33,HIGH,100000));
+    Serial.print((double)pulseIn(33,HIGH));
     Serial.print("t:");
-    Serial.println((int)pulseIn(34,HIGH,100000));
+    Serial.println((double)pulseIn(34,HIGH));
 }
