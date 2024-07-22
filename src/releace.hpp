@@ -67,10 +67,10 @@ void setup(void)
   m.rotate();//回転
   
   digitalWrite(G_pin,HIGH);
-  digitalWrite(R_pin,HIGH);
-  while(pulseIn(22,HIGH,100000)>1500);
-  digitalWrite(R_pin,LOW);
-  while(pulseIn(22,HIGH,100000)<1500);
+  while(pulseIn(22,HIGH,100000)>1500)
+    digitalWrite(R_pin,HIGH);
+  while(pulseIn(22,HIGH,100000)<1500)
+    digitalWrite(R_pin,LOW);
   ledcWrite(Y_pin, 0);
 }
 
