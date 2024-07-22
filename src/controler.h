@@ -11,7 +11,7 @@ public:
   //プロポセットアップ
   void setup();
   //プロポ読み込み
-  user<double> read();
+  user<int> read();
   //入力ピン出力
   user<int> pin();
 private:
@@ -20,7 +20,7 @@ private:
   int c_y;
   int c_z;
   int c_turn;
-  user<double> ud;//標準値
+  user<int> ud;//標準値
 };
 
 //今使ってるピン返すやつ
@@ -47,11 +47,11 @@ void contloler::setup()
   c_z = 0;
   c_turn = 0;
   delay(5000);
-  ud = user<double>{1500,1500,1000,1500};
+  ud = user<int>{1500,1500,1000,1500};
   return;
 }
 //読んで返す
-user<double> contloler::read()
+user<int> contloler::read()
 {
   c_x = ((static_cast<int>(pulseIn(set.x,HIGH,15000))-ud.x)*(1.0)/10.0)*0.12*x_;
   c_y = ((static_cast<int>(pulseIn(set.y,HIGH,15000))-ud.y)*(-1.0)/10.0)*0.12*y_;
@@ -67,5 +67,5 @@ user<double> contloler::read()
   bt.print("   ct:");
   bt.print(c_turn);
   bt.print("     ");
-  return user<double>{static_cast<double>(c_x), static_cast<double>(c_y), static_cast<double>(c_z), static_cast<double>(c_turn)};
+  return user<int>{static_cast<int>(c_x), static_cast<int>(c_y), static_cast<int>(c_z), static_cast<int>(c_turn)};
 }
