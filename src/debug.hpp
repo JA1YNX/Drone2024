@@ -13,11 +13,11 @@ void setup(void)
 void loop(void)
 {
     Serial.print("x:");
-    Serial.print((int)pulseIn(32,HIGH));
+    Serial.print((int)pulseIn(32,HIGH,100000));
     Serial.print("y:");
     Serial.print((int)pulseIn(35,HIGH,100000));
     Serial.print("z:");
-    Serial.print((int)pulseIn(33,LOW,100000));
+    Serial.print((int)pulseIn(33,HIGH,100000));
     Serial.print("t:");
     Serial.println((int)pulseIn(34,HIGH,100000));
 }
