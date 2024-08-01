@@ -100,7 +100,7 @@ void loop(void)
     m.rotate();
     digitalWrite(R_pin,HIGH);
     digitalWrite(G_pin,LOW);
-    while(c.read().z>2);
+    while((c.read().z>2)||(pulseIn(22,HIGH,15000)>1500));
   }
   m.nf = 1;
   digitalWrite(R_pin,LOW);
