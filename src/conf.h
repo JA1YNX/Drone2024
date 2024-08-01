@@ -10,6 +10,7 @@
 #define interrupt_clock 1000000
 
 //使うライブラリインクルード
+#include <cmath>
 #include <Arduino.h>
 #include <BluetoothSerial.h>
     //bluetooth インスタンス化
