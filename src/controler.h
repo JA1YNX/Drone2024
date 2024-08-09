@@ -49,7 +49,7 @@ void contloler::setup()
   delay(5000);
   ud = user<int>{1500,1500,1000,1500};
   return;
-}
+}//13.5,7
 //読んで返す
 user<int> contloler::read()
 {
