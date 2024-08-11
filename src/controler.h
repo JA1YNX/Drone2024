@@ -49,7 +49,7 @@ void contloler::setup()
   delay(5000);
   ud = user<int>{1500,1500,1000,1500};
   return;
-}//13.5,7
+}
 //読んで返す
 user<int> contloler::read()
 {
@@ -57,7 +57,7 @@ user<int> contloler::read()
   c_y = ((static_cast<int>(pulseIn(set.y,HIGH,15000))-ud.y)*(-1.0)/10.0)*0.12*y_;
   c_z = ((static_cast<int>(pulseIn(set.z,HIGH,15000))-ud.z)*(1.0)/8.0)*0.15*x_;
   c_turn = ((static_cast<int>(pulseIn(set.turn,HIGH,15000))-ud.turn)*(-1.0)/10.0)*0.11*t_;
-
+#ifdef output
   bt.print("   cx:");
   bt.print(c_x);
   bt.print("   cy:");
@@ -67,5 +67,6 @@ user<int> contloler::read()
   bt.print("   ct:");
   bt.print(c_turn);
   bt.print("     ");
+#endif
   return user<int>{static_cast<int>(c_x), static_cast<int>(c_y), static_cast<int>(c_z), static_cast<int>(c_turn)};
 }
