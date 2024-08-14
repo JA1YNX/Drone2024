@@ -53,8 +53,8 @@ void contloler::setup()
 //読んで返す
 user<int> contloler::read()
 {
-  c_x = ((static_cast<int>(pulseIn(set.x,HIGH,15000))-ud.x)*(1.0)/10.0)*0.12*x_;
-  c_y = ((static_cast<int>(pulseIn(set.y,HIGH,15000))-ud.y)*(-1.0)/10.0)*0.12*y_;
+  c_x = ((static_cast<int>(pulseIn(set.x,HIGH,15000))-ud.x)*(1.0)/10.0)*0.11*x_;
+  c_y = ((static_cast<int>(pulseIn(set.y,HIGH,15000))-ud.y)*(-1.0)/10.0)*0.11*y_;
   c_z = ((static_cast<int>(pulseIn(set.z,HIGH,15000))-ud.z)*(1.0)/8.0)*0.13*x_;
   c_turn = ((static_cast<int>(pulseIn(set.turn,HIGH,15000))-ud.turn)*(-1.0)/10.0)*0.11*t_;
 #ifdef output
