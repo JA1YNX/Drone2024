@@ -43,7 +43,7 @@ void setup(void)
 
   //回転数更新
   m.rotate();//回転
-  delay(5000);
+  delay(1000);
 
   //コントローラー初期化
   c.setup();
