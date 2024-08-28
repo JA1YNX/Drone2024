@@ -20,7 +20,7 @@ class BNO055
 };
 user<float> BNO055::get()
 {
-    data.t = ang.oriantation.x;
+    data.turn = ang.orientation.x;
     return data;
 }
 
@@ -57,4 +57,5 @@ void BNO055::update()
     else{
         data.z = 0;
     }
+    data.turn = ang.orientation.x;
 }
