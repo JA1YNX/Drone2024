@@ -1,3 +1,6 @@
+#ifndef BNO
+#define BNO
+
 #include "./conf.h"
 #include <Arduino.h>
 
@@ -59,3 +62,4 @@ void BNO055::update()
     }
     data.turn = ang.orientation.x;
 }
+#endif

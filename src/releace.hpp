@@ -1,7 +1,8 @@
 #include "./conf.h"
 #include "./controler.h"
 #include "./motor.h"
-#include "./KXR_94.h"
+//#include "./KXR_94.h"
+#include "./BNO055.h"
 
 #define R_pin 16
 #define Y_pin 5
