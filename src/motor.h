@@ -58,7 +58,7 @@ void motor::rotate()
 void motor::setup()
 {
   ledcSetup(ch1, puls, 8);//1,066,666.666666666666666666666666...まで出来そう?
-  ledcSetup(ch2, puls, 8);
+  ledcSetup(ch2, puls, 8);//20bit
   ledcSetup(ch3, puls, 8);
   ledcSetup(ch4, puls, 8);
   ledcAttachPin(pin1, ch1);
