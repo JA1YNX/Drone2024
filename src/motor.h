@@ -28,10 +28,10 @@ void motor::rotate()
               static_cast<int>(duty_min + abs(def + c2) * nf),
               static_cast<int>(duty_min + abs(def + c3) * nf),
               static_cast<int>(duty_min + abs(def + c4) * nf)};
-  ledcWrite(ch1, static_cast<int>(real.x) < def ? def : real.x);
-  ledcWrite(ch2, static_cast<int>(real.y) < def ? def : real.y);
-  ledcWrite(ch3, static_cast<int>(real.z) < def ? def : real.z);
-  ledcWrite(ch4, static_cast<int>(real.turn) < def ? def : real.turn);
+  ledcWrite(ch1, c1 < 0 ? def+duty_min : def+c1);
+  ledcWrite(ch2, c2 < 0 ? def+duty_min : def+c2);
+  ledcWrite(ch3, c3 < 0 ? def+duty_min : def+c3);
+  ledcWrite(ch4, c4 < 0 ? def+duty_min : def+c4);
   
 #ifdef output
   bt.print("  ou1:");
@@ -55,21 +55,29 @@ void motor::rotate()
 #endif
   return;
 }
+/*
+12bit
+75Hz
+res:231
+off:258
+min:260
+max:340
+*/
 void motor::setup()
 {
-  ledcSetup(ch1, puls, 8);//1,066,666.666666666666666666666666...まで出来そう?
-  ledcSetup(ch2, puls, 8);//20bit
-  ledcSetup(ch3, puls, 8);
-  ledcSetup(ch4, puls, 8);
+  ledcSetup(ch1, puls, 12);//1,066,666.666666666666666666666666...まで出来そう?
+  ledcSetup(ch2, puls, 12);//20bit
+  ledcSetup(ch3, puls, 12);
+  ledcSetup(ch4, puls, 12);
   ledcAttachPin(pin1, ch1);
   ledcAttachPin(pin2, ch2);
   ledcAttachPin(pin3, ch3);
   ledcAttachPin(pin4, ch4);
 
-  ledcWrite(ch1, abs(duty_def) * 1);//52...58~90
-  ledcWrite(ch2, abs(duty_def) * 1);//58~90
-  ledcWrite(ch3, abs(duty_def) * 1);//58~90
-  ledcWrite(ch4, abs(duty_def) * 1);//58~90
+  ledcWrite(ch1, duty_reset);
+  ledcWrite(ch2, duty_reset);
+  ledcWrite(ch3, duty_reset);
+  ledcWrite(ch4, duty_reset);
   //delay(500);
   return;
 }
