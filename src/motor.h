@@ -37,13 +37,13 @@ void motor::rotate()
   
 #ifdef output
   bt.print("  ou1:");
-  bt.print(real.x);
+  bt.print((def+c1)*nf);
   bt.print("  ou2:");
-  bt.print(real.y);
+  bt.print((def+c2)*nf);
   bt.print("  ou3:");
-  bt.print(real.z);
+  bt.print((def+c3)*nf);
   bt.print("  ou4:");
-  bt.print(real.turn);
+  bt.print((def+c4)*nf);
 
   bt.print("      ch1:");
   bt.print(c1);
