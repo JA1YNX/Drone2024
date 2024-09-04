@@ -12,6 +12,7 @@ class motor { //モーターチャンネルとピン設定
         void rotate();//設定反映
         motor(int pin_1, int pin_2, int pin_3, int pin_4, int cha1, int cha2, int cha3, int cha4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4), ch1(cha1), ch2(cha2), ch3(cha3), ch4(cha4) {}
         void setup();//初期設定
+        void stop();
     private:
         int ch1;
         int ch2;
@@ -22,16 +23,17 @@ class motor { //モーターチャンネルとピン設定
         int pin3;
         int pin4;
 };
+void motor::stop()
+{
+  nf = 0;
+  rotate();
+}
 void motor::rotate()
 {
-  user<int> real = {static_cast<int>(duty_min + abs(def + c1) * nf),
-              static_cast<int>(duty_min + abs(def + c2) * nf),
-              static_cast<int>(duty_min + abs(def + c3) * nf),
-              static_cast<int>(duty_min + abs(def + c4) * nf)};
-  ledcWrite(ch1, c1 < 0 ? def+duty_min : def+c1);
-  ledcWrite(ch2, c2 < 0 ? def+duty_min : def+c2);
-  ledcWrite(ch3, c3 < 0 ? def+duty_min : def+c3);
-  ledcWrite(ch4, c4 < 0 ? def+duty_min : def+c4);
+  ledcWrite(ch1, c1 < 0 ? (def+duty_min)*nf : (def+c1)*nf);
+  ledcWrite(ch2, c2 < 0 ? (def+duty_min)*nf : (def+c2)*nf);
+  ledcWrite(ch3, c3 < 0 ? (def+duty_min)*nf : (def+c3)*nf);
+  ledcWrite(ch4, c4 < 0 ? (def+duty_min)*nf : (def+c4)*nf);
   
 #ifdef output
   bt.print("  ou1:");
