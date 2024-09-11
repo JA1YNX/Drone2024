@@ -35,7 +35,7 @@
 #define duty_def 258//off
 //#define duty_min 260//最低回転58
 //#define duty_min 258//最低回転58
-#define duty_min 285//最低回転58
+#define duty_min 280//最低回転58
 #define duty_max 340//最高回転98
 
 //#define BNO055interval 2 //何ms間隔でデータを取得するか
