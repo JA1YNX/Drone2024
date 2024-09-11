@@ -68,7 +68,7 @@ void motor::setup()
   ledcAttachPin(pin.x, 1);
   ledcAttachPin(pin.y, 2);
   ledcAttachPin(pin.x, 3);
-  ledcAttachPin(pin4.turn, 4);
+  ledcAttachPin(pin.turn, 4);
 
   ledcWrite(1, duty_reset);
   ledcWrite(2, duty_reset);
