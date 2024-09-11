@@ -35,7 +35,7 @@ void setup(void)
   m.nf = 1;//モーターの回転ON
   m.setup();//初期化
   digitalWrite(R_pin,LOW);
-  delay(500);
+  delay(1000);
   m.stop();
 
   //コントローラー初期化
