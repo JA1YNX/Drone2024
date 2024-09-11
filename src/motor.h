@@ -24,20 +24,20 @@ void motor::stop()
 }
 void motor::rotate()
 {
-  ledcWrite(1, (def+c1)*nf);
-  ledcWrite(2, (def+c2)*nf);
-  ledcWrite(3, (def+c3)*nf);
-  ledcWrite(4, (def+c4)*nf);
+  ledcWrite(1, (def+c1)*nf+duty_min);
+  ledcWrite(2, (def+c2)*nf+duty_min);
+  ledcWrite(3, (def+c3)*nf+duty_min);
+  ledcWrite(4, (def+c4)*nf+duty_min);
   
 #ifdef output
   bt.print("  ou1:");
-  bt.print((def+c1)*nf);
+  bt.print((def+c1)*nf+duty_min);
   bt.print("  ou2:");
-  bt.print((def+c2)*nf);
+  bt.print((def+c2)*nf+duty_min);
   bt.print("  ou3:");
-  bt.print((def+c3)*nf);
+  bt.print((def+c3)*nf+duty_min);
   bt.print("  ou4:");
-  bt.print((def+c4)*nf);
+  bt.print((def+c4)*nf+duty_min);
 
   bt.print("      ch1:");
   bt.print(c1);
