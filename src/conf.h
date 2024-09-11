@@ -32,7 +32,8 @@
 #define puls 75//pwm周波数
 #define bits 12
 #define duty_reset 231//初期値
-#define duty_def 258//off
+//#define duty_def 258//off
+#define duty_def 285//off
 //#define duty_min 260//最低回転58
 #define duty_min 258//最低回転58
 #define duty_max 340//最高回転98
