@@ -13,7 +13,8 @@
 motor m({25, 26, 27, 14}); //(pin1,pin2,pin3,pin4)
 
 //コントローラー制御用クラスインスタンス化
-contloler c({32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
+//contloler c({32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
+contloler c({33, 35, 32, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 
 //セットアップ関数
 void setup(void)
@@ -27,7 +28,7 @@ void setup(void)
   //シリアルモニタ開始
   Serial.begin(9600);
   //outputが定義されていたらbluetooth開始
-  bt.begin("Drone2024");
+//  bt.begin("Drone2024");
 
   //モーター初期化
   //回転OFF

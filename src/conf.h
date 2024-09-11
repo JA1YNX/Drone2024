@@ -2,7 +2,7 @@
 
 //bluetoothの出力をするかどうか
 #define output
-
+#define bt Serial
 //割り込み使うか
 //#define interrupt_on
 
@@ -15,7 +15,7 @@
 #ifdef output
 #include <BluetoothSerial.h>
     //bluetooth インスタンス化
-    BluetoothSerial bt;
+//    BluetoothSerial bt;
 #endif
 
 //#define hob 2.0 //ホバリング時センサ倍率
