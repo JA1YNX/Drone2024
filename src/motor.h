@@ -74,6 +74,5 @@ void motor::setup()
   ledcWrite(2, duty_reset);
   ledcWrite(3, duty_reset);
   ledcWrite(4, duty_reset);
-  //delay(500);
   return;
 }

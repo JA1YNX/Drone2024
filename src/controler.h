@@ -15,8 +15,7 @@ public:
   //入力ピン出力
   user<int> pin();
 private:
-  //スタック用変数
-  user<int> c;
+  user<int> c;//スタック用変数
   user<int> ud;//標準値
 };
 
