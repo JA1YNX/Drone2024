@@ -10,18 +10,12 @@ class motor { //モーターチャンネルとピン設定
         int c3;//左後変更値
         int c4;//右後変更値
         void rotate();//設定反映
-        motor(int pin_1, int pin_2, int pin_3, int pin_4, int cha1, int cha2, int cha3, int cha4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4), ch1(cha1), ch2(cha2), ch3(cha3), ch4(cha4) {}
+        //motor(int pin_1, int pin_2, int pin_3, int pin_4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4){}
+        motor(user<int> pin_): pin(pin_){}
         void setup();//初期設定
         void stop();
     private:
-        int ch1;
-        int ch2;
-        int ch3;
-        int ch4;
-        int pin1;
-        int pin2;
-        int pin3;
-        int pin4;
+        user<int> pin;
 };
 void motor::stop()
 {
@@ -30,10 +24,10 @@ void motor::stop()
 }
 void motor::rotate()
 {
-  ledcWrite(ch1, c1 < 0 ? (def+duty_min)*nf : (def+c1)*nf);
-  ledcWrite(ch2, c2 < 0 ? (def+duty_min)*nf : (def+c2)*nf);
-  ledcWrite(ch3, c3 < 0 ? (def+duty_min)*nf : (def+c3)*nf);
-  ledcWrite(ch4, c4 < 0 ? (def+duty_min)*nf : (def+c4)*nf);
+  ledcWrite(1, c1 < 0 ? (def+duty_min)*nf : (def+c1)*nf);
+  ledcWrite(2, c2 < 0 ? (def+duty_min)*nf : (def+c2)*nf);
+  ledcWrite(3, c3 < 0 ? (def+duty_min)*nf : (def+c3)*nf);
+  ledcWrite(4, c4 < 0 ? (def+duty_min)*nf : (def+c4)*nf);
   
 #ifdef output
   bt.print("  ou1:");
@@ -67,19 +61,19 @@ max:340
 */
 void motor::setup()
 {
-  ledcSetup(ch1, puls, 12);//1,066,666.666666666666666666666666...まで出来そう?
-  ledcSetup(ch2, puls, 12);//20bit
-  ledcSetup(ch3, puls, 12);
-  ledcSetup(ch4, puls, 12);
-  ledcAttachPin(pin1, ch1);
-  ledcAttachPin(pin2, ch2);
-  ledcAttachPin(pin3, ch3);
-  ledcAttachPin(pin4, ch4);
+  ledcSetup(1, puls, 12);//1,066,666.666666666666666666666666...まで出来そう?
+  ledcSetup(2, puls, 12);//20bit
+  ledcSetup(3, puls, 12);
+  ledcSetup(4, puls, 12);
+  ledcAttachPin(pin.x, 1);
+  ledcAttachPin(pin.y, 2);
+  ledcAttachPin(pin.x, 3);
+  ledcAttachPin(pin4.turn, 4);
 
-  ledcWrite(ch1, duty_reset);
-  ledcWrite(ch2, duty_reset);
-  ledcWrite(ch3, duty_reset);
-  ledcWrite(ch4, duty_reset);
+  ledcWrite(1, duty_reset);
+  ledcWrite(2, duty_reset);
+  ledcWrite(3, duty_reset);
+  ledcWrite(4, duty_reset);
   //delay(500);
   return;
 }
