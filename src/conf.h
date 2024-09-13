@@ -2,7 +2,7 @@
 
 //bluetoothの出力をするかどうか
 #define output
-#define bt Serial
+//#define bt Serial
 
 //使うライブラリインクルード
 #include <cmath>
@@ -10,7 +10,7 @@
 #ifdef output
 #include <BluetoothSerial.h>
     //bluetooth インスタンス化
-//    BluetoothSerial bt;
+    BluetoothSerial bt;
 #endif
 
 #define puls 75//pwm周波数
