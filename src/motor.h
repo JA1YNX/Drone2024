@@ -47,7 +47,7 @@ void motor::rotate()
   bt.print(c3);
   bt.print("  ch4:");
   bt.print(c4);
-  bt.print("     ");
+  bt.println("     ");
 #endif
   return;
 }

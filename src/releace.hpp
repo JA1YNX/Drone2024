@@ -27,8 +27,10 @@ void setup(void)
   pinMode(G_pin,OUTPUT);
   //シリアルモニタ開始
   Serial.begin(9600);
+  #ifdef output
   //outputが定義されていたらbluetooth開始
-//  bt.begin("Drone2024");
+  bt.begin("Drone2024");
+  #endif
 
   //モーター初期化
   //回転OFF
