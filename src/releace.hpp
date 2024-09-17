@@ -25,12 +25,14 @@ void setup(void)
   ledcAttachPin(Y_pin, Y_pin);
   ledcWrite(Y_pin, 255);
   pinMode(G_pin,OUTPUT);
+#ifdef SERIAL
   //シリアルモニタ開始
   Serial.begin(9600);
-  #ifdef output
+#endif
+#ifdef output
   //outputが定義されていたらbluetooth開始
   bt.begin("Drone2024");
-  #endif
+#endif
 
   //モーター初期化
   //回転OFF
@@ -173,7 +175,7 @@ void loop(void)
 
   //回転数更新
   m.rotate();
-  #ifdef output
+#ifdef output
   bt.print("     x:");
   bt.print(j.x);
   bt.print("  y:");
@@ -183,5 +185,17 @@ void loop(void)
   bt.print("  t:");
   bt.print(j.turn);
   bt.println("    } ");
-  #endif
+#endif
+  
+#ifdef Serial
+  Serial.print("     x:");
+  Serial.print(j.x);
+  Serial.print("  y:");
+  Serial.print(j.y);
+  Serial.print("  z:");
+  Serial.print(j.z);
+  Serial.print("  t:");
+  Serial.print(j.turn);
+  Serial.println("    } ");
+#endif
 }

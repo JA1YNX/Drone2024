@@ -49,6 +49,27 @@ void motor::rotate()
   bt.print(c4);
   bt.println("     ");
 #endif
+
+#ifdef SERIAL
+  Serial.print("  ou1:");
+  Serial.print((def+c1)*nf+duty_min);
+  Serial.print("  ou2:");
+  Serial.print((def+c2)*nf+duty_min);
+  Serial.print("  ou3:");
+  Serial.print((def+c3)*nf+duty_min);
+  Serial.print("  ou4:");
+  Serial.print((def+c4)*nf+duty_min);
+
+  Serial.print("      ch1:");
+  Serial.print(c1);
+  Serial.print("  ch2:");
+  Serial.print(c2);
+  Serial.print("  ch3:");
+  Serial.print(c3);
+  Serial.print("  ch4:");
+  Serial.print(c4);
+  Serial.println("     ");
+#endif
   return;
 }
 /*
