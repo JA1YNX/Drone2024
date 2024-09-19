@@ -7,6 +7,7 @@
 #define R_pin 16
 #define Y_pin 5
 #define G_pin 19
+#define PIN_ch5 23
 
 //モーター制御クラスインスタンス化
 //motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
@@ -24,6 +25,7 @@ void setup(void)
   ledcSetup(Y_pin, puls, 8);
   ledcAttachPin(Y_pin, Y_pin);
   ledcWrite(Y_pin, 255);
+  pinMode(PIN_ch5,INPUT);
   pinMode(G_pin,OUTPUT);
 #ifdef SERIAL
   //シリアルモニタ開始
@@ -52,9 +54,9 @@ void setup(void)
   //m.rotate();//回転
   
   digitalWrite(G_pin,HIGH);
-  while((pulseIn(22,HIGH,20000)>1500)&&(c.read().z>15))
+  while((pulseIn(PIN_ch5,HIGH,20000)>1500)&&(c.read().z>15))
     digitalWrite(R_pin,HIGH);
-  while((pulseIn(22,HIGH,20000)<1500)&&(c.read().z<2))
+  while((pulseIn(PIN_ch5,HIGH,20000)<1500)&&(c.read().z<2))
     digitalWrite(R_pin,LOW);
   while(c.read().z>2);
   ledcWrite(Y_pin, 0);
@@ -63,12 +65,12 @@ void setup(void)
 
 void loop(void)
 {
-  if(pulseIn(22,HIGH,20000)<1500)
+  if(pulseIn(PIN_ch5,HIGH,20000)<1500)
   {
     m.stop();
     digitalWrite(R_pin,HIGH);
     digitalWrite(G_pin,LOW);
-    while((c.read().z>2)||(pulseIn(22,HIGH,20000)<1500))m.stop();
+    while((c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500))m.stop();
   }
   m.nf = 1;
   digitalWrite(R_pin,LOW);

@@ -26,7 +26,10 @@ user<float> BNO055::get()
     data.turn = ang.orientation.x;
     return data;
 }
-
+sensors_event_t BNO055::getang()
+{
+    return ang;
+}
 void BNO055::setup()
 {
     if(!bno.begin())
