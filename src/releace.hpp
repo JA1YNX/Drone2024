@@ -147,18 +147,27 @@ void loop(void)
 
     if(u.x == 0)
     {
-      m.c1+=;
-      m.c2+=;
-      m.c3+=;
-      m.c4+=;
+      m.c1+=(j.x-history.x);
+      m.c2-=(j.x-history.x);
+      m.c3+=(j.x-history.x);
+      m.c4-=(j.x-history.x);
+      history.x = j.x;
     }
     if(u.y == 0)
     {
-
+      m.c1+=(j.y-history.y);
+      m.c2+=(j.y-history.y);
+      m.c3-=(j.y-history.y);
+      m.c4-=(j.y-history.y);
+      history.y = j.y;
     }
     if(u.turn == 0)
     {
-
+      m.c1+=(j.turn-history.turn);
+      m.c2-=(j.turn-history.turn);
+      m.c3-=(j.turn-history.turn);
+      m.c4+=(j.turn-history.turn);
+      history.turn = j.turn;
     }
 
   }
