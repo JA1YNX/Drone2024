@@ -13,15 +13,15 @@ class BNO055
 {
     public:
     Adafruit_BNO055 bno = Adafruit_BNO055(55,0x28,&Wire);
-    user<float> get();
+    user<int> get();
     void setup();
     void update();
     sensors_event_t getang();
     private:
-    user<float> data;
+    user<int> data;
     sensors_event_t ang,acc;
 };
-user<float> BNO055::get()
+user<int> BNO055::get()
 {
     data.turn = ang.orientation.x;
     return data;
@@ -42,8 +42,6 @@ void BNO055::update()
 {
     bno.getEvent(&ang,Adafruit_BNO055::VECTOR_EULER);
     bno.getEvent(&acc,Adafruit_BNO055::VECTOR_LINEARACCEL);
-    data.x = ang.orientation.x;
-    data.y = ang.orientation.y;
     /*
     if(abs(acc.acceleration.x)>0.4)
     {
@@ -67,6 +65,8 @@ void BNO055::update()
     else{
         data.z = 0;
     }
-    data.turn = ang.orientation.x;
+    data.x = (int)ang.orientation.x;
+    data.y = (int)ang.orientation.y;
+    data.turn = (int)ang.orientation.x;
 }
 #endif

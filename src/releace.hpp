@@ -133,7 +133,7 @@ void loop(void)
     m.c4 += u.turn;
   }
 
-  user<float> j = sens.get();
+  user<int> j = sens.get();
   /*
   user<double> j = kxr.read();
   
