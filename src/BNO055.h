@@ -42,6 +42,9 @@ void BNO055::update()
 {
     bno.getEvent(&ang,Adafruit_BNO055::VECTOR_EULER);
     bno.getEvent(&acc,Adafruit_BNO055::VECTOR_LINEARACCEL);
+    data.x = ang.orientation.x;
+    data.y = ang.orientation.y;
+    /*
     if(abs(acc.acceleration.x)>0.4)
     {
         data.x += acc.acceleration.x;
@@ -56,6 +59,7 @@ void BNO055::update()
     else{
         data.y = 0;
     }
+    */
     if(abs(acc.acceleration.z)>0.4)
     {
         data.z += acc.acceleration.z;
