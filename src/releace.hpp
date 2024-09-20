@@ -29,7 +29,7 @@ void setup(void)
   pinMode(G_pin,OUTPUT);
 #ifdef SERIAL
   //シリアルモニタ開始
-  Serial.begin(9600);
+  Serial.begin(115200);
 #endif
 #ifdef output
   //outputが定義されていたらbluetooth開始
