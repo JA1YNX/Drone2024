@@ -27,7 +27,7 @@ void setup(void)
   ledcWrite(Y_pin, 255);
   pinMode(PIN_ch5,INPUT);
   pinMode(G_pin,OUTPUT);
-#ifdef SERIAL
+#ifdef SERIAL_out
   //シリアルモニタ開始
   Serial.begin(115200);
 #endif
@@ -189,7 +189,7 @@ void loop(void)
   bt.println("    } ");
 #endif
   
-#ifdef Serial
+#ifdef SERIAL_out
   Serial.print("     x:");
   Serial.print(j.x);
   Serial.print("  y:");
@@ -197,7 +197,6 @@ void loop(void)
   Serial.print("  z:");
   Serial.print(j.z);
   Serial.print("  t:");
-  Serial.print(j.turn);
-  Serial.println("    } ");
+  Serial.println(j.turn);
 #endif
 }

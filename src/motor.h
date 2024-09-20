@@ -50,7 +50,7 @@ void motor::rotate()
   bt.println("     ");
 #endif
 
-#ifdef SERIAL
+#ifdef SERIAL_out
   Serial.print("  ou1:");
   Serial.print((def+c1)*nf+duty_min);
   Serial.print("  ou2:");

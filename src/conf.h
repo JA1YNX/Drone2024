@@ -2,7 +2,7 @@
 
 //bluetoothの出力をするかどうか
 #define output
-#define SERIAL
+#define SERIAL_out
 
 //使うライブラリインクルード
 #include <cmath>

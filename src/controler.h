@@ -59,7 +59,7 @@ user<int> contloler::read()
   bt.print(c.turn);
   bt.print("     ");
 #endif
-#ifdef SERIAL
+#ifdef SERIAL_out
   Serial.print("   cx:");
   Serial.print(c.x);
   Serial.print("   cy:");
