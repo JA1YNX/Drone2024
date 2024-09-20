@@ -47,7 +47,7 @@ void motor::rotate()
   bt.print(c3);
   bt.print("  ch4:");
   bt.print(c4);
-  bt.println("     ");
+  bt.print("     ");
 #endif
 
 #ifdef SERIAL_out
@@ -68,7 +68,7 @@ void motor::rotate()
   Serial.print(c3);
   Serial.print("  ch4:");
   Serial.print(c4);
-  Serial.println("     ");
+  Serial.print("     ");
 #endif
   return;
 }
