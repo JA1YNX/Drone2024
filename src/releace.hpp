@@ -19,6 +19,7 @@ contloler c({33, 35, 32, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 
 //BNO055
 BNO055 sens;
+user<int> history;
 
 //セットアップ関数
 void setup(void)
@@ -66,6 +67,8 @@ void setup(void)
     digitalWrite(R_pin,LOW);
   while(c.read().z>2);
   ledcWrite(Y_pin, 0);
+  sens.update();
+  history = j.get();
 }
 
 
@@ -77,6 +80,8 @@ void loop(void)
     digitalWrite(R_pin,HIGH);
     digitalWrite(G_pin,LOW);
     while((c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500))m.stop();
+    sens.update();
+    history = j.get();
   }
   m.nf = 1;
   digitalWrite(R_pin,LOW);
@@ -140,6 +145,21 @@ void loop(void)
   //ジャイロ
   {
 
+    if(u.x == 0)
+    {
+      m.c1+=;
+      m.c2+=;
+      m.c3+=;
+      m.c4+=;
+    }
+    if(u.y == 0)
+    {
+
+    }
+    if(u.turn == 0)
+    {
+
+    }
 
   }
 
