@@ -17,6 +17,7 @@ motor m({25, 26, 27, 14}); //(pin1,pin2,pin3,pin4)
 //contloler c({32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 contloler c({33, 35, 32, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 
+//BNO055
 BNO055 sens;
 
 //セットアップ関数
@@ -49,6 +50,7 @@ void setup(void)
   //コントローラー初期化
   c.setup();
 
+  //BNO055
   sens.setup();
 
   //回転ストップ
@@ -79,8 +81,6 @@ void loop(void)
   m.nf = 1;
   digitalWrite(R_pin,LOW);
   digitalWrite(G_pin,HIGH);
-  
-  sens.update();
 
   //プロポの入力取得
   user<int> u = c.read();//プロポ入力
@@ -133,47 +133,17 @@ void loop(void)
     m.c4 += u.turn;
   }
 
+  //BNO055
+  sens.update();
+
   user<int> j = sens.get();
-  /*
-  user<double> j = kxr.read();
-  
-  if(u.x!=0&&u.turn==0)
+  //ジャイロ
   {
-    if(j.x>0)
-    {
-      m.c1--;
-      m.c3--;
-      m.c2++;
-      m.c4++;
-    }
-    else
-    {
-      m.c1++;
-      m.c3++;
-      m.c2--;
-      m.c4--;
-    }
-  }
 
 
-  if(u.y!=0&&u.turn==0)
-  {
-    if(j.y>0)
-    {
-      m.c1++;
-      m.c2++;
-      m.c3--;
-      m.c4--;
-    }
-    else
-    {
-      m.c1--;
-      m.c2--;
-      m.c3++;
-      m.c4++;
-    }
   }
-*/
+
+  //強制微調整
   m.c1 -= 0;
   m.c2 -= 0;
   m.c3 -= 0;

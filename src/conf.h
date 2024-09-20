@@ -1,7 +1,9 @@
 #pragma once
 
 //bluetoothの出力をするかどうか
-#define output
+//#define output
+
+//SerialMonitorの出力をするかどうか
 #define SERIAL_out
 
 //使うライブラリインクルード
