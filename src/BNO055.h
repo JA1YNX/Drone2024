@@ -20,11 +20,14 @@ class BNO055
     Adafruit_BNO055 bno = Adafruit_BNO055(55,0x28,&Wire);
     user<int> data;
     sensors_event_t ang,acc;
-    int convert(int) const;
+    int convert(int);
+    int hist = 0;
+    int hist2 = 0;
 };
-int BNO055::convert(int data) const
+int BNO055::convert(int data_)
 {
     int ret = 0;
+    /*
     if (data<180)
     {
         ret = data;
@@ -33,6 +36,22 @@ int BNO055::convert(int data) const
     {
         ret = data-360;
     }
+    */
+    if ((hist-data_)>(300))
+    {
+        ret = data_+360*hist2;
+        hist2++;
+    }
+    else if((hist-data_)<(-300))
+    {
+        ret = data_-360*hist2;
+        hist2--;
+    }
+    else
+    {
+        ret = data_+360*hist2;
+    }
+    hist = data_;
     return ret;
 }
 user<int> BNO055::get() const
