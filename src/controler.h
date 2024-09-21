@@ -6,21 +6,21 @@ class contloler {
 public:
   //コンストラクタ
   contloler(user<int> set_);
-  //入力ピン格納用変数構造体
-  user<int> set;
   //プロポセットアップ
   void setup();
   //プロポ読み込み
   user<int> read();
   //入力ピン出力
-  user<int> pin();
+  user<int> pin() const;
 private:
+  //入力ピン格納用変数構造体
+  user<int> set;
   user<int> c;//スタック用変数
   user<int> ud;//標準値
 };
 
 //今使ってるピン返すやつ
-user<int> contloler::pin()
+user<int> contloler::pin() const
 {
   return set;
 }

@@ -12,17 +12,17 @@
 class BNO055
 {
     public:
-    Adafruit_BNO055 bno = Adafruit_BNO055(55,0x28,&Wire);
-    user<int> get();
+    user<int> get() const;
     void setup();
     void update();
-    sensors_event_t getang();
+    sensors_event_t getang() const;
     private:
+    Adafruit_BNO055 bno = Adafruit_BNO055(55,0x28,&Wire);
     user<int> data;
     sensors_event_t ang,acc;
-    int convert(int);
+    int convert(int) const;
 };
-int BNO055::convert(int data)
+int BNO055::convert(int data) const
 {
     int ret = 0;
     if (data<180)
@@ -35,12 +35,12 @@ int BNO055::convert(int data)
     }
     return ret;
 }
-user<int> BNO055::get()
+user<int> BNO055::get() const
 {
     //data.turn = ang.orientation.x;
     return data;
 }
-sensors_event_t BNO055::getang()
+sensors_event_t BNO055::getang() const
 {
     return ang;
 }
@@ -50,6 +50,7 @@ void BNO055::setup()
     {
         while(!bno.begin());
     }
+    return;
 }
 
 void BNO055::update()
@@ -66,5 +67,6 @@ void BNO055::update()
     data.x = (int)ang.orientation.y*(-1);
     data.y = (int)ang.orientation.z;
     data.turn = convert((int)ang.orientation.x);
+    return;
 }
 #endif

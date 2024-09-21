@@ -11,7 +11,7 @@
 #define PIN_ch5 23
 
 //モーター制御クラスインスタンス化
-motor m({25, 26, 27, 14}); //(pin1,pin2,pin3,pin4)
+motor m({25, 26, 27, 14}); //pin1,pin2,pin3,pin4
 
 //コントローラー制御用クラスインスタンス化
 contloler c({33, 35, 32, 34});   //T6J ch1,ch2,ch3,ch4
@@ -71,6 +71,8 @@ void setup(void)
   //基準角度設定
   sens.update();
   history = sens.get().turn;
+
+  return;
 }
 
 
@@ -148,26 +150,27 @@ void loop(void)
   user<int> j = sens.get();
   {
     //BNO055
+    user<int> jj = {j.x/2,j.y/2,j.z/2,(j.turn-history)/2};
     if(u.x == 0)
     {
-      m.c1-=j.x;
-      m.c2+=j.x;
-      m.c3-=j.x;
-      m.c4+=j.x;
+      m.c1-=jj.x;
+      m.c2+=jj.x;
+      m.c3-=jj.x;
+      m.c4+=jj.x;
     }
     if(u.y == 0)
     {
-      m.c1+=j.y;
-      m.c2+=j.y;
-      m.c3-=j.y;
-      m.c4-=j.y;
+      m.c1+=jj.y;
+      m.c2+=jj.y;
+      m.c3-=jj.y;
+      m.c4-=jj.y;
     }
     if(u.turn == 0)
     {
-      m.c1+=(j.turn-history);
-      m.c2-=(j.turn-history);
-      m.c3-=(j.turn-history);
-      m.c4+=(j.turn-history);
+      m.c1+=jj.turn;
+      m.c2-=jj.turn;
+      m.c3-=jj.turn;
+      m.c4+=jj.turn;
     }
     else
     {
@@ -206,4 +209,6 @@ void loop(void)
   Serial.print("  t:");
   Serial.println(j.turn);
 #endif
+
+  return;
 }

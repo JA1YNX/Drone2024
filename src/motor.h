@@ -9,10 +9,10 @@ class motor { //モーターチャンネルとピン設定
         int c2;//右前変更値
         int c3;//左後変更値
         int c4;//右後変更値
-        void rotate();//設定反映
+        void rotate() const;//設定反映
         //motor(int pin_1, int pin_2, int pin_3, int pin_4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4){}
         motor(user<int> pin_): pin(pin_){}
-        void setup();//初期設定
+        void setup() const;//初期設定
         void stop();
     private:
         user<int> pin;
@@ -22,7 +22,7 @@ void motor::stop()
   nf = 0;
   rotate();
 }
-void motor::rotate()
+void motor::rotate() const
 {
   ledcWrite(1, (def+c1)*nf+duty_min);
   ledcWrite(2, (def+c2)*nf+duty_min);
@@ -80,7 +80,7 @@ off:258
 min:260
 max:340
 */
-void motor::setup()
+void motor::setup() const
 {
   ledcSetup(1, puls, 12);//1,066,666.666666666666666666666666...まで出来そう?
   ledcSetup(2, puls, 12);//20bit
