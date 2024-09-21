@@ -203,6 +203,6 @@ void loop(void)
   Serial.print("  z:");
   Serial.print(j.z);
   Serial.print("  t:");
-  Serial.println(j.turn);
+  Serial.println(j.turn-history);
 #endif
 }
