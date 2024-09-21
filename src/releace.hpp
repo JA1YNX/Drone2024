@@ -148,9 +148,9 @@ void loop(void)
   //ジャイロ
   sens.update();
   user<int> j = sens.get();
+  user<int> jj = {j.x/2,j.y/2,j.z/2,(j.turn-history)/2};
   {
     //BNO055
-    user<int> jj = {j.x/2,j.y/2,j.z/2,(j.turn-history)/2};
     if(u.x == 0)
     {
       m.c1-=jj.x;
@@ -198,16 +198,16 @@ void loop(void)
   bt.print(j.turn);
   bt.println("    } ");
 #endif
-  
+
 #ifdef SERIAL_out
   Serial.print("     x:");
-  Serial.print(j.x);
+  Serial.print(jj.x);
   Serial.print("  y:");
-  Serial.print(j.y);
+  Serial.print(jj.y);
   Serial.print("  z:");
-  Serial.print(j.z);
+  Serial.print(jj.z);
   Serial.print("  t:");
-  Serial.println(j.turn);
+  Serial.println(jj.turn);
 #endif
 
   return;
