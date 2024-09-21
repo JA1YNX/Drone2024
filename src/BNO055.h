@@ -20,7 +20,21 @@ class BNO055
     private:
     user<int> data;
     sensors_event_t ang,acc;
+    int convert(int);
 };
+int BNO055::convert(int data)
+{
+    int ret = 0;
+    if (data<180)
+    {
+        ret = data;
+    }
+    else
+    {
+        ret = data-360;
+    }
+    return ret;
+}
 user<int> BNO055::get()
 {
     //data.turn = ang.orientation.x;
@@ -51,6 +65,6 @@ void BNO055::update()
     }
     data.x = (int)ang.orientation.y*(-1);
     data.y = (int)ang.orientation.z;
-    data.turn = (int)ang.orientation.x;
+    data.turn = convert((int)ang.orientation.x);
 }
 #endif
