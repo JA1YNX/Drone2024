@@ -1,7 +1,6 @@
 #include "./conf.h"
 #include "./controler.h"
 #include "./motor.h"
-#include "./KXR_94.h"
 
 contloler c(user<int>{32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 void setup(void)

@@ -1,7 +1,6 @@
 #include "./conf.h"
 #include "./controler.h"
 #include "./motor.h"
-//#include "./KXR_94.h"
 #include "./BNO055.h"
 
 //状態表示用LED
@@ -12,7 +11,6 @@
 #define PIN_ch5 23
 
 //モーター制御クラスインスタンス化
-//motor m(25, 26, 27, 14, 1, 2, 3, 4); //(pin1,pin2,pin3,pin4,ch1,ch2,ch3,ch4)
 motor m({25, 26, 27, 14}); //(pin1,pin2,pin3,pin4)
 
 //コントローラー制御用クラスインスタンス化
@@ -25,13 +23,17 @@ int history;
 //セットアップ関数
 void setup(void)
 {
+  //R
   pinMode(R_pin,OUTPUT);
   digitalWrite(R_pin,HIGH);
+  //Y
   ledcSetup(Y_pin, puls, 8);
   ledcAttachPin(Y_pin, Y_pin);
   ledcWrite(Y_pin, 255);
+  //other
   pinMode(PIN_ch5,INPUT);
   pinMode(G_pin,OUTPUT);
+
 #ifdef SERIAL_out
   //シリアルモニタ開始
   Serial.begin(115200);
@@ -41,9 +43,11 @@ void setup(void)
   bt.begin("Drone2024");
 #endif
 
+  //コントローラー初期化
+  c.setup();
+
   //モーター初期化
-  //回転OFF
-  m.nf = 1;//モーターの回転ON
+  m.nf = 1;
   m.setup();//初期化
 
   //BNO055
@@ -52,9 +56,6 @@ void setup(void)
   digitalWrite(R_pin,LOW);
   delay(1000);
   m.stop();
-
-  //コントローラー初期化
-  c.setup();
 
   digitalWrite(G_pin,HIGH);
 
@@ -141,7 +142,7 @@ void loop(void)
       m.c4 += u.turn;
     }
   }
-  
+
   //ジャイロ
   sens.update();
   user<int> j = sens.get();
@@ -203,6 +204,6 @@ void loop(void)
   Serial.print("  z:");
   Serial.print(j.z);
   Serial.print("  t:");
-  Serial.println(j.turn-history);
+  Serial.println(j.turn);
 #endif
 }
