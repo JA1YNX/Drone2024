@@ -16,12 +16,11 @@
 motor m({25, 26, 27, 14}); //(pin1,pin2,pin3,pin4)
 
 //コントローラー制御用クラスインスタンス化
-//contloler c({32, 35, 33, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
-contloler c({33, 35, 32, 34});   //T6J   //ch1pin,ch2pin,ch3pin,ch4pin
+contloler c({33, 35, 32, 34});   //T6J ch1,ch2,ch3,ch4
 
 //BNO055
 BNO055 sens;
-user<int> history;
+int history;
 
 //セットアップ関数
 void setup(void)
@@ -70,7 +69,7 @@ void setup(void)
   
   //基準角度設定
   sens.update();
-  history = j.get();
+  history = sens.get().turn;
 }
 
 
@@ -84,7 +83,7 @@ void loop(void)
     digitalWrite(G_pin,LOW);
     while((c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500))m.stop();
     sens.update();
-    history = j.get();
+    history = sens.get().turn;
   }
 
   m.nf = 1;
@@ -144,35 +143,34 @@ void loop(void)
   }
   
   //ジャイロ
+  sens.update();
+  user<int> j = sens.get();
   {
     //BNO055
-    sens.update();
-
-    user<int> j = sens.get();
-
     if(u.x == 0)
     {
-      m.c1+=(j.x-history.x);
-      m.c2-=(j.x-history.x);
-      m.c3+=(j.x-history.x);
-      m.c4-=(j.x-history.x);
-      history.x = j.x;
+      m.c1-=j.x;
+      m.c2+=j.x;
+      m.c3-=j.x;
+      m.c4+=j.x;
     }
     if(u.y == 0)
     {
-      m.c1+=(j.y-history.y);
-      m.c2+=(j.y-history.y);
-      m.c3-=(j.y-history.y);
-      m.c4-=(j.y-history.y);
-      history.y = j.y;
+      m.c1+=j.y;
+      m.c2+=j.y;
+      m.c3-=j.y;
+      m.c4-=j.y;
     }
     if(u.turn == 0)
     {
-      m.c1+=(j.turn-history.turn);
-      m.c2-=(j.turn-history.turn);
-      m.c3-=(j.turn-history.turn);
-      m.c4+=(j.turn-history.turn);
-      history.turn = j.turn;
+      m.c1+=(j.turn-history);
+      m.c2-=(j.turn-history);
+      m.c3-=(j.turn-history);
+      m.c4+=(j.turn-history);
+    }
+    else
+    {
+      history = j.turn;
     }
 
   }

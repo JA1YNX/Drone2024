@@ -23,7 +23,7 @@ class BNO055
 };
 user<int> BNO055::get()
 {
-    data.turn = ang.orientation.x;
+    //data.turn = ang.orientation.x;
     return data;
 }
 sensors_event_t BNO055::getang()
@@ -42,22 +42,6 @@ void BNO055::update()
 {
     bno.getEvent(&ang,Adafruit_BNO055::VECTOR_EULER);
     bno.getEvent(&acc,Adafruit_BNO055::VECTOR_LINEARACCEL);
-    /*
-    if(abs(acc.acceleration.x)>0.4)
-    {
-        data.x += acc.acceleration.x;
-    }
-    else{
-        data.x = 0;
-    }
-    if(abs(acc.acceleration.y)>0.4)
-    {
-        data.y += acc.acceleration.y;
-    }
-    else{
-        data.y = 0;
-    }
-    */
     if(abs(acc.acceleration.z)>0.4)
     {
         data.z += acc.acceleration.z;
@@ -67,6 +51,6 @@ void BNO055::update()
     }
     data.x = (int)ang.orientation.y*(-1);
     data.y = (int)ang.orientation.z;
-    data.turn = (int)ang.orientation.x;
+    data.turn = (int)ang.orientation.x+10000;
 }
 #endif
