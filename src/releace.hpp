@@ -75,16 +75,25 @@ void setup(void)
   return;
 }
 
+bool flag = 0;
+
 
 void loop(void)
 {
+  user<int> j;
   //強制停止
-  if(pulseIn(PIN_ch5,HIGH,20000)<1500)
+  if(pulseIn(PIN_ch5,HIGH,20000)<1500 || flag)
   {
+    flag = 0;
     m.stop();
     digitalWrite(R_pin,HIGH);
     digitalWrite(G_pin,LOW);
     while((c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500))m.stop();
+    while(abs(j.x)>Max_ang||abs(j.y)>Max_ang)
+    {
+      sens.update();
+      j = sens.get();
+    }
     sens.update();
     history = sens.get().turn;
   }
@@ -147,8 +156,8 @@ void loop(void)
 
   //ジャイロ
   sens.update();
-  user<int> j = sens.get();
-  user<int> jj = {j.x/2,j.y/2,j.z/2,(j.turn-history)/2};
+  j = sens.get();
+  user<int> jj = {j.x/3,j.y/3,j.z/3,(j.turn-history)/3};
   {
     //BNO055
     if(u.x == 0)
@@ -177,6 +186,10 @@ void loop(void)
       history = j.turn;
     }
 
+    if(abs(j.x)>Max_ang||abs(j.y)>Max_ang)
+    {
+      flag = 1;
+    }
   }
 
   //強制微調整

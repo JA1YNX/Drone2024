@@ -20,6 +20,8 @@
 #define duty_min 360//最低回転58
 #define duty_max 600//最高回転98
 
+#define Max_ang 10
+
 //とりあえずデータ入れるやつ
 template <typename T>
 struct user {
