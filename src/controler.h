@@ -47,7 +47,7 @@ user<int> contloler::read()
   c.x = (static_cast<int>(pulseIn(set.x,HIGH,20000))-ud.x)/15;
   c.y = (static_cast<int>(pulseIn(set.y,HIGH,20000))-ud.y)/15;
   c.z = (static_cast<int>(pulseIn(set.z,HIGH,20000))-ud.z)/7;
-  c.turn = (static_cast<int>(pulseIn(set.turn,HIGH,20000))-ud.turn)/12;
+  c.turn = (static_cast<int>(pulseIn(set.turn,HIGH,20000))-ud.turn)/20;
 #ifdef output
   bt.print("   cx:");
   bt.print(c.x);

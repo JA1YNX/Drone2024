@@ -4,7 +4,7 @@
 //#define output
 
 //SerialMonitorの出力をするかどうか
-#define SERIAL_out
+//#define SERIAL_out
 
 //使うライブラリインクルード
 #include <cmath>
