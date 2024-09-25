@@ -81,6 +81,8 @@ bool flag = 0;
 void loop(void)
 {
   user<int> j;
+  sens.update();
+  j = sens.get();
   //強制停止
   if(pulseIn(PIN_ch5,HIGH,20000)<1500 || flag)
   {
@@ -155,8 +157,6 @@ void loop(void)
   }
 
   //ジャイロ
-  sens.update();
-  j = sens.get();
   user<int> jj = {j.x/3,j.y/3,j.z/3,(j.turn-history)/3};
   {
     //BNO055
