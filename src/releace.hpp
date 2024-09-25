@@ -95,10 +95,9 @@ void loop(void)
     do{
       sens.update();
       j = sens.get();
+      history = sens.get().turn;
       m.stop();
     }while(abs(j.x)>Max_ang||abs(j.y)>Max_ang||(c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500));
-    sens.update();
-    history = sens.get().turn;
   }
 
   m.nf = 1;
