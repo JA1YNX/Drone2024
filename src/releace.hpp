@@ -90,12 +90,13 @@ void loop(void)
     m.stop();
     digitalWrite(R_pin,HIGH);
     digitalWrite(G_pin,LOW);
-    while((c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500))m.stop();
+    //while((c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500))m.stop();
     
     do{
       sens.update();
       j = sens.get();
-    }while(abs(j.x)>Max_ang||abs(j.y)>Max_ang);
+      m.stop();
+    }while(abs(j.x)>Max_ang||abs(j.y)>Max_ang||(c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500));
     sens.update();
     history = sens.get().turn;
   }
