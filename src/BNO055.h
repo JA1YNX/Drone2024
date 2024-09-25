@@ -86,6 +86,11 @@ void BNO055::update()
     data.x = (int)ang.orientation.y*(-1);
     data.y = (int)ang.orientation.z;
     data.turn = convert((int)ang.orientation.x*(-1));
+
+    data.x += -1;
+    data.y += 2;
+    data.z += 0;
+    data.turn += 0;
     return;
 }
 #endif
