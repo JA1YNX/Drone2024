@@ -190,6 +190,11 @@ void loop(void)
     {
       flag = 1;
     }
+
+    if(u.turn == 0)
+    {
+      history = j.turn;
+    }
   }
 
   //強制微調整
