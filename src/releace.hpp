@@ -191,7 +191,7 @@ void loop(void)
       flag = 1;
     }
 
-    if(u.turn == 0)
+    if(u.z == 0)
     {
       history = j.turn;
     }
