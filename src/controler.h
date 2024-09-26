@@ -44,10 +44,10 @@ void contloler::setup()
 //読んで返す
 user<int> contloler::read()
 {
-  c.x = (static_cast<int>(pulseIn(set.x,HIGH,20000))-ud.x)/15;
-  c.y = (static_cast<int>(pulseIn(set.y,HIGH,20000))-ud.y)/15;
+  c.x = (static_cast<int>(pulseIn(set.x,HIGH,20000))-ud.x)/25;
+  c.y = (static_cast<int>(pulseIn(set.y,HIGH,20000))-ud.y)/25;
   c.z = (static_cast<int>(pulseIn(set.z,HIGH,20000))-ud.z)/7;
-  c.turn = (static_cast<int>(pulseIn(set.turn,HIGH,20000))-ud.turn)/20;
+  c.turn = (static_cast<int>(pulseIn(set.turn,HIGH,20000))-ud.turn)/25;
 #ifdef output
   bt.print("   cx:");
   bt.print(c.x);

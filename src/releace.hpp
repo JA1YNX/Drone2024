@@ -158,7 +158,7 @@ void loop(void)
   }
 
   //ジャイロ
-  user<int> jj = {j.x/2,j.y/2,j.z/2,(j.turn-history)/2};
+  user<int> jj = {pow(j.x/5),pow(j.y/5),0,(j.turn-history)/3};
   {
     //BNO055
     if(u.x == 0)
