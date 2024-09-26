@@ -23,6 +23,7 @@ class BNO055
     int convert(int);
     int hist = 0;
     int hist2 = 0;
+    user<int> defolt;
 };
 int BNO055::convert(int data_)
 {
@@ -69,6 +70,8 @@ void BNO055::setup()
     {
         while(!bno.begin());
     }
+    update();
+    defolt = get();
     return;
 }
 
@@ -87,10 +90,10 @@ void BNO055::update()
     data.y = (int)ang.orientation.z;
     data.turn = convert((int)ang.orientation.x*(-1));
 
-    data.x += -1;
-    data.y += 2;
-    data.z += 0;
-    data.turn += 0;
+    data.x += defolt.x;
+    data.y += defolt.y;
+    data.z += defolt.z;
+    data.turn += defolt.turn;
     return;
 }
 #endif
