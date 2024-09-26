@@ -93,7 +93,7 @@ void BNO055::update()
     data.x -= defolt.x;
     data.y -= defolt.y;
     data.z -= defolt.z;
-    data.turn -+= defolt.turn;
+    data.turn -= defolt.turn;
     return;
 }
 #endif
