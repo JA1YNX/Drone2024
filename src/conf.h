@@ -17,8 +17,9 @@
 
 #define puls 73//pwm周波数
 #define bits 12
-#define duty_min 360//最低回転58
-#define duty_max 600//最高回転98
+#define duty_min 360//最低回転
+#define duty_low 380//最低回転
+#define duty_max 600//最高回転
 
 #define Max_ang 10
 

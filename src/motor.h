@@ -24,20 +24,20 @@ void motor::stop()
 }
 void motor::rotate() const
 {
-  ledcWrite(1, (def+c1)*nf+duty_min);
-  ledcWrite(2, (def+c2)*nf+duty_min);
-  ledcWrite(3, (def+c3)*nf+duty_min);
-  ledcWrite(4, (def+c4)*nf+duty_min);
+  ledcWrite(1, (def+c1)*nf+duty_low);
+  ledcWrite(2, (def+c2)*nf+duty_low);
+  ledcWrite(3, (def+c3)*nf+duty_low);
+  ledcWrite(4, (def+c4)*nf+duty_low);
   
 #ifdef output
   bt.print("  ou1:");
-  bt.print((def+c1)*nf+duty_min);
+  bt.print((def+c1)*nf+duty_low);
   bt.print("  ou2:");
-  bt.print((def+c2)*nf+duty_min);
+  bt.print((def+c2)*nf+duty_low);
   bt.print("  ou3:");
-  bt.print((def+c3)*nf+duty_min);
+  bt.print((def+c3)*nf+duty_low);
   bt.print("  ou4:");
-  bt.print((def+c4)*nf+duty_min);
+  bt.print((def+c4)*nf+duty_low);
 
   bt.print("      ch1:");
   bt.print(c1);
@@ -52,13 +52,13 @@ void motor::rotate() const
 
 #ifdef SERIAL_out
   Serial.print("  ou1:");
-  Serial.print((def+c1)*nf+duty_min);
+  Serial.print((def+c1)*nf+duty_low);
   Serial.print("  ou2:");
-  Serial.print((def+c2)*nf+duty_min);
+  Serial.print((def+c2)*nf+duty_low);
   Serial.print("  ou3:");
-  Serial.print((def+c3)*nf+duty_min);
+  Serial.print((def+c3)*nf+duty_low);
   Serial.print("  ou4:");
-  Serial.print((def+c4)*nf+duty_min);
+  Serial.print((def+c4)*nf+duty_low);
 
   Serial.print("      ch1:");
   Serial.print(c1);
