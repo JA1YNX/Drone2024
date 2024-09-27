@@ -159,7 +159,7 @@ void loop(void)
 
   //ジャイロ
   //user<int> jj = {(0-std::cos((j.x+3.14*4)/8))*20,(0-std::cos((j.y+3.14*4)/8))*20,0,(j.turn-history)/3};
-  user<int> jj = j;
+  user<int> jj = {j.x*2,j.y*2,0,j.turn};
   {
     //BNO055
     if(u.x == 0)
