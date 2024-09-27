@@ -226,7 +226,16 @@ void loop(void)
   Serial.print("  z:");
   Serial.print(jj.z);
   Serial.print("  t:");
-  Serial.println(jj.turn);
+  Serial.print(jj.turn);
+
+  Serial.print("  x:");
+  Serial.print(j.x);
+  Serial.print("  y:");
+  Serial.print(j.y);
+  Serial.print("  z:");
+  Serial.print(j.z);
+  Serial.print("  t:");
+  Serial.println(j.turn);
 #endif
 
   return;
