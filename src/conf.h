@@ -23,6 +23,18 @@
 
 #define Max_ang 10
 
+
+///pid
+#define Kp 0.1//比例ゲイン
+#define Ki 0.01//積分ゲイン
+#define Kd 0.05//微分ゲイン
+
+
+
+
+///
+
+
 //とりあえずデータ入れるやつ
 template <typename T>
 struct user {
