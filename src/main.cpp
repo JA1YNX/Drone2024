@@ -1,15 +1,13 @@
 
 #define releace
-#define PID
+#define PID_f
 
-#ifdef releace
-#ifdef PID
+#ifdef defined(releace)&&defined(PID_f)
 #include "./PID.hpp"
-#elif
+#elif defined(releace)
 #include "./releace.hpp"
 #endif
-#endif
 
-#ifndef releace
+#ifndef releace_f
 #include "./debug.hpp"
 #endif

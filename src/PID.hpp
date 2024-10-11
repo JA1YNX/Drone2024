@@ -134,7 +134,8 @@ void loop(void)
   //pid
   {
     user<double> pid_res;
-    pid(,,setpoint.x,,pid_res,x);
+    //PID_F::pid(,,setpoint.x,,pid_res,x);
+    
   }
 
   //強制微調整
