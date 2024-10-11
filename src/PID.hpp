@@ -142,6 +142,24 @@ void loop(void)
     pid_res.x = pid_x.pid_culc(j.x,setpoint.x);
     pid_res.y = pid_y.pid_culc(j.y,setpoint.y);
     pid_res.turn = pid_turn.pid_culc(j.turn,setpoint.turn);
+  }
+
+  //set
+  {
+    m.c1 += pid_res.x;
+    m.c2 -= pid_res.x;
+    m.c3 += pid_res.x;
+    m.c4 -= pid_res.x;
+
+    m.c1 -= pid_res.y;
+    m.c2 -= pid_res.y;
+    m.c3 += pid_res.y;
+    m.c4 += pid_res.y;
+
+    m.c1 += pid_res.turn;
+    m.c2 -= pid_res.turn;
+    m.c3 -= pid_res.turn;
+    m.c4 += pid_res.turn;
 
   }
 
