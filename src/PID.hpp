@@ -1,7 +1,8 @@
-#include "./conf.h"
-#include "./controler.h"
-#include "./motor.h"
-#include "./BNO055.h"
+#include "conf.h"
+#include "control.h"
+#include "motor.h"
+#include "BNO055.h"
+#include "pid.h"
 
 //状態表示用LED
 #define R_pin 16
@@ -67,7 +68,7 @@ void setup(void)
   while(c.read().z>2);
 
   ledcWrite(Y_pin, 0);
-  
+
   //基準角度設定
   sens.update();
   history = sens.get().turn;
@@ -76,7 +77,7 @@ void setup(void)
 }
 
 bool flag = 0;
-
+user<int> setpoint;
 
 void loop(void)
 {
@@ -107,7 +108,8 @@ void loop(void)
 
   //プロポの入力取得
   user<int> u = c.read();
-  
+  user<int> u_r = c.data();
+
   ledcWrite(Y_pin,u.z*7);
 
   #ifdef output
@@ -121,44 +123,18 @@ void loop(void)
   m.c3 = 0;
   m.c4 = 0;
 
-  //プロポ反映
+  //目標角度設定
+  //to user<int> setpoint
   {
-    if(u.y<0)
-    {
-      m.c1 -= u.y;
-      m.c2 -= u.y;
-    }
-    else
-    {
-      m.c3 += u.y;
-      m.c4 += u.y;
-    }
-
-    if(u.x<0)
-    {
-      m.c2 -= u.x;
-      m.c4 -= u.x;
-    }
-    else
-    {
-      m.c1 += u.x;
-      m.c3 += u.x;
-    }
-
-    if(u.turn<0)
-    {
-      m.c2 -= u.turn;
-      m.c3 -= u.turn;
-    }
-    else
-    {
-      m.c1 += u.turn;
-      m.c4 += u.turn;
-    }
+    setpoint.x = u_r.x/30;
+    setpoint.y = u_r.y/30;
+    setpoint.turn = u_r.turn/30;
   }
 
-  //ジャイロ
+  //pid
   {
+    user<double> pid_res;
+    pid(,,setpoint.x,,pid_res,x);
   }
 
   //強制微調整

@@ -12,3 +12,27 @@ double pid_controller(double setpoint, double current_value, double& previous_er
     previous_error = error; // 現在の誤差を保存
     return output;
 }
+/// @brief PID
+/// @param now now_val今の角度
+/// @param pre pre_err前のerr
+/// @param set setpoint目標値
+/// @param integ integral前の値
+/// @param out 出力
+/// @return now_err今のerr
+double pid(double now,double pre, double set,double& integ,double& out)
+{
+#define DELTA_T 1
+    double err = pre;
+    double p = Kp*(set-now);
+    double err1 = now - set;
+    integ += (now - set + err) / 2.0 * DELTA_T;
+    double i = Ki*integ;
+    double d = Kd*(err1 - err)/DELTA_T;
+    out = (p + i + d);
+    return err;
+}
+/*
+
+m.c1=pid(,,);
+
+*/
