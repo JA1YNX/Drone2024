@@ -1,8 +1,8 @@
-#include "conf.h"
-#include "control.h"
-#include "motor.h"
-#include "BNO055.h"
-#include "pid.h"
+#include "./conf.h"
+#include "./control.h"
+#include "./motor.h"
+#include "./BNO055.h"
+#include "./pid.h"
 
 //状態表示用LED
 #define R_pin 16
@@ -79,6 +79,10 @@ void setup(void)
 bool flag = 0;
 user<int> setpoint;
 
+PID_F::pid pid_x;
+PID_F::pid pid_y;
+PID_F::pid pid_z;
+
 void loop(void)
 {
   user<int> j;
@@ -135,7 +139,10 @@ void loop(void)
   {
     user<double> pid_res;
     //PID_F::pid(,,setpoint.x,,pid_res,x);
-    
+    pid_res.x = pid_x.pid_culc(j.x,setpoint.x);
+    pid_res.y = pid_y.pid_culc(j.y,setpoint.y);
+    pid_res.turn = pid_turn.pid_culc(j.turn,setpoint.turn);
+
   }
 
   //強制微調整

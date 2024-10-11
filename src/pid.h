@@ -1,7 +1,7 @@
 #ifndef PID
 #define PID
 #include "conf.h"
-namespace PIF_F
+namespace PID_F
 {
 #define DELTA_T 1
 
@@ -45,8 +45,9 @@ namespace PIF_F
 
     class pid
     {
+        // https://emb.macnica.co.jp/articles/15859/
     private:
-        double error[2];
+        double error[2] = {0,0};
         double integral = 0;
     public:
         double pid_culc(double, double);
@@ -54,7 +55,7 @@ namespace PIF_F
         ~pid();
     };
 
-    pid::()
+    pid::pid()
     {
     }
 
@@ -66,15 +67,15 @@ namespace PIF_F
     double pid::pid_culc(double feedback_val, double target_val)
     {
 
-    double p, i, d;
+        double p, i, d;
 
-    error[0] = error[1];
-    error[1] = feedback_val - target_val;
-    integral += (error[1] + error[0]) / 2.0 * DELTA_T;
+        error[0] = error[1];
+        error[1] = feedback_val - target_val;
+        integral += (error[1] + error[0]) / 2.0 * DELTA_T;
 
-    p = KP * error[1];
-    i = KI * integral;
-    d = KD * (error[1] - error[0])/DELTA_T;
+        p = KP * error[1];
+        i = KI * integral;
+        d = KD * (error[1] - error[0])/DELTA_T;
 
     return (p + i + d);
 
