@@ -23,16 +23,18 @@ int history;
 //セットアップ関数
 void setup(void)
 {
-  //R
-  pinMode(R_pin,OUTPUT);
-  digitalWrite(R_pin,HIGH);
-  //Y
-  ledcSetup(Y_pin, puls, 8);
-  ledcAttachPin(Y_pin, Y_pin);
-  ledcWrite(Y_pin, 255);
-  //other
-  pinMode(PIN_ch5,INPUT);
-  pinMode(G_pin,OUTPUT);
+  {//LEDとプロポのch5設定
+    //R
+    pinMode(R_pin,OUTPUT);
+    digitalWrite(R_pin,HIGH);
+    //Y
+    ledcSetup(Y_pin, puls, 8);
+    ledcAttachPin(Y_pin, Y_pin);
+    ledcWrite(Y_pin, 255);
+    //other
+    pinMode(PIN_ch5,INPUT);
+    pinMode(G_pin,OUTPUT);
+  }
 
 #ifdef SERIAL_out
   //シリアルモニタ開始
@@ -50,24 +52,27 @@ void setup(void)
   m.nf = 1;
   m.setup();//初期化
 
-  //BNO055
+  //BNO055初期化
   sens.setup();
 
+  //LED更新
   digitalWrite(R_pin,LOW);
   delay(1000);
   m.stop();
 
   digitalWrite(G_pin,HIGH);
 
-  //基本軸待機
-  while((pulseIn(PIN_ch5,HIGH,20000)>1500)&&(c.read().z>15))
-    digitalWrite(R_pin,HIGH);
-  while((pulseIn(PIN_ch5,HIGH,20000)<1500)&&(c.read().z<2))
-    digitalWrite(R_pin,LOW);
-  while(c.read().z>2);
+  {//基本軸待機
+    while((pulseIn(PIN_ch5,HIGH,20000)>1500)&&(c.read().z>15))
+      digitalWrite(R_pin,HIGH);
+    while((pulseIn(PIN_ch5,HIGH,20000)<1500)&&(c.read().z<2))
+      digitalWrite(R_pin,LOW);
+    while(c.read().z>2);
+  }
 
+  //LED更新
   ledcWrite(Y_pin, 0);
-  
+
   //基準角度設定
   sens.update();
   history = sens.get().turn;
@@ -75,11 +80,13 @@ void setup(void)
   return;
 }
 
+//強制停止用のフラグ
 bool flag = 0;
 
 
 void loop(void)
 {
+  //ジャイロの値取得
   user<int> j;
   sens.update();
   j = sens.get();
@@ -157,6 +164,7 @@ void loop(void)
     }
   }
 
+  //これ使うと暴走する可能性大なので調整するまではコメントアウトしてからコンパイル
   //ジャイロ
   //user<int> jj = {(0-std::cos((j.x+3.14*4)/8))*20,(0-std::cos((j.y+3.14*4)/8))*20,0,(j.turn-history)/3};
   user<int> jj = {j.x*2,j.y*2,0,j.turn};
@@ -188,15 +196,15 @@ void loop(void)
       history = j.turn;
     }
 
-    if(abs(j.x)>Max_ang||abs(j.y)>Max_ang)
-    {
-      flag = 1;
-    }
-
     if(u.z == 0)
     {
       history = j.turn;
     }
+  }
+  //最大角度の確認
+  if (abs(j.x) > Max_ang || abs(j.y) > Max_ang)
+  {
+    flag = 1;
   }
 
   //強制微調整
