@@ -1,3 +1,7 @@
+/*
+基本的なプログラムはrelease.hppと同じなのでコメントもそっち参照
+*/
+
 #include "./conf.h"
 #include "./control.h"
 #include "./motor.h"
