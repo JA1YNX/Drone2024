@@ -13,9 +13,9 @@ class motor { //モーターチャンネルとピン設定
         //motor(int pin_1, int pin_2, int pin_3, int pin_4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4){}
         motor(user<int> pin_): pin(pin_){}
         void setup() const;//初期設定
-        void stop();
+        void stop();//強制停止
     private:
-        user<int> pin;
+        user<int> pin;//モーター制御用ピン
 };
 void motor::stop()
 {
