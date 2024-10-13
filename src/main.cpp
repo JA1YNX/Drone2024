@@ -1,5 +1,6 @@
-
+//releaes使うかどうか
 #define releace
+//PIDにするかどうか
 #define PID_f
 
 #ifdef defined(releace)&&defined(PID_f)
