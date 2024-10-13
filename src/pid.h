@@ -1,10 +1,14 @@
 #ifndef PID
 #define PID
 #include "conf.h"
+/*
+正直PID制御についてあんまりわかってないけどいろんなサイト見てみてこんな感じかな？って感じで実装した結果
+*/
 namespace PID_F
 {
 #define DELTA_T 1
 
+    //正直これはわかんない
     double pid_controller(double setpoint, double current_value, double& previous_error)
     {
         double error = setpoint - current_value;
@@ -18,7 +22,7 @@ namespace PID_F
         return output;
     }
 
-
+    //上の関数を自分で書き換えてみたけどわかんなかった
     /// @brief PID
     /// @param now now_val今の角度
     /// @param pre pre_err前のerr
@@ -43,6 +47,11 @@ namespace PID_F
 
     */
 
+    /*
+    今のところこのクラスで制御することになりそう
+    変数については参考にしたサイトに載っていたものをクラスに書き換えただけなので正直わかんない
+    モーター毎か角度毎にインスタンス化しといて制御する感じだと思う
+    */
     class pid
     {
         // https://emb.macnica.co.jp/articles/15859/
