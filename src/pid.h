@@ -30,7 +30,7 @@ namespace PID_F
     /// @param integ integral前の値
     /// @param out 出力
     /// @return now_err今のerr
-    double pid(double now, double pre, double set, double &integ, double &out)
+    double pid_(double now, double pre, double set, double &integ, double &out)
     {
         double err = pre;
         double p = Kp * (set - now);

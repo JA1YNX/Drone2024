@@ -176,6 +176,8 @@ void loop(void)
 
   // 回転数更新
   m.rotate();
+
+  user<int> jj = {0, 0, 0, 0};
 #ifdef output
   bt.print("     x:");
   bt.print(j.x);
