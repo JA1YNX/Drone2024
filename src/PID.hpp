@@ -3,7 +3,7 @@
 */
 
 #include "./conf.h"
-#include "./control.h"
+#include "./controler.h"
 #include "./motor.h"
 #include "./BNO055.h"
 #include "./pid.h"
