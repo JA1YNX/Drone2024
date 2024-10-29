@@ -1,11 +1,11 @@
 //releaes使うかどうか
-#define releace
+#define releace_f
 //PIDにするかどうか
 #define PID_f
 
-#ifdef defined(releace)&&defined(PID_f)
+#ifdef PID_f
 #include "./PID.hpp"
-#elif defined(releace)
+#elif releace_f
 #include "./releace.hpp"
 #endif
 
