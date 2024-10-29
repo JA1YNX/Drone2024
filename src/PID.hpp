@@ -141,9 +141,9 @@ void loop(void)
     setpoint.turn = u_r.turn / 30;
   }
 
+  user<double> pid_res;
   // pid
   {
-    user<double> pid_res;
     // PID_F::pid(,,setpoint.x,,pid_res,x);
     pid_res.x = pid_x.pid_culc(j.x, setpoint.x);
     pid_res.y = pid_y.pid_culc(j.y, setpoint.y);
