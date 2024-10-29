@@ -1,21 +1,22 @@
 #pragma once
 #include "./conf.h"
 
-class motor { //モーターチャンネルとピン設定
-    public:
-        int nf;//モーターの回転ON/OFF
-        int def;//もとになる数値
-        int c1;//左前変更値
-        int c2;//右前変更値
-        int c3;//左後変更値
-        int c4;//右後変更値
-        void rotate() const;//設定反映
-        //motor(int pin_1, int pin_2, int pin_3, int pin_4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4){}
-        motor(user<int> pin_): pin(pin_){}
-        void setup() const;//初期設定
-        void stop();//強制停止
-    private:
-        user<int> pin;//モーター制御用ピン
+class motor
+{ // モーターチャンネルとピン設定
+public:
+  int nf;              // モーターの回転ON/OFF
+  int def;             // もとになる数値
+  int c1;              // 左前変更値
+  int c2;              // 右前変更値
+  int c3;              // 左後変更値
+  int c4;              // 右後変更値
+  void rotate() const; // 設定反映
+  // motor(int pin_1, int pin_2, int pin_3, int pin_4): pin1(pin_1), pin2(pin_2), pin3(pin_3), pin4(pin_4){}
+  motor(user<int> pin_) : pin(pin_) {}
+  void setup() const; // 初期設定
+  void stop();        // 強制停止
+private:
+  user<int> pin; // モーター制御用ピン
 };
 void motor::stop()
 {
@@ -24,20 +25,20 @@ void motor::stop()
 }
 void motor::rotate() const
 {
-  ledcWrite(1, (def+c1)*nf+duty_low);
-  ledcWrite(2, (def+c2)*nf+duty_low);
-  ledcWrite(3, (def+c3)*nf+duty_low);
-  ledcWrite(4, (def+c4)*nf+duty_low);
-  
+  ledcWrite(1, (def + c1) * nf + duty_low);
+  ledcWrite(2, (def + c2) * nf + duty_low);
+  ledcWrite(3, (def + c3) * nf + duty_low);
+  ledcWrite(4, (def + c4) * nf + duty_low);
+
 #ifdef output
   bt.print("  ou1:");
-  bt.print((def+c1)*nf+duty_low);
+  bt.print((def + c1) * nf + duty_low);
   bt.print("  ou2:");
-  bt.print((def+c2)*nf+duty_low);
+  bt.print((def + c2) * nf + duty_low);
   bt.print("  ou3:");
-  bt.print((def+c3)*nf+duty_low);
+  bt.print((def + c3) * nf + duty_low);
   bt.print("  ou4:");
-  bt.print((def+c4)*nf+duty_low);
+  bt.print((def + c4) * nf + duty_low);
 
   bt.print("      ch1:");
   bt.print(c1);
@@ -52,13 +53,13 @@ void motor::rotate() const
 
 #ifdef SERIAL_out
   Serial.print("  ou1:");
-  Serial.print((def+c1)*nf+duty_low);
+  Serial.print((def + c1) * nf + duty_low);
   Serial.print("  ou2:");
-  Serial.print((def+c2)*nf+duty_low);
+  Serial.print((def + c2) * nf + duty_low);
   Serial.print("  ou3:");
-  Serial.print((def+c3)*nf+duty_low);
+  Serial.print((def + c3) * nf + duty_low);
   Serial.print("  ou4:");
-  Serial.print((def+c4)*nf+duty_low);
+  Serial.print((def + c4) * nf + duty_low);
 
   Serial.print("      ch1:");
   Serial.print(c1);
@@ -82,8 +83,8 @@ max:340
 */
 void motor::setup() const
 {
-  ledcSetup(1, puls, 12);//1,066,666.666666666666666666666666...まで出来そう?
-  ledcSetup(2, puls, 12);//20bit
+  ledcSetup(1, puls, 12); // 1,066,666.666666666666666666666666...まで出来そう?
+  ledcSetup(2, puls, 12); // 20bit
   ledcSetup(3, puls, 12);
   ledcSetup(4, puls, 12);
   ledcAttachPin(pin.x, 1);
@@ -91,9 +92,9 @@ void motor::setup() const
   ledcAttachPin(pin.z, 3);
   ledcAttachPin(pin.turn, 4);
 
-  ledcWrite(1, duty_min-1);
-  ledcWrite(2, duty_min-1);
-  ledcWrite(3, duty_min-1);
-  ledcWrite(4, duty_min-1);
+  ledcWrite(1, duty_min - 1);
+  ledcWrite(2, duty_min - 1);
+  ledcWrite(3, duty_min - 1);
+  ledcWrite(4, duty_min - 1);
   return;
 }

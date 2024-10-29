@@ -1,59 +1,61 @@
 #pragma once
 #include "./conf.h"
 
-//制御用クラス
-class contloler {
+// 制御用クラス
+class contloler
+{
 public:
-  //コンストラクタ
+  // コンストラクタ
   contloler(user<int> set_);
-  //プロポセットアップ
+  // プロポセットアップ
   void setup();
-  //プロポ読み込み
+  // プロポ読み込み
   user<int> read();
-  //入力ピン出力
+  // 入力ピン出力
   user<int> pin() const;
-  //data
+  // data
   user<int> data() const;
+
 private:
-  //入力ピン格納用変数構造体
+  // 入力ピン格納用変数構造体
   user<int> set;
-  user<int> c;//スタック用変数
-  user<int> ud;//標準値
+  user<int> c;  // スタック用変数
+  user<int> ud; // 標準値
 };
-//data
+// data
 user<int> contloler::data() const
 {
   return c;
 }
-//今使ってるピン返すやつ
+// 今使ってるピン返すやつ
 user<int> contloler::pin() const
 {
   return set;
 }
-//コンストラクタピン渡す
+// コンストラクタピン渡す
 contloler::contloler(user<int> set_)
 {
   set = set_;
 }
-//ピン設定
+// ピン設定
 void contloler::setup()
 {
-  //モード設定
+  // モード設定
   pinMode(set.x, INPUT);
   pinMode(set.y, INPUT);
   pinMode(set.z, INPUT);
   pinMode(set.turn, INPUT);
-  //delay(5000);
-  ud = user<int>{1520,1520,1110,1520};
+  // delay(5000);
+  ud = user<int>{1520, 1520, 1110, 1520};
   return;
 }
-//読んで返す
+// 読んで返す
 user<int> contloler::read()
 {
-  c.x = static_cast<int>(pulseIn(set.x,HIGH,20000))-ud.x;
-  c.y = static_cast<int>(pulseIn(set.y,HIGH,20000))-ud.y;
-  c.z = static_cast<int>(pulseIn(set.z,HIGH,20000))-ud.z;
-  c.turn = static_cast<int>(pulseIn(set.turn,HIGH,20000))-ud.turn;
+  c.x = static_cast<int>(pulseIn(set.x, HIGH, 20000)) - ud.x;
+  c.y = static_cast<int>(pulseIn(set.y, HIGH, 20000)) - ud.y;
+  c.z = static_cast<int>(pulseIn(set.z, HIGH, 20000)) - ud.z;
+  c.turn = static_cast<int>(pulseIn(set.turn, HIGH, 20000)) - ud.turn;
 #ifdef output
   bt.print("   cx:");
   bt.print(c.x);
@@ -76,5 +78,5 @@ user<int> contloler::read()
   Serial.print(c.turn);
   Serial.print("     ");
 #endif
-  return {c.x/25,c.y/25,c.z/7,c.turn/25};
+  return {c.x / 25, c.y / 25, c.z / 7, c.turn / 25};
 }
