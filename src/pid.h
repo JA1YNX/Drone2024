@@ -17,7 +17,7 @@ namespace PID_F
 
         integral += error;                                            // 積分値の更新
         derivative = error - previous_error;                          // 微分値の更新
-        double output = Kp * error + Ki * integral + Kd * derivative; // 出力計算
+        double output = KP * error + KI * integral + KD * derivative; // 出力計算
         previous_error = error;                                       // 現在の誤差を保存
         return output;
     }
@@ -33,11 +33,11 @@ namespace PID_F
     double pid_(double now, double pre, double set, double &integ, double &out)
     {
         double err = pre;
-        double p = Kp * (set - now);
+        double p = KP * (set - now);
         double err1 = now - set;
         integ += (now - set + err) / 2.0 * DELTA_T;
-        double i = Ki * integ;
-        double d = Kd * (err1 - err) / DELTA_T;
+        double i = KI * integ;
+        double d = KD * (err1 - err) / DELTA_T;
         out = (p + i + d);
         return err;
     }

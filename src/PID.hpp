@@ -86,7 +86,7 @@ user<int> setpoint;
 
 PID_F::pid pid_x;
 PID_F::pid pid_y;
-PID_F::pid pid_z;
+PID_F::pid pid_turn;
 
 void loop(void)
 {
