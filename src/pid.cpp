@@ -62,10 +62,6 @@ namespace PID_F
     {
         pree = pre;
     }
-
-    Pid::~Pid()
-    {
-    }
     pid::pid()
     {
     }
