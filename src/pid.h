@@ -47,6 +47,42 @@ namespace PID_F
 
     */
 
+    class Pid
+    {
+    private:
+        double pree = 0;
+        double ie = 0;
+
+    public:
+        Pid(double);
+        ~Pid();
+        double culc(double, double);
+    };
+
+    /// @brief PID計算
+    /// @param y 入力（今）
+    /// @param r 目標
+    /// @return 出力
+    double Pid::culc(double y, double r)
+    {
+        double ret = 0;
+        double e = r - y;
+        ret += e * KP;          // P項
+        ret += (e - pree) * KD; // D項
+        ie += (e + pree) / 2;
+        ret += ie * KI; // I項
+    }
+    /// @brief コンストラクタ
+    /// @param pre 初期化時点の誤差
+    Pid::Pid(double pre)
+    {
+        pree = pre;
+    }
+
+    Pid::~Pid()
+    {
+    }
+
     /*
     今のところこのクラスで制御することになりそう
     変数については参考にしたサイトに載っていたものをクラスに書き換えただけなので正直わかんない
