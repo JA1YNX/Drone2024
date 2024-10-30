@@ -28,17 +28,18 @@ int history;
 // セットアップ関数
 void setup(void)
 {
-  // R
-  pinMode(R_pin, OUTPUT);
-  digitalWrite(R_pin, HIGH);
-  // Y
-  ledcSetup(Y_pin, puls, 8);
-  ledcAttachPin(Y_pin, Y_pin);
-  ledcWrite(Y_pin, 255);
-  // other
-  pinMode(PIN_ch5, INPUT);
-  pinMode(G_pin, OUTPUT);
-
+  { // LEDとプロポのch5
+    // R
+    pinMode(R_pin, OUTPUT);
+    digitalWrite(R_pin, HIGH);
+    // Y
+    ledcSetup(Y_pin, puls, 8);
+    ledcAttachPin(Y_pin, Y_pin);
+    ledcWrite(Y_pin, 255);
+    // other
+    pinMode(PIN_ch5, INPUT);
+    pinMode(G_pin, OUTPUT);
+  }
 #ifdef SERIAL_out
   // シリアルモニタ開始
   Serial.begin(115200);
@@ -58,20 +59,23 @@ void setup(void)
   // BNO055
   sens.setup();
 
+  // LED更新
   digitalWrite(R_pin, LOW);
   delay(1000);
   m.stop();
 
   digitalWrite(G_pin, HIGH);
 
-  // 基本軸待機
-  while ((pulseIn(PIN_ch5, HIGH, 20000) > 1500) && (c.read().z > 15))
-    digitalWrite(R_pin, HIGH);
-  while ((pulseIn(PIN_ch5, HIGH, 20000) < 1500) && (c.read().z < 2))
-    digitalWrite(R_pin, LOW);
-  while (c.read().z > 2)
-    ;
+  { // 基本軸待機
+    while ((pulseIn(PIN_ch5, HIGH, 20000) > 1500) && (c.read().z > 15))
+      digitalWrite(R_pin, HIGH);
+    while ((pulseIn(PIN_ch5, HIGH, 20000) < 1500) && (c.read().z < 2))
+      digitalWrite(R_pin, LOW);
+    while (c.read().z > 2)
+      ;
+  }
 
+  // LED更新
   ledcWrite(Y_pin, 0);
 
   // 基準角度設定
@@ -81,18 +85,22 @@ void setup(void)
   return;
 }
 
+// 強制停止用フラグ
 bool flag = 0;
-user<int> setpoint;
 
+// PID用クラスと目標
+user<int> setpoint;
 PID_F::pid pid_x;
 PID_F::pid pid_y;
 PID_F::pid pid_turn;
 
 void loop(void)
 {
+  // ジャイロの値
   user<int> j;
   sens.update();
   j = sens.get();
+
   // 強制停止
   if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
   {
@@ -120,6 +128,7 @@ void loop(void)
   user<int> u = c.read();
   user<int> u_r = c.data();
 
+  // TODO:要値調整
   ledcWrite(Y_pin, u.z * 7);
 
 #ifdef output
@@ -134,7 +143,6 @@ void loop(void)
   m.c4 = 0;
 
   // 目標角度設定
-  // to user<int> setpoint
   {
     setpoint.x = u_r.x / 30;
     setpoint.y = u_r.y / 30;
