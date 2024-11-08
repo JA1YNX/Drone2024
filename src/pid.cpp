@@ -2,7 +2,7 @@
 
 namespace PID_F
 {
-
+    /*
     // 正直これはわかんない
     double pid_controller(double setpoint, double current_value, double &previous_error)
     {
@@ -16,7 +16,7 @@ namespace PID_F
         previous_error = error;                                       // 現在の誤差を保存
         return output;
     }
-
+    
     // 上の関数を自分で書き換えてみたけどわかんなかった
     /// @brief PID
     /// @param now now_val今の角度
@@ -36,6 +36,7 @@ namespace PID_F
         out = (p + i + d);
         return err;
     }
+    */
     /*
 
     m.c1=pid(,,);
@@ -62,10 +63,10 @@ namespace PID_F
     {
         pree = pre;
     }
-    pid::pid()
+    Pid::~Pid()
     {
     }
-
+    /*
     pid::~pid()
     {
     }
@@ -85,5 +86,5 @@ namespace PID_F
 
         return (p + i + d);
     }
-
+    */
 }

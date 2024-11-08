@@ -27,6 +27,7 @@ namespace PID_F
     変数については参考にしたサイトに載っていたものをクラスに書き換えただけなので正直わかんない
     モーター毎か角度毎にインスタンス化しといて制御する感じだと思う
     */
+    /*
     class pid
     {
         // https://emb.macnica.co.jp/articles/15859/
@@ -39,6 +40,6 @@ namespace PID_F
         pid();
         ~pid();
     };
-
+    */
 }
 #endif
