@@ -90,9 +90,9 @@ bool flag = 0;
 
 // PID用クラスと目標
 user<int> setpoint;
-PID_F::pid pid_x;
-PID_F::pid pid_y;
-PID_F::pid pid_turn;
+PID_F::Pid pid_x(0);
+PID_F::Pid pid_y(0);
+PID_F::Pid pid_turn(0);
 
 void loop(void)
 {
@@ -153,9 +153,9 @@ void loop(void)
   // pid
   {
     // PID_F::pid(,,setpoint.x,,pid_res,x);
-    pid_res.x = pid_x.pid_culc(j.x, setpoint.x);
-    pid_res.y = pid_y.pid_culc(j.y, setpoint.y);
-    pid_res.turn = pid_turn.pid_culc(j.turn, setpoint.turn);
+    pid_res.x = pid_x.culc(j.x, setpoint.x);
+    pid_res.y = pid_y.culc(j.y, setpoint.y);
+    pid_res.turn = pid_turn.culc(j.turn, setpoint.turn);
   }
 
   // set
