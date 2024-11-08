@@ -3,11 +3,11 @@
 //PIDにするかどうか
 #define PID_f
 
-#ifdef PID_f
-#include "./PID.hpp"
-#elif releace_f
+#ifdef releace_f
 #include "./releace.hpp"
 #endif
+#elif PID_f
+#include "./PID.hpp"
 
 #ifndef releace_f
 #include "./debug.hpp"
