@@ -3,9 +3,9 @@
 //PIDにするかどうか
 #define PID_f
 
-#ifdef releace_f
+#if defined(releace_f)
 #include "./releace.hpp"
-#elif PID_f
+#elif defined(PID_f)
 #include "./PID.hpp"
 #endif
 
