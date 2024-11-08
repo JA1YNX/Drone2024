@@ -4,9 +4,11 @@
 #define PID_f
 
 #if defined(releace_f)
-#include "./releace.hpp"
-#elif defined(PID_f)
+#if defined(PID_f)
 #include "./PID.hpp"
+#else
+#include "./releace.hpp"
+#endif
 #endif
 
 #ifndef releace_f
