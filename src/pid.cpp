@@ -16,7 +16,7 @@ namespace PID_F
         previous_error = error;                                       // 現在の誤差を保存
         return output;
     }
-    
+
     // 上の関数を自分で書き換えてみたけどわかんなかった
     /// @brief PID
     /// @param now now_val今の角度
@@ -43,10 +43,6 @@ namespace PID_F
 
     */
 
-    /// @brief PID計算
-    /// @param y 入力（今）
-    /// @param r 目標
-    /// @return 出力
     double Pid::culc(double y, double r)
     {
         double ret = 0;
@@ -57,14 +53,16 @@ namespace PID_F
         ret += ie * KI; // I項
         return ret;
     }
-    /// @brief コンストラクタ
-    /// @param pre 初期化時点の誤差
     Pid::Pid(double pre)
     {
         pree = pre;
     }
     Pid::~Pid()
     {
+    }
+    void Pid::reset()
+    {
+        ie = 0;
     }
     /*
     pid::~pid()

@@ -5,15 +5,19 @@
 class contloler
 {
 public:
-  // コンストラクタ
+  /// @brief コンストラクタ
+  /// @param set_ ピン番号設定(x,y,z,turn)
   contloler(user<int> set_);
-  // プロポセットアップ
+  /// @brief ピン設定
   void setup();
-  // プロポ読み込み
+  /// @brief 値取得
+  /// @return 取得した値
   user<int> read();
-  // 入力ピン出力
+  /// @brief 指定したピン
+  /// @return user<int>型
   user<int> pin() const;
-  // data
+  /// @brief 加工する前のデータ（readで値更新）
+  /// @return user<int>型
   user<int> data() const;
 
 private:

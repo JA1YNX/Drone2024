@@ -7,8 +7,8 @@
 namespace PID_F
 {
 #define DELTA_T 1
-    //double pid_controller(double, double, double &);
-    //double pid_(double, double, double, double &, double &);
+    // double pid_controller(double, double, double &);
+    // double pid_(double, double, double, double &, double &);
 
     class Pid
     {
@@ -17,9 +17,16 @@ namespace PID_F
         double ie = 0;
 
     public:
+        /// @brief コンストラクタ
+        /// @param 初期化時点の誤差
         Pid(double);
         ~Pid();
+        /// @brief PID計算
+        /// @param 現在地
+        /// @param 目標値
+        /// @return 出力
         double culc(double, double);
+        void reset();
     };
 
     /*

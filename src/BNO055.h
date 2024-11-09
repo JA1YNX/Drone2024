@@ -13,10 +13,16 @@
 class BNO055
 {
 public:
-    user<int> get() const;          // 読み取った値
-    void setup();                   // セットアップ
-    void update();                  // これ実行でメンバ変数が更新される
-    sensors_event_t getang() const; // センサの絶対角度を返す
+    /// @brief 読み取った値を返す
+    /// @return 読み取った値
+    user<int> get() const;
+    /// @brief セットアップ
+    void setup();
+    /// @brief 値更新
+    void update();
+    /// @brief 加工前のセンサ値を返す
+    /// @return sensors_event_t型
+    sensors_event_t getang() const;
 private:
     Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); // 本来の制御用クラス
     user<int> data;
