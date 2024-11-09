@@ -43,7 +43,7 @@ namespace PID_F
 
     */
 
-    double Pid::culc(double y, double r)
+    double Pid::calc(double y, double r)
     {
         double ret = 0;
         double e = r - y;

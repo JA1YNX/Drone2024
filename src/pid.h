@@ -22,10 +22,10 @@ namespace PID_F
         Pid(double);
         ~Pid();
         /// @brief PID計算
-        /// @param 現在地
-        /// @param 目標値
+        /// @param y 現在値
+        /// @param r 目標値
         /// @return 出力
-        double culc(double, double);
+        double calc(double y, double r);
         void reset();
     };
 
