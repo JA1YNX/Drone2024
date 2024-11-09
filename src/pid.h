@@ -7,8 +7,8 @@
 namespace PID_F
 {
 #define DELTA_T 1
-    double pid_controller(double, double, double &);
-    double pid_(double, double, double, double &, double &);
+    //double pid_controller(double, double, double &);
+    //double pid_(double, double, double, double &, double &);
 
     class Pid
     {
