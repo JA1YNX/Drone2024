@@ -23,6 +23,10 @@ public:
     /// @brief 加工前のセンサ値を返す
     /// @return sensors_event_t型
     sensors_event_t getang() const;
+    /// @brief 初期化時点の誤差指定
+    /// @param d 誤差
+    void setd(user<int> d);
+
 private:
     Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); // 本来の制御用クラス
     user<int> data;

@@ -46,9 +46,8 @@ void BNO055::setup()
         while (!bno.begin())
             ;
     }
-    update();
     delay(500);
-    defolt = get();
+    update();
     return;
 }
 
@@ -68,10 +67,15 @@ void BNO055::update()
     data.y = (int)ang.orientation.z;
     data.turn = convert((int)ang.orientation.x * (-1));
 
-    data.x -= 2;
-    data.y += 1;
-    data.z -= 0;
-    data.turn -= 0;
+    data.x -= defolt.x;
+    data.y -= defolt.y;
+    data.z -= defolt.z;
+    data.turn -= defolt.turn;
 
     return;
+}
+
+void BNO055::setd(user<int> d)
+{
+    defolt = d;
 }
