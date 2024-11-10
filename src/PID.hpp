@@ -153,9 +153,9 @@ void loop(void)
   // pid
   {
     // PID_F::pid(,,setpoint.x,,pid_res,x);
-    pid_res.x = pid_x.culc(j.x, setpoint.x);
-    pid_res.y = pid_y.culc(j.y, setpoint.y);
-    pid_res.turn = pid_turn.culc(j.turn, setpoint.turn);
+    pid_res.x = pid_x.calc(j.x, setpoint.x);
+    pid_res.y = pid_y.calc(j.y, setpoint.y);
+    pid_res.turn = pid_turn.calc(j.turn, setpoint.turn);
   }
 
   // set
