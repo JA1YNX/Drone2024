@@ -39,6 +39,10 @@ sensors_event_t BNO055::getang() const
 {
     return ang;
 }
+sensors_event_t BNO055::getacc() const
+{
+    return acc;
+}
 void BNO055::setup()
 {
     if (!bno.begin())

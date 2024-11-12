@@ -20,9 +20,12 @@ public:
     void setup();
     /// @brief 値更新
     void update();
-    /// @brief 加工前のセンサ値を返す
+    /// @brief 加工前の角度値を返す
     /// @return sensors_event_t型
     sensors_event_t getang() const;
+    /// @brief 加工前の加速度
+    /// @return sensors_event_t型
+    sensors_event_t getacc() const;
     /// @brief 初期化時点の誤差指定
     /// @param d 誤差
     void setd(user<int> d);
