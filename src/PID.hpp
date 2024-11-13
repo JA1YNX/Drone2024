@@ -143,7 +143,7 @@ void loop(void)
   m.c4 = 0;
 
   // 目標角度設定
-  {
+  { // TODO:
     setpoint.x = u_r.x / 30;
     setpoint.y = u_r.y / 30;
     setpoint.turn = u_r.turn / 30;
