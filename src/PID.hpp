@@ -117,6 +117,9 @@ void loop(void)
       j = sens.get();
       history = sens.get().turn;
       m.stop();
+      pid_x.reset();
+      pid_y.reset();
+      pid_turn.reset();
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || (stu.z > 2) || (stu.x != 0) || (stu.y != 0) || (stu.turn != 0) || (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
   }
 
