@@ -19,6 +19,9 @@ public:
   /// @brief 加工する前のデータ（readで値更新）
   /// @return user<int>型
   user<int> data() const;
+  /// @brief リセット
+  /// @param 初期化誤差
+  void reset(user<int>);
 
 private:
   // 入力ピン格納用変数構造体

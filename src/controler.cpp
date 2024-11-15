@@ -58,3 +58,7 @@ user<int> contloler::read()
 #endif
     return {c.x / 25, c.y / 25, c.z / 7, c.turn / 25};
 }
+void contloler::reset(user<int> dd)
+{
+    ud = dd;
+}

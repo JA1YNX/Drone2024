@@ -24,7 +24,9 @@ namespace PID_F
         /// @param r 目標値
         /// @return 出力
         double calc(double y, double r);
-        void reset();
+        /// @brief リセット
+        /// @param 初期化誤差
+        void reset(double);
     };
 
 }

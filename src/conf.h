@@ -27,7 +27,7 @@ BluetoothSerial bt;
 /// pid
 #define KP 1 // 比例ゲイン
 #define KI 0 // 積分ゲイン
-#define KD 1 // 微分ゲイン
+#define KD 0 // 微分ゲイン
 
 // とりあえずデータ入れるやつ
 // 分かり易いようにz,y,z,turnってしてるけど実際何でもいい

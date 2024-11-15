@@ -19,8 +19,9 @@ namespace PID_F
     Pid::~Pid()
     {
     }
-    void Pid::reset()
+    void Pid::reset(double pre = 0)
     {
         ie = 0;
+        pree = pre;
     }
 }
