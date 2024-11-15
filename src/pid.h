@@ -26,7 +26,7 @@ namespace PID_F
         double calc(double y, double r);
         /// @brief リセット
         /// @param 初期化誤差
-        void reset(double);
+        void reset(double pre = 0);
     };
 
 }
