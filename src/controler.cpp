@@ -24,7 +24,7 @@ void contloler::setup()
     pinMode(set.z, INPUT);
     pinMode(set.turn, INPUT);
     // delay(5000);
-    ud = user<int>{1520, 1520, 1110, 1520};
+    ud = user<int>{1526, 1526, 1110, 1500};
     return;
 }
 // 読んで返す
