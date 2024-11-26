@@ -46,13 +46,13 @@ user<int> contloler::read()
     bt.print("     ");
 #endif
 #ifdef SERIAL_out
-    Serial.print("   cx:");
+    Serial.print("  cx:");
     Serial.print(c.x);
-    Serial.print("   cy:");
+    Serial.print("  cy:");
     Serial.print(c.y);
-    Serial.print("   cz:");
+    Serial.print("  cz:");
     Serial.print(c.z);
-    Serial.print("   ct:");
+    Serial.print("  ct:");
     Serial.print(c.turn);
     Serial.print("     ");
 #endif

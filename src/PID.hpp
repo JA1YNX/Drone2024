@@ -97,10 +97,14 @@ PID_F::Pid pid_x(0);
 PID_F::Pid pid_y(0);
 PID_F::Pid pid_turn(0);
 
+// ジャイロの値
+user<int> j;
+user<int> u;
+user<int> u_r;
+user<double> pid_res;
+
 void loop(void)
 {
-  // ジャイロの値
-  user<int> j;
   sens.update();
   j = sens.get();
 
@@ -123,6 +127,7 @@ void loop(void)
       pid_x.reset();
       pid_y.reset();
       pid_turn.reset();
+      sens.setd(j);
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || (stu.z > 2) || (stu.x != 0) || (stu.y != 0) || (stu.turn != 0) || (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
   }
 
@@ -131,8 +136,8 @@ void loop(void)
   digitalWrite(G_pin, HIGH);
 
   // プロポの入力取得
-  user<int> u = c.read();
-  user<int> u_r = c.data();
+  u = c.read();
+  u_r = c.data();
 
   // TODO:要値調整
   ledcWrite(Y_pin, u.z * 7);
@@ -155,7 +160,6 @@ void loop(void)
     setpoint.turn = u.turn / 30;
   }
 
-  user<double> pid_res;
   // pid
   {
     // PID_F::pid(,,setpoint.x,,pid_res,x);
@@ -191,7 +195,6 @@ void loop(void)
   // 回転数更新
   m.rotate();
 
-  user<int> jj = {0, 0, 0, 0};
 #ifdef output
   bt.print("     x:");
   bt.print(j.x);

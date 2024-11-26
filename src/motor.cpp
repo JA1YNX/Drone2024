@@ -43,7 +43,7 @@ void motor::rotate() const
     Serial.print("  ou4:");
     Serial.print((def + c4) * nf + duty_low);
 
-    Serial.print("      ch1:");
+    Serial.print("    ch1:");
     Serial.print(c1);
     Serial.print("  ch2:");
     Serial.print(c2);
