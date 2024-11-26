@@ -15,6 +15,9 @@
 BluetoothSerial bt;
 #endif
 
+#define UC_PIN {32, 34, 35, 23}
+#define UM_PIN {25, 26, 27, 14}
+
 #define puls 73      // pwm周波数
 #define bits 12      // ledc分解能
 #define duty_min 360 // 最低回転

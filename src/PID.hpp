@@ -16,11 +16,13 @@
 #define PIN_ch5 33
 
 // モーター制御クラスインスタンス化
-motor m({25, 26, 27, 14}); // pin1,pin2,pin3,pin4
+// motor m({25, 26, 27, 14}); // pin1,pin2,pin3,pin4
+motor m(UM_PIN); // pin1,pin2,pin3,pin4
 
 // コントローラー制御用クラスインスタンス化
-//contloler c({33, 35, 32, 34}); // T6J ch1,ch2,ch3,ch4
-contloler c({32, 34, 35, 23}); // T6J ch1,ch2,ch3,ch4
+// contloler c({33, 35, 32, 34}); // T6J ch1,ch2,ch3,ch4
+// contloler c({32, 34, 35, 23}); // T6J ch1,ch2,ch3,ch4
+contloler c(UC_PIN); // T6J ch1,ch2,ch3,ch4
 
 // BNO055
 BNO055 sens;
