@@ -155,9 +155,9 @@ void loop(void)
 
   // 目標角度設定
   { // TODO:
-    setpoint.x = u.x / 30;
-    setpoint.y = u.y / 30;
-    setpoint.turn = u.turn / 30;
+    setpoint.x = u.x / 1;
+    setpoint.y = u.y / 1;
+    setpoint.turn = u.turn / 1;
   }
 
   // pid
