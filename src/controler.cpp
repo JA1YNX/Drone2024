@@ -56,7 +56,7 @@ user<int> contloler::read()
     Serial.print(c.turn);
     Serial.print("     ");
 #endif
-    return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 5, (c.turn - ud.turn) / 25};
+    return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 4, (c.turn - ud.turn) / 25};
 }
 void contloler::reset(user<int> dd)
 {
