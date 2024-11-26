@@ -150,9 +150,9 @@ void loop(void)
 
   // 目標角度設定
   { // TODO:
-    setpoint.x = u_r.x / 30;
-    setpoint.y = u_r.y / 30;
-    setpoint.turn = u_r.turn / 30;
+    setpoint.x = u.x / 30;
+    setpoint.y = u.y / 30;
+    setpoint.turn = u.turn / 30;
   }
 
   user<double> pid_res;
@@ -206,13 +206,13 @@ void loop(void)
 
 #ifdef SERIAL_out
   Serial.print("     x:");
-  Serial.print(jj.x);
+  Serial.print(u.x);
   Serial.print("  y:");
-  Serial.print(jj.y);
+  Serial.print(u.y);
   Serial.print("  z:");
-  Serial.print(jj.z);
+  Serial.print(u.z);
   Serial.print("  t:");
-  Serial.print(jj.turn);
+  Serial.print(u.turn);
 
   Serial.print("  x:");
   Serial.print(j.x);
