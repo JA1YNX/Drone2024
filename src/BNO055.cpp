@@ -32,7 +32,17 @@ int BNO055::convert(int data_)
 }
 user<int> BNO055::get() const
 {
+    user<int> ret = data;
+    ret.x -= defolt.x;
+    ret.y -= defolt.y;
+    ret.z -= defolt.z;
+    ret.turn -= defolt.turn;
+
     // data.turn = ang.orientation.x;
+    return ret;
+}
+user<int> BNO055::data() const
+{
     return data;
 }
 sensors_event_t BNO055::getang() const
@@ -70,11 +80,6 @@ void BNO055::update()
     data.x = (int)ang.orientation.y * (-1);
     data.y = (int)ang.orientation.z;
     data.turn = convert((int)ang.orientation.x * (-1));
-
-    data.x -= defolt.x;
-    data.y -= defolt.y;
-    data.z -= defolt.z;
-    data.turn -= defolt.turn;
 
     return;
 }

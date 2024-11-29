@@ -16,6 +16,9 @@ public:
     /// @brief 読み取った値を返す
     /// @return 読み取った値
     user<int> get() const;
+    /// @brief 加工前の値を返す
+    /// @return 読み取った値
+    user<int> data() const;
     /// @brief セットアップ
     void setup();
     /// @brief 値更新
