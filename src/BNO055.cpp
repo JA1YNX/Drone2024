@@ -41,7 +41,7 @@ user<int> BNO055::get() const
     // data.turn = ang.orientation.x;
     return ret;
 }
-user<int> BNO055::data() const
+user<int> BNO055::data_get() const
 {
     return data;
 }

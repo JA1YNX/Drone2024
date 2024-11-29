@@ -18,7 +18,7 @@ public:
     user<int> get() const;
     /// @brief 加工前の値を返す
     /// @return 読み取った値
-    user<int> data() const;
+    user<int> data_get() const;
     /// @brief セットアップ
     void setup();
     /// @brief 値更新
