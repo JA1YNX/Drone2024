@@ -28,8 +28,8 @@ BluetoothSerial bt;
 #define Max_ang 20 // 機体の最大角度これを超えると強制停止
 
 /// pid
-#define KP 1   // 比例ゲイン
-#define KI 0.1 // 積分ゲイン
+#define KP 0.5   // 比例ゲイン
+#define KI 0.05 // 積分ゲイン
 #define KD 0.1 // 微分ゲイン
 
 // とりあえずデータ入れるやつ
