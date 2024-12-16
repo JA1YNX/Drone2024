@@ -91,20 +91,21 @@ void setup(void)
 // 強制停止用フラグ
 bool flag = 0;
 
-// PID用クラスと目標
-user<int> setpoint;
-PID_F::Pid pid_x(0);
-PID_F::Pid pid_y(0);
-PID_F::Pid pid_turn(0);
-
-// ジャイロの値
-user<int> j;
-user<int> u;
-user<int> u_r;
-user<double> pid_res;
-
 void loop(void)
 {
+
+  // PID用クラスと目標
+  static user<int> setpoint;
+  static PID_F::Pid pid_x(0);
+  static PID_F::Pid pid_y(0);
+  static PID_F::Pid pid_turn(0);
+
+  // ジャイロの値
+  static user<int> j;
+  static user<int> u;
+  static user<int> u_r;
+  static user<double> pid_res;
+
   sens.update();
   j = sens.get();
 
