@@ -1,19 +1,11 @@
 #pragma once
 
-// bluetoothの出力をするかどうか
-// #define output
-
 // SerialMonitorの出力をするかどうか
 #define SERIAL_out
 
 // 使うライブラリインクルード
 #include <cmath>
 #include <Arduino.h>
-#ifdef output
-#include <BluetoothSerial.h>
-// bluetooth インスタンス化
-BluetoothSerial bt;
-#endif
 
 #define UC_PIN {32, 34, 35, 23}
 #define UM_PIN {25, 26, 27, 14}

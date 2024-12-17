@@ -16,13 +16,10 @@
 #define PIN_ch5 33
 
 // モーター制御クラスインスタンス化
-// motor m({25, 26, 27, 14}); // pin1,pin2,pin3,pin4
-motor m(UM_PIN); // pin1,pin2,pin3,pin4
+motor m(UM_PIN);
 
 // コントローラー制御用クラスインスタンス化
-// contloler c({33, 35, 32, 34}); // T6J ch1,ch2,ch3,ch4
-// contloler c({32, 34, 35, 23}); // T6J ch1,ch2,ch3,ch4
-contloler c(UC_PIN); // T6J ch1,ch2,ch3,ch4
+contloler c(UC_PIN);
 
 // BNO055
 BNO055 sens;
@@ -46,10 +43,6 @@ void setup(void)
 #ifdef SERIAL_out
   // シリアルモニタ開始
   Serial.begin(115200);
-#endif
-#ifdef output
-  // outputが定義されていたらbluetooth開始
-  bt.begin("Drone2024");
 #endif
 
   // コントローラー初期化
@@ -83,6 +76,7 @@ void setup(void)
 
   // 基準角度設定
   sens.update();
+  sens.setd(sens.get());
   history = sens.get().turn;
 
   return;
@@ -116,7 +110,6 @@ void loop(void)
     m.stop();
     digitalWrite(R_pin, HIGH);
     digitalWrite(G_pin, LOW);
-    // while((c.read().z>2)||(pulseIn(PIN_ch5,HIGH,20000)<1500))m.stop();
     user<int> stu = c.read();
     do
     {
@@ -129,7 +122,9 @@ void loop(void)
       pid_y.reset();
       pid_turn.reset();
       sens.setd(j);
-    } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || (stu.z > 2) || (stu.x != 0) || (stu.y != 0) || (stu.turn != 0) || (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
+    } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
+             (stu.z > 2) || (stu.x != 0) || (stu.y != 0) || (stu.turn != 0) ||
+             (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
   }
 
   m.nf = 1;
@@ -142,10 +137,6 @@ void loop(void)
 
   // TODO:要値調整
   ledcWrite(Y_pin, u.z * 7);
-
-#ifdef output
-  bt.print("{   Drone2024:");
-#endif
 
   // 各モーター標準値設定
   m.def = u.z;
@@ -163,7 +154,6 @@ void loop(void)
 
   // pid
   {
-    // PID_F::pid(,,setpoint.x,,pid_res,x);
     pid_res.x = pid_x.calc(j.x, setpoint.x);
     pid_res.y = pid_y.calc(j.y, setpoint.y);
     pid_res.turn = u.turn; // = pid_turn.calc(j.turn, setpoint.turn);
@@ -195,18 +185,6 @@ void loop(void)
 
   // 回転数更新
   m.rotate();
-
-#ifdef output
-  bt.print("     x:");
-  bt.print(j.x);
-  bt.print("  y:");
-  bt.print(j.y);
-  bt.print("  z:");
-  bt.print(j.z);
-  bt.print("  t:");
-  bt.print(j.turn);
-  bt.println("    } ");
-#endif
 
 #ifdef SERIAL_out
   Serial.print("     x:");
