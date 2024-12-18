@@ -34,17 +34,6 @@ user<int> contloler::read()
     c.y = static_cast<int>(pulseIn(set.y, HIGH, 20000));
     c.z = static_cast<int>(pulseIn(set.z, HIGH, 20000));
     c.turn = static_cast<int>(pulseIn(set.turn, HIGH, 20000));
-#ifdef output
-    bt.print("   cx:");
-    bt.print(c.x);
-    bt.print("   cy:");
-    bt.print(c.y);
-    bt.print("   cz:");
-    bt.print(c.z);
-    bt.print("   ct:");
-    bt.print(c.turn);
-    bt.print("     ");
-#endif
 #ifdef SERIAL_out
     Serial.print("  cx:");
     Serial.print(c.x);

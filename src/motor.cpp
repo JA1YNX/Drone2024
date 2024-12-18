@@ -12,27 +12,6 @@ void motor::rotate() const
     ledcWrite(3, (def + c3) * nf + duty_low);
     ledcWrite(4, (def + c4) * nf + duty_low);
 
-#ifdef output
-    bt.print("  ou1:");
-    bt.print((def + c1) * nf + duty_low);
-    bt.print("  ou2:");
-    bt.print((def + c2) * nf + duty_low);
-    bt.print("  ou3:");
-    bt.print((def + c3) * nf + duty_low);
-    bt.print("  ou4:");
-    bt.print((def + c4) * nf + duty_low);
-
-    bt.print("      ch1:");
-    bt.print(c1);
-    bt.print("  ch2:");
-    bt.print(c2);
-    bt.print("  ch3:");
-    bt.print(c3);
-    bt.print("  ch4:");
-    bt.print(c4);
-    bt.print("     ");
-#endif
-
 #ifdef SERIAL_out
     Serial.print("  ou1:");
     Serial.print((def + c1) * nf + duty_low);
