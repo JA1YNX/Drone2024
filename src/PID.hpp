@@ -154,8 +154,8 @@ void loop(void)
 
   // pid
   {
-    pid_res.x = pid_x.calc(j.x, setpoint.x);
-    pid_res.y = pid_y.calc(j.y, setpoint.y);
+    pid_res.x = pid_x.calc(j.x, setpoint.x) * (abs(u.x) + 1);
+    pid_res.y = pid_y.calc(j.y, setpoint.y) * (abs(u.y) + 1);
     pid_res.turn = u.turn; // = pid_turn.calc(j.turn, setpoint.turn);
   }
 
