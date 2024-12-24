@@ -110,12 +110,12 @@ void loop(void)
   if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
   {
     m.stop();
+    digitalWrite(R_pin, HIGH);
+    digitalWrite(G_pin, LOW);
     if (flag)
       while (pulseIn(PIN_ch5, HIGH, 20000) > 1500)
         ;
     flag = 0;
-    digitalWrite(R_pin, HIGH);
-    digitalWrite(G_pin, LOW);
     do
     {
       m.stop();
