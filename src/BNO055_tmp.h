@@ -16,7 +16,7 @@ class BNO055_tmp
 public:
     /// @brief 読み取った値を返す
     /// @return 読み取った値
-    user<T> get() const
+    inline user<T> get() const
     {
         user<T> ret = data;
         ret.x -= defolt.x;
@@ -29,12 +29,12 @@ public:
     }
     /// @brief 加工前の値を返す
     /// @return 読み取った値
-    user<T> data_get() const
+    inline user<T> data_get() const
     {
         return data;
     }
     /// @brief セットアップ
-    void setup()
+    inline void setup()
     {
         if (!bno.begin())
         {
@@ -46,7 +46,7 @@ public:
         return;
     }
     /// @brief 値更新
-    void update()
+    inline void update()
     {
         bno.getEvent(&ang, Adafruit_BNO055::VECTOR_EULER);
         bno.getEvent(&acc, Adafruit_BNO055::VECTOR_LINEARACCEL);
@@ -66,19 +66,19 @@ public:
     }
     /// @brief 加工前の角度値を返す
     /// @return sensors_event_t型
-    sensors_event_t getang() const
+    inline sensors_event_t getang() const
     {
         return ang;
     }
     /// @brief 加工前の加速度
     /// @return sensors_event_t型
-    sensors_event_t getacc() const
+    inline sensors_event_t getacc() const
     {
         return acc;
     }
     /// @brief 初期化時点の誤差指定
     /// @param d 誤差
-    void setd(user<T> d)
+    inline void setd(user<T> d)
     {
         defolt = d;
     }
@@ -87,7 +87,7 @@ private:
     Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); // 本来の制御用クラス
     user<T> data;
     sensors_event_t ang, acc;
-    T convert(T data_)
+    inline T convert(T data_)
     {
         T ret = 0;
         /*
