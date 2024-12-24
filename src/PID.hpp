@@ -140,7 +140,7 @@ void loop(void)
   u = c.read();
 
   // TODO:要値調整
-  ledcWrite(Y_pin, u.z * 7);
+  ledcWrite(Y_pin, u.z * 1.2);
 
   // 各モーター標準値設定
   m.def = u.z;
