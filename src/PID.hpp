@@ -5,7 +5,8 @@
 #include "./conf.h"
 #include "./controler.h"
 #include "./motor.h"
-#include "./BNO055.h"
+//#include "./BNO055.h"
+#include "./BNO055_tmp.h"
 #include "./pid.h"
 
 // 状態表示用LED
@@ -22,7 +23,7 @@ motor m(UM_PIN);
 contloler c(UC_PIN);
 
 // BNO055
-BNO055 sens;
+BNO055_tmp<double> sens;
 int history;
 
 // セットアップ関数
@@ -95,7 +96,7 @@ void loop(void)
   static PID_F::Pid pid_turn(0);
 
   // ジャイロの値
-  static user<int> j;
+  static user<double> j;
   static user<int> u;
   static user<int> u_r;
   static user<double> pid_res;
