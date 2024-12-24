@@ -1,8 +1,9 @@
 #include "BNO055.h"
 
-int BNO055::convert(int data_)
+template <typename T>
+T BNO055<T>::convert(T data_)
 {
-    int ret = 0;
+    T ret = 0;
     /*
     if (data<180)
     {
@@ -30,9 +31,10 @@ int BNO055::convert(int data_)
     hist = data_;
     return ret;
 }
-user<int> BNO055::get() const
+template <typename T>
+user<T> BNO055<T>::get() const
 {
-    user<int> ret = data;
+    user<T> ret = data;
     ret.x -= defolt.x;
     ret.y -= defolt.y;
     ret.z -= defolt.z;
@@ -41,19 +43,23 @@ user<int> BNO055::get() const
     // data.turn = ang.orientation.x;
     return ret;
 }
-user<int> BNO055::data_get() const
+template <typename T>
+user<T> BNO055<T>::data_get() const
 {
     return data;
 }
-sensors_event_t BNO055::getang() const
+template <typename T>
+sensors_event_t BNO055<T>::getang() const
 {
     return ang;
 }
-sensors_event_t BNO055::getacc() const
+template <typename T>
+sensors_event_t BNO055<T>::getacc() const
 {
     return acc;
 }
-void BNO055::setup()
+template <typename T>
+void BNO055<T>::setup()
 {
     if (!bno.begin())
     {
@@ -65,7 +71,8 @@ void BNO055::setup()
     return;
 }
 
-void BNO055::update()
+template <typename T>
+void BNO055<T>::update()
 {
     bno.getEvent(&ang, Adafruit_BNO055::VECTOR_EULER);
     bno.getEvent(&acc, Adafruit_BNO055::VECTOR_LINEARACCEL);
@@ -84,7 +91,8 @@ void BNO055::update()
     return;
 }
 
-void BNO055::setd(user<int> d)
+template <typename T>
+void BNO055<T>::setd(user<T> d)
 {
     defolt = d;
 }

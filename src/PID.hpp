@@ -22,7 +22,7 @@ motor m(UM_PIN);
 contloler c(UC_PIN);
 
 // BNO055
-BNO055 sens;
+BNO055<int> sens;
 int history;
 
 // セットアップ関数
