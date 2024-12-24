@@ -10,7 +10,7 @@
 #include <utility/imumaths.h>
 
 // BNO055制御用クラス
-template<typename T>
+template <typename T>
 class BNO055_tmp
 {
 public:
@@ -23,7 +23,7 @@ public:
         ret.y -= defolt.y;
         ret.z -= defolt.z;
         ret.turn -= defolt.turn;
-    
+
         // data.turn = ang.orientation.x;
         return ret;
     }
@@ -58,10 +58,10 @@ public:
         {
             data.z = 0;
         }
-        data.x = (int)ang.orientation.y * (-1);
-        data.y = (int)ang.orientation.z;
-        data.turn = convert((int)ang.orientation.x * (-1));
-    
+        data.x = ang.orientation.y * (-1);
+        data.y = ang.orientation.z;
+        data.turn = convert(ang.orientation.x * (-1));
+
         return;
     }
     /// @brief 加工前の角度値を返す
