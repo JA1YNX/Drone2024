@@ -98,7 +98,6 @@ void loop(void)
   // ジャイロの値
   static user<double> j;
   static user<int> u;
-  static user<int> u_r;
   static user<double> pid_res;
 
   sens.update();
@@ -108,23 +107,21 @@ void loop(void)
   if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
   {
     flag = 0;
-    m.stop();
     digitalWrite(R_pin, HIGH);
     digitalWrite(G_pin, LOW);
-    user<int> stu = c.read();
     do
     {
-      stu = c.read();
+      m.stop();
+      u = c.read();
       sens.update();
       j = sens.get();
       history = sens.get().turn;
-      m.stop();
       pid_x.reset();
       pid_y.reset();
       pid_turn.reset();
       sens.setd(j);
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
-             (stu.z > 2) || (stu.x != 0) || (stu.y != 0) || (stu.turn != 0) ||
+             (u.z > 2) || (u.x != 0) || (u.y != 0) || (u.turn != 0) ||
              (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
   }
 
@@ -134,7 +131,6 @@ void loop(void)
 
   // プロポの入力取得
   u = c.read();
-  u_r = c.data();
 
   // TODO:要値調整
   ledcWrite(Y_pin, u.z * 7);
