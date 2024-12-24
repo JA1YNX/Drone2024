@@ -5,7 +5,7 @@
 #include "./conf.h"
 #include "./controler.h"
 #include "./motor.h"
-//#include "./BNO055.h"
+// #include "./BNO055.h"
 #include "./BNO055_tmp.h"
 #include "./pid.h"
 
@@ -102,6 +102,9 @@ void loop(void)
 
   sens.update();
   j = sens.get();
+
+  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
+         (pulseIn(PIN_ch5, HIGH, 20000) < 1500);
 
   // 強制停止
   if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
