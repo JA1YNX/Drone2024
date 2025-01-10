@@ -1,63 +1,36 @@
-/*
-基本的なプログラムはrelease.hppと同じなのでコメントもそっち参照
-*/
-
-#include "./conf.h"
-#include "./controler.h"
-#include "./motor.h"
-// #include "./BNO055.h"
-#include "./BNO055_tmp.h"
-#include "./pid.h"
-
-// 状態表示用LED
-#define R_pin 16
-#define Y_pin 5
-#define G_pin 19
-// ch5用読み取りピン
-#define PIN_ch5 33
+#include "conf.h"
+#include "controler.h"
+#include "motor.h"
+// #include "BNO055.h"
+#include "BNO055_tmp.h"
+#include "pid.h"
+#include "led.h"
 
 // モーター制御クラスインスタンス化
-motor m(UM_PIN);
+static motor m(UM_PIN);
 
 // コントローラー制御用クラスインスタンス化
-contloler c(UC_PIN);
+static contloler c(UC_PIN);
 
 // BNO055
-BNO055_tmp<double> sens;
-int history;
+static BNO055_tmp<double> sens;
+static int history;
 
 // セットアップ関数
 void setup(void)
 {
-  { // LEDとプロポのch5
-    // R
-    pinMode(R_pin, OUTPUT);
-    digitalWrite(R_pin, HIGH);
-    // Y
-    ledcSetup(Y_pin, puls, 8);
-    ledcAttachPin(Y_pin, Y_pin);
-    ledcWrite(Y_pin, 255);
-    // other
-    pinMode(PIN_ch5, INPUT);
-    pinMode(G_pin, OUTPUT);
-  }
+  setup_led();
 #ifdef SERIAL_out
   // シリアルモニタ開始
   Serial.begin(115200);
 #endif
 
-  // コントローラー初期化
-  c.setup();
-
-  // モーター初期化
   m.nf = 1;
-  m.setup(); // 初期化
-
-  // BNO055
+  m.setup();
+  c.setup();
   sens.setup();
 
-  // LED更新
-  digitalWrite(R_pin, LOW);
+  set_led(::set);
   delay(1000);
   m.stop();
 
@@ -72,22 +45,18 @@ void setup(void)
       ;
   }
 
-  // LED更新
-  ledcWrite(Y_pin, 0);
+  set_led(::wait);
 
   // 基準角度設定
   sens.update();
   sens.setd(sens.get());
   history = sens.get().turn;
-
-  return;
 }
-
-// 強制停止用フラグ
-bool flag = 0;
 
 void loop(void)
 {
+  // 強制停止用フラグ
+  static bool flag;
 
   // PID用クラスと目標
   static user<int> setpoint;
@@ -102,45 +71,12 @@ void loop(void)
 
   sens.update();
   j = sens.get();
-
-  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
-         (pulseIn(PIN_ch5, HIGH, 20000) < 1500);
-
-  // 強制停止
-  if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
-  {
-    m.stop();
-    digitalWrite(R_pin, HIGH);
-    digitalWrite(G_pin, LOW);
-    if (flag)
-      while (pulseIn(PIN_ch5, HIGH, 20000) > 1500)
-        ;
-    flag = 0;
-    do
-    {
-      m.stop();
-      u = c.read();
-      sens.update();
-      j = sens.get();
-      history = sens.get().turn;
-      pid_x.reset();
-      pid_y.reset();
-      pid_turn.reset();
-      sens.setd(j);
-    } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
-             (u.z > 2) || (u.x != 0) || (u.y != 0) || (u.turn != 0) ||
-             (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
-  }
-
-  m.nf = 1;
-  digitalWrite(R_pin, LOW);
-  digitalWrite(G_pin, HIGH);
-
-  // プロポの入力取得
   u = c.read();
 
+  m.nf = 1;
+
   // TODO:要値調整
-  ledcWrite(Y_pin, u.z * 1.2);
+  set_led(::ready, u.z * 1.2);
 
   // 各モーター標準値設定
   m.def = u.z;
@@ -190,6 +126,34 @@ void loop(void)
   // 回転数更新
   m.rotate();
 
+  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
+         (pulseIn(PIN_ch5, HIGH, 20000) < 1500);
+
+  // 強制停止
+  if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
+  {
+    m.stop();
+    set_led(::stop);
+    if (flag)
+      while (pulseIn(PIN_ch5, HIGH, 20000) > 1500)
+        ;
+    flag = 0;
+    do
+    {
+      m.stop();
+      u = c.read();
+      sens.update();
+      j = sens.get();
+      history = sens.get().turn;
+      pid_x.reset();
+      pid_y.reset();
+      pid_turn.reset();
+      sens.setd(j);
+    } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
+             (u.z > 2) || (u.x != 0) || (u.y != 0) || (u.turn != 0) ||
+             (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
+  }
+
 #ifdef SERIAL_out
   Serial.print("     x:");
   Serial.print(u.x);
@@ -209,6 +173,4 @@ void loop(void)
   Serial.print("  t:");
   Serial.println(j.turn);
 #endif
-
-  return;
 }

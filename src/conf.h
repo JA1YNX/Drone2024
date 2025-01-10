@@ -7,6 +7,13 @@
 #include <cmath>
 #include <Arduino.h>
 
+// 状態表示用LED
+#define R_pin 16
+#define Y_pin 5
+#define G_pin 19
+// ch5用読み取りピン
+#define PIN_ch5 33
+
 #define UC_PIN {32, 34, 35, 23}
 #define UM_PIN {25, 26, 27, 14}
 
@@ -22,7 +29,7 @@
 /// pid
 #define KP (1.0)  // 比例ゲイン
 #define KI (0.05) // 積分ゲイン
-#define KD (0.05)  // 微分ゲイン
+#define KD (0.05) // 微分ゲイン
 
 // とりあえずデータ入れるやつ
 // 分かり易いようにz,y,z,turnってしてるけど実際何でもいい
