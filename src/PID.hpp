@@ -34,16 +34,10 @@ void setup(void)
   delay(1000);
   m.stop();
 
-  digitalWrite(G_pin, HIGH);
+  set_led(::stop);
 
-  { // 基本軸待機
-    while ((pulseIn(PIN_ch5, HIGH, 20000) > 1500) && (c.read().z > 15))
-      digitalWrite(R_pin, HIGH);
-    while ((pulseIn(PIN_ch5, HIGH, 20000) < 1500) && (c.read().z < 2))
-      digitalWrite(R_pin, LOW);
-    while (c.read().z > 2)
-      ;
-  }
+  while (c.read().z > 2)
+    ;
 
   set_led(::wait);
 
@@ -55,11 +49,9 @@ void setup(void)
 
 void loop(void)
 {
-  // 強制停止用フラグ
-  static bool flag;
 
   // PID用クラスと目標
-  static user<int> setpoint;
+  static user<double> setpoint;
   static PID_F::Pid pid_x(0);
   static PID_F::Pid pid_y(0);
   static PID_F::Pid pid_turn(0);
@@ -73,49 +65,39 @@ void loop(void)
   j = sens.get();
   u = c.read();
 
-  m.nf = 1;
-
   // TODO:要値調整
-  set_led(::ready, u.z * 1.2);
+  set_led(::ready, u.z * 2);
 
-  // 各モーター標準値設定
+  m.nf = 1;
   m.def = u.z;
   m.c1 = 0;
   m.c2 = 0;
   m.c3 = 0;
   m.c4 = 0;
 
-  // 目標角度設定
-  { // TODO:
-    setpoint.x = u.x / 1;
-    setpoint.y = u.y / 1;
-    setpoint.turn = u.turn / 2;
-  }
+  // TODO:
+  setpoint.x = u.x / 1;
+  setpoint.y = u.y / 1;
+  setpoint.turn = u.turn / 2;
 
-  // pid
-  {
-    pid_res.x = pid_x.calc(j.x, setpoint.x);
-    pid_res.y = pid_y.calc(j.y, setpoint.y);
-    pid_res.turn = u.turn; // = pid_turn.calc(j.turn, setpoint.turn);
-  }
+  pid_res.x = pid_x.calc(j.x, setpoint.x);
+  pid_res.y = pid_y.calc(j.y, setpoint.y);
+  pid_res.turn = u.turn; // = pid_turn.calc(j.turn, setpoint.turn);
 
-  // set
-  {
-    m.c1 += pid_res.x;
-    m.c2 -= pid_res.x;
-    m.c3 += pid_res.x;
-    m.c4 -= pid_res.x;
+  m.c1 += pid_res.x;
+  m.c2 -= pid_res.x;
+  m.c3 += pid_res.x;
+  m.c4 -= pid_res.x;
 
-    m.c1 -= pid_res.y;
-    m.c2 -= pid_res.y;
-    m.c3 += pid_res.y;
-    m.c4 += pid_res.y;
+  m.c1 -= pid_res.y;
+  m.c2 -= pid_res.y;
+  m.c3 += pid_res.y;
+  m.c4 += pid_res.y;
 
-    m.c1 += pid_res.turn;
-    m.c2 -= pid_res.turn;
-    m.c3 -= pid_res.turn;
-    m.c4 += pid_res.turn;
-  }
+  m.c1 += pid_res.turn;
+  m.c2 -= pid_res.turn;
+  m.c3 -= pid_res.turn;
+  m.c4 += pid_res.turn;
 
   // 強制微調整
   m.c1 -= 0;
@@ -126,17 +108,21 @@ void loop(void)
   // 回転数更新
   m.rotate();
 
+  // 強制停止用フラグ
+  static bool flag;
   flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
          (pulseIn(PIN_ch5, HIGH, 20000) < 1500);
 
   // 強制停止
-  if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
+  if (flag)
   {
     m.stop();
     set_led(::stop);
+
     if (flag)
       while (pulseIn(PIN_ch5, HIGH, 20000) > 1500)
         ;
+
     flag = 0;
     do
     {
@@ -155,22 +141,22 @@ void loop(void)
   }
 
 #ifdef SERIAL_out
-  Serial.print("   ux:");
+  Serial.print(" ux:");
   Serial.print(u.x);
-  Serial.print("  y:");
+  Serial.print(" y:");
   Serial.print(u.y);
-  Serial.print("  z:");
+  Serial.print(" z:");
   Serial.print(u.z);
-  Serial.print("  t:");
+  Serial.print(" t:");
   Serial.print(u.turn);
 
-  Serial.print("  jx:");
+  Serial.print(" jx:");
   Serial.print(j.x);
-  Serial.print("  y:");
+  Serial.print(" y:");
   Serial.print(j.y);
-  Serial.print("  z:");
+  Serial.print(" z:");
   Serial.print(j.z);
-  Serial.print("  t:");
+  Serial.print(" t:");
   Serial.println(j.turn);
 #endif
 }

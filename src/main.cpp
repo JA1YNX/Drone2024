@@ -1,5 +1,5 @@
 // releaes使うかどうか
-// #define releace_f
+#define releace_f
 // PIDにするかどうか
 #define PID_f
 

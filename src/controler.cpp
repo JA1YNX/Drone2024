@@ -35,17 +35,17 @@ user<int> contloler::read()
     c.z = static_cast<int>(pulseIn(set.z, HIGH, 20000));
     c.turn = static_cast<int>(pulseIn(set.turn, HIGH, 20000));
 #ifdef SERIAL_out
-    Serial.print("  cx:");
+    Serial.print(" cx:");
     Serial.print(c.x);
-    Serial.print("  y:");
+    Serial.print(" y:");
     Serial.print(c.y);
-    Serial.print("  z:");
+    Serial.print(" z:");
     Serial.print(c.z);
-    Serial.print("  t:");
+    Serial.print(" t:");
     Serial.print(c.turn);
-    Serial.print("  ");
+    Serial.print(" ");
 #endif
-    return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 4, (c.turn - ud.turn) / 25};
+    return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 7, (c.turn - ud.turn) / 25};
 }
 void contloler::reset(user<int> dd)
 {
