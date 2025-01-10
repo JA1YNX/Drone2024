@@ -24,7 +24,7 @@ void contloler::setup()
     pinMode(set.z, INPUT);
     pinMode(set.turn, INPUT);
     // delay(5000);
-    ud = user<int>{1526, 1526, 1110, 1500};
+    ud = UC_DEF;
     return;
 }
 // 読んで返す
@@ -37,13 +37,13 @@ user<int> contloler::read()
 #ifdef SERIAL_out
     Serial.print("  cx:");
     Serial.print(c.x);
-    Serial.print("  cy:");
+    Serial.print("  y:");
     Serial.print(c.y);
-    Serial.print("  cz:");
+    Serial.print("  z:");
     Serial.print(c.z);
-    Serial.print("  ct:");
+    Serial.print("  t:");
     Serial.print(c.turn);
-    Serial.print("     ");
+    Serial.print("  ");
 #endif
     return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 4, (c.turn - ud.turn) / 25};
 }

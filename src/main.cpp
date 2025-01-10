@@ -1,6 +1,6 @@
-//releaes使うかどうか
-#define releace_f
-//PIDにするかどうか
+// releaes使うかどうか
+// #define releace_f
+// PIDにするかどうか
 #define PID_f
 
 #if defined(releace_f)
@@ -14,9 +14,6 @@
 #ifndef releace_f
 #include "./debug.hpp"
 #endif
-
-
-
 
 /*
 setup()

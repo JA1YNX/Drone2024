@@ -155,7 +155,7 @@ void loop(void)
   }
 
 #ifdef SERIAL_out
-  Serial.print("     x:");
+  Serial.print("   ux:");
   Serial.print(u.x);
   Serial.print("  y:");
   Serial.print(u.y);
@@ -164,7 +164,7 @@ void loop(void)
   Serial.print("  t:");
   Serial.print(u.turn);
 
-  Serial.print("  x:");
+  Serial.print("  jx:");
   Serial.print(j.x);
   Serial.print("  y:");
   Serial.print(j.y);
