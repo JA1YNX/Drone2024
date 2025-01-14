@@ -13,6 +13,8 @@ static contloler c(UC_PIN);
 static BNO055_tmp<double> sens;
 static double history;
 
+static bool flag = 1;
+
 // セットアップ関数
 void setup(void)
 {
@@ -99,9 +101,7 @@ void loop(void)
 
   m.rotate();
 
-  static bool flag;
-  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
-         check5();
+  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5();
 
   if (flag)
   {
