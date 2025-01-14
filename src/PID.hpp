@@ -6,22 +6,19 @@
 #include "pid.h"
 #include "led.h"
 
-// モーター制御クラスインスタンス化
 static motor m(UM_PIN);
 
-// コントローラー制御用クラスインスタンス化
 static contloler c(UC_PIN);
 
-// BNO055
 static BNO055_tmp<double> sens;
-static int history;
+static double history;
 
 // セットアップ関数
 void setup(void)
 {
   setup_led();
+  set_led(::stop);
 #ifdef SERIAL_out
-  // シリアルモニタ開始
   Serial.begin(115200);
 #endif
 
@@ -41,7 +38,6 @@ void setup(void)
 
   set_led(::wait);
 
-  // 基準角度設定
   sens.update();
   sens.setd(sens.get());
   history = sens.get().turn;
@@ -49,14 +45,11 @@ void setup(void)
 
 void loop(void)
 {
-
-  // PID用クラスと目標
   static user<double> setpoint;
   static PID_F::Pid pid_x(0);
   static PID_F::Pid pid_y(0);
   static PID_F::Pid pid_turn(0);
 
-  // ジャイロの値
   static user<double> j;
   static user<int> u;
   static user<double> pid_res;
@@ -99,34 +92,27 @@ void loop(void)
   m.c3 -= pid_res.turn;
   m.c4 += pid_res.turn;
 
-  // 強制微調整
   m.c1 -= 0;
   m.c2 -= 0;
   m.c3 -= 0;
   m.c4 -= 0;
 
-  // 回転数更新
   m.rotate();
 
-  // 強制停止用フラグ
   static bool flag;
   flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
-         (pulseIn(PIN_ch5, HIGH, 20000) < 1500);
+         check5();
 
-  // 強制停止
   if (flag)
   {
-    m.stop();
     set_led(::stop);
-
-    if (flag)
-      while (pulseIn(PIN_ch5, HIGH, 20000) > 1500)
-        ;
-
-    flag = 0;
     do
     {
       m.stop();
+      if (flag)
+        while (!check5())
+          ;
+      flag = 0;
       u = c.read();
       sens.update();
       j = sens.get();
@@ -137,7 +123,7 @@ void loop(void)
       sens.setd(j);
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
              (u.z > 2) || (u.x != 0) || (u.y != 0) || (u.turn != 0) ||
-             (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
+             check5());
   }
 
 #ifdef SERIAL_out

@@ -87,19 +87,12 @@ private:
     Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); // 本来の制御用クラス
     user<T> data;
     sensors_event_t ang, acc;
+    T hist = 0;
+    T hist2 = 0;
+    user<T> defolt;
     inline T convert(T data_)
     {
         T ret = 0;
-        /*
-        if (data<180)
-        {
-            ret = data;
-        }
-        else
-        {
-            ret = data-360;
-        }
-        */
         if ((hist - data_) > (300))
         {
             ret = data_ + 360 * hist2;
@@ -117,8 +110,5 @@ private:
         hist = data_;
         return ret;
     }
-    T hist = 0;
-    T hist2 = 0;
-    user<T> defolt;
 };
 #endif

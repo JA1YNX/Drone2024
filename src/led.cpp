@@ -30,9 +30,12 @@ int set_led(uled_status status_, int y_va)
     case uled_status::none:
         digitalWrite(R_pin, LOW);
         digitalWrite(G_pin, LOW);
-        ledcWrite(Y_pin, y_va);
+        ledcWrite(Y_pin, 0);
         break;
     default:
+        digitalWrite(R_pin, HIGH);
+        digitalWrite(G_pin, HIGH);
+        ledcWrite(Y_pin, y_va);
         break;
     }
     return 0;

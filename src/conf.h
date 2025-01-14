@@ -40,3 +40,8 @@ constexpr double Max_ang = 15.0; // 機体の最大角度これを超えると�
 constexpr double KP = 1.0;  // 比例ゲイン
 constexpr double KI = 0.05; // 積分ゲイン
 constexpr double KD = 0.05; // 微分ゲイン
+
+inline bool check5(int in = pulseIn(PIN_ch5, HIGH, 20000), int n = 1500)
+{
+    return in > n;
+}
