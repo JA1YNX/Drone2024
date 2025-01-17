@@ -13,6 +13,7 @@ void motor::rotate() const
     ledcWrite(4, (def + c4) * nf + duty_low);
 
 #ifdef SERIAL_out
+    /*
     Serial.print(" o1:");
     Serial.print((def + c1) * nf + duty_low);
     Serial.print(" 2:");
@@ -21,8 +22,9 @@ void motor::rotate() const
     Serial.print((def + c3) * nf + duty_low);
     Serial.print(" 4:");
     Serial.print((def + c4) * nf + duty_low);
+    */
 
-    Serial.print(" c1:");
+    Serial.print("   c1:");
     Serial.print(c1);
     Serial.print(" 2:");
     Serial.print(c2);
@@ -30,7 +32,6 @@ void motor::rotate() const
     Serial.print(c3);
     Serial.print(" 4:");
     Serial.print(c4);
-    Serial.print(" ");
 #endif
     return;
 }

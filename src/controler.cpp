@@ -35,6 +35,7 @@ user<int> contloler::read()
     c.z = static_cast<int>(pulseIn(set.z, HIGH, 20000));
     c.turn = static_cast<int>(pulseIn(set.turn, HIGH, 20000));
 #ifdef SERIAL_out
+    /*
     Serial.print(" cx:");
     Serial.print(c.x);
     Serial.print(" y:");
@@ -44,6 +45,7 @@ user<int> contloler::read()
     Serial.print(" t:");
     Serial.print(c.turn);
     Serial.print(" ");
+    */
 #endif
     return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 7, (c.turn - ud.turn) / 25};
 }

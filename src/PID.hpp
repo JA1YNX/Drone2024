@@ -1,8 +1,7 @@
 #include "conf.h"
 #include "controler.h"
 #include "motor.h"
-// #include "BNO055.h"
-#include "BNO055_tmp.h"
+#include "BNO055.h"
 #include "pid.h"
 #include "led.h"
 
@@ -10,10 +9,10 @@ static motor m(UM_PIN);
 
 static contloler c(UC_PIN);
 
-static BNO055_tmp<double> sens;
-static double history;
+static BNO055 sens;
+volatile static double history;
 
-static bool flag = 1;
+volatile static bool flag = 1;
 
 // セットアップ関数
 void setup(void)
@@ -120,14 +119,23 @@ void loop(void)
       pid_x.reset();
       pid_y.reset();
       pid_turn.reset();
-      sens.setd(j);
+      // sens.setd(j);
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
              (u.z > 2) || (u.x != 0) || (u.y != 0) || (u.turn != 0) ||
              check5());
   }
 
 #ifdef SERIAL_out
-  Serial.print(" ux:");
+  Serial.print("   px:");
+  Serial.print(pid_res.x);
+  Serial.print(" y:");
+  Serial.print(pid_res.y);
+  Serial.print(" z:");
+  Serial.print(pid_res.z);
+  Serial.print(" t:");
+  Serial.print(pid_res.turn);
+
+  Serial.print("   ux:");
   Serial.print(u.x);
   Serial.print(" y:");
   Serial.print(u.y);
@@ -136,7 +144,7 @@ void loop(void)
   Serial.print(" t:");
   Serial.print(u.turn);
 
-  Serial.print(" jx:");
+  Serial.print("   jx:");
   Serial.print(j.x);
   Serial.print(" y:");
   Serial.print(j.y);

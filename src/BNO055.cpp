@@ -1,38 +1,29 @@
 #include "BNO055.h"
 
-int BNO055::convert(int data_)
+constexpr double ti = 300;
+
+double BNO055::convert(double data_)
 {
-    int ret = 0;
-    /*
-    if (data<180)
+    if ((pre - data_) > (ti))
     {
-        ret = data;
+        pre = data_;
+        return data_ + 360.0 * rco++;
+    }
+    else if ((pre - data_) < (-ti))
+    {
+        pre = data_;
+        return data_ - 360.0 * rco--;
     }
     else
     {
-        ret = data-360;
+        pre = data_;
+        return data_ + 360.0 * rco;
     }
-    */
-    if ((hist - data_) > (300))
-    {
-        ret = data_ + 360 * hist2;
-        hist2++;
-    }
-    else if ((hist - data_) < (-300))
-    {
-        ret = data_ - 360 * hist2;
-        hist2--;
-    }
-    else
-    {
-        ret = data_ + 360 * hist2;
-    }
-    hist = data_;
-    return ret;
+    return 0;
 }
-user<int> BNO055::get() const
+user<double> BNO055::get() const
 {
-    user<int> ret = data;
+    user<double> ret = data;
     ret.x -= defolt.x;
     ret.y -= defolt.y;
     ret.z -= defolt.z;
@@ -41,7 +32,7 @@ user<int> BNO055::get() const
     // data.turn = ang.orientation.x;
     return ret;
 }
-user<int> BNO055::data_get() const
+user<double> BNO055::data_get() const
 {
     return data;
 }
@@ -49,10 +40,12 @@ sensors_event_t BNO055::getang() const
 {
     return ang;
 }
+/*
 sensors_event_t BNO055::getacc() const
 {
     return acc;
 }
+*/
 void BNO055::setup()
 {
     if (!bno.begin())
@@ -68,6 +61,7 @@ void BNO055::setup()
 void BNO055::update()
 {
     bno.getEvent(&ang, Adafruit_BNO055::VECTOR_EULER);
+    /*
     bno.getEvent(&acc, Adafruit_BNO055::VECTOR_LINEARACCEL);
     if (abs(acc.acceleration.z) > 0.4)
     {
@@ -77,14 +71,15 @@ void BNO055::update()
     {
         data.z = 0;
     }
-    data.x = (int)ang.orientation.y * (-1);
-    data.y = (int)ang.orientation.z;
-    data.turn = convert((int)ang.orientation.x * (-1));
+    */
+    data.x = (double)ang.orientation.y * (-1);
+    data.y = (double)ang.orientation.z;
+    data.turn = convert((double)ang.orientation.x);
 
     return;
 }
 
-void BNO055::setd(user<int> d)
+void BNO055::setd(user<double> d)
 {
     defolt = d;
 }

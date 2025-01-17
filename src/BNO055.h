@@ -15,10 +15,10 @@ class BNO055
 public:
     /// @brief 読み取った値を返す
     /// @return 読み取った値
-    user<int> get() const;
+    user<double> get() const;
     /// @brief 加工前の値を返す
     /// @return 読み取った値
-    user<int> data_get() const;
+    user<double> data_get() const;
     /// @brief セットアップ
     void setup();
     /// @brief 値更新
@@ -28,18 +28,18 @@ public:
     sensors_event_t getang() const;
     /// @brief 加工前の加速度
     /// @return sensors_event_t型
-    sensors_event_t getacc() const;
+    //sensors_event_t getacc() const;
     /// @brief 初期化時点の誤差指定
     /// @param d 誤差
-    void setd(user<int> d);
+    void setd(user<double> d);
 
 private:
     Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire); // 本来の制御用クラス
-    user<int> data;
-    sensors_event_t ang, acc;
-    int convert(int);
-    int hist = 0;
-    int hist2 = 0;
-    user<int> defolt;
+    user<double> data;
+    sensors_event_t ang;//, acc;
+    double convert(double);
+    double pre = 0;
+    int rco = 0;
+    user<double> defolt;
 };
 #endif
