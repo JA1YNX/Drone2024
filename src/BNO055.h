@@ -9,6 +9,9 @@
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
 
+#include <Ticker.h>
+#include <cmath>
+
 // BNO055制御用クラス
 class BNO055
 {
@@ -38,8 +41,6 @@ private:
     user<double> data;
     sensors_event_t ang;//, acc;
     double convert(double);
-    double pre = 0;
-    int rco = 0;
     user<double> defolt;
 };
 #endif

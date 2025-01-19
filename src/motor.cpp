@@ -22,7 +22,6 @@ void motor::rotate() const
     Serial.print((def + c3) * nf + duty_low);
     Serial.print(" 4:");
     Serial.print((def + c4) * nf + duty_low);
-    */
 
     Serial.print("   c1:");
     Serial.print(c1);
@@ -32,6 +31,7 @@ void motor::rotate() const
     Serial.print(c3);
     Serial.print(" 4:");
     Serial.print(c4);
+    */
 #endif
     return;
 }

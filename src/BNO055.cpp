@@ -1,23 +1,26 @@
 #include "BNO055.h"
 
 constexpr double ti = 300;
+constexpr double mti = -ti;
 
 double BNO055::convert(double data_)
 {
-    if ((pre - data_) > (ti))
+    static double pre_ = 0;
+    static size_t rco_ = 0;
+    if ((pre_ - data_) > ti)
     {
-        pre = data_;
-        return data_ + 360.0 * rco++;
+        pre_ = data_;
+        return data_ + 360.0 * rco_++;
     }
-    else if ((pre - data_) < (-ti))
+    else if ((pre_ - data_) < mti)
     {
-        pre = data_;
-        return data_ - 360.0 * rco--;
+        pre_ = data_;
+        return data_ - 360.0 * rco_--;
     }
     else
     {
-        pre = data_;
-        return data_ + 360.0 * rco;
+        pre_ = data_;
+        return data_ + 360.0 * rco_;
     }
     return 0;
 }
