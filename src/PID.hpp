@@ -109,7 +109,7 @@ void loop(void)
   m.rotate();
 
   flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5();
-  flag = 0;
+
   if (flag)
   {
     set_led(::stop);

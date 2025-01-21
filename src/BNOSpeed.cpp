@@ -64,7 +64,8 @@ void callback()
 {
     static user<double> res;
     static user<double> speed;
-    static constexpr double sikiiti = 0.25;
+    constexpr double sikiiti = 0.20;
+    constexpr int freq_ms = 20;
     static sensors_event_t acc, ang;
 
     BNOSpeed::bno.getEvent(&acc, Adafruit_BNO055::VECTOR_ACCELEROMETER);
@@ -74,20 +75,22 @@ void callback()
     res.z = acc.acceleration.z - (cos(dtorad(ang.orientation.y)) * cos(dtorad(ang.orientation.z)) * gravity);
 
     if (abs(res.x) > sikiiti)
-        speed.x += res.x;
+        speed.x += res.x / 1000.0 * (double)freq_ms;
     else
         speed.x = 0;
 
     if (abs(res.y) > sikiiti)
-        speed.y += res.y;
+        speed.y += res.y / 1000.0 * (double)freq_ms;
     else
         speed.y = 0;
 
     if (abs(res.z) > sikiiti)
-        speed.z += res.z;
+        speed.z += res.z / 1000.0 * (double)freq_ms;
     else
         speed.z = 0;
-    BNOSpeed::sensspeed = speed;
+    BNOSpeed::sensspeed.x = speed.x * 30;
+    BNOSpeed::sensspeed.y = speed.y * 30;
+    BNOSpeed::sensspeed.z = speed.z * 30;
     BNOSpeed::sensang.x = (double)ang.orientation.y * (-1);
     BNOSpeed::sensang.y = (double)ang.orientation.z;
     BNOSpeed::sensang.turn = convert((double)ang.orientation.x);
