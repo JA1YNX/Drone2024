@@ -20,7 +20,7 @@ volatile static bool flag = 1;
 void setup(void)
 {
   setup_led();
-  set_led(::stop);
+  set_led(uled_status::stop);
 #ifdef SERIAL_out
   Serial.begin(115200);
 #endif
@@ -30,16 +30,16 @@ void setup(void)
   c.setup();
   sens.setup();
 
-  set_led(::set);
+  set_led(uled_status::set);
   delay(1000);
   m.stop();
 
-  set_led(::stop);
+  set_led(uled_status::stop);
 
   while (c.read().z > 2)
     ;
 
-  set_led(::wait);
+  set_led(uled_status::wait);
 
   // sens.update();
   // sens.setd(sens.get());
@@ -66,7 +66,7 @@ void loop(void)
   u = c.read();
 
   // TODO:要値調整
-  set_led(::ready, u.z * 2);
+  set_led(uled_status::ready, u.z * 2);
 
   m.nf = 1;
   m.def = u.z;
@@ -112,26 +112,23 @@ void loop(void)
 
   if (flag)
   {
-    set_led(::stop);
+    set_led(uled_status::stop);
+    m.stop();
     do
     {
-      m.stop();
       if (flag)
         while (!check5())
           ;
-      flag = 0;
       u = c.read();
-      // sens.update();
-      // j = sens.get();
       j = sens.ang();
-      history = j.turn;
-      pid_x.reset();
-      pid_y.reset();
-      pid_turn.reset();
-      // sens.setd(j);
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
              (u.z > 2) || (u.x != 0) || (u.y != 0) || (u.turn != 0) ||
              check5());
+    flag = 0;
+    history = j.turn;
+    pid_x.reset();
+    pid_y.reset();
+    pid_turn.reset();
   }
 
 #ifdef SERIAL_out
