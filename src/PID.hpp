@@ -119,10 +119,11 @@ void loop(void)
       if (flag)
         while (!check5())
           ;
+      flag = 0;
       u = c.read();
       j = sens.ang();
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
-             (u.z > 2) || (u.x != 0) || (u.y != 0) || (u.turn != 0) ||
+             (abs(u.z) > 2) || (abs(u.x) > 2) || (abs(u.y) > 2) || (abs(u.turn) > 2) ||
              check5());
     flag = 0;
     history = j.turn;

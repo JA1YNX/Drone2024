@@ -65,7 +65,7 @@ void callback()
     static user<double> res;
     static user<double> speed;
     constexpr double sikiiti = 0.20;
-    constexpr int freq_ms = 20;
+    constexpr int freq_ms = 5;
     constexpr double deg = 60;
     static sensors_event_t acc, ang;
 
