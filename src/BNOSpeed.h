@@ -16,9 +16,9 @@ private:
     Ticker tim;
 
 public:
-    static user<double> sensspeed;
-    static user<double> sensang;
-    static Adafruit_BNO055 bno;
+    user<double> sensspeed = {0, 0, 0, 0};
+    user<double> sensang = {0, 0, 0, 0};
+    Adafruit_BNO055 bno = Adafruit_BNO055(55, 0x28, &Wire);
     /// @brief 読み取った値を返す
     /// @return 読み取った値
     user<double> speed() const;
@@ -31,3 +31,5 @@ public:
     ~BNOSpeed();
 };
 #endif
+
+static BNOSpeed bnosens;
