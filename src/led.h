@@ -1,7 +1,7 @@
 #ifndef LED
 #define LED
 #include "conf.h"
-enum uled_status
+enum class uled_status : int
 {
     ready = 0,
     set = 1,
