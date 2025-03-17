@@ -49,6 +49,7 @@ void BNOSpeed::setup()
 {
     while (!bno.begin())
         ;
+    Log::logln("BNOSpeed Started");
     tim.attach_ms(freq_ms, callback);
 }
 BNOSpeed::BNOSpeed()

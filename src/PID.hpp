@@ -1,7 +1,7 @@
 #include "conf.h"
 #include "controler.h"
 #include "motor.h"
-#include "BNO055.h"
+// #include "BNO055.h"
 #include "pid.h"
 #include "led.h"
 #include "BNOSpeed.h"
@@ -10,7 +10,7 @@ static motor m(UM_PIN);
 
 static contloler c(UC_PIN);
 
-static BNOSpeed sens;
+static BNOSpeed &sens = bnosens;
 // static BNO055 sens;
 volatile static double history;
 
@@ -24,6 +24,7 @@ void setup(void)
 #ifdef SERIAL_out
   Serial.begin(115200);
 #endif
+  Log::logln("\nSetUp Started");
 
   m.nf = 1;
   m.setup();
@@ -133,7 +134,8 @@ void loop(void)
   }
 
 #ifdef SERIAL_out
-  Serial.print("c1:");
+  Serial.print("C");
+  Serial.print(" 1:");
   Serial.print(m.c1);
   Serial.print(" 2:");
   Serial.print(m.c2);
@@ -142,9 +144,8 @@ void loop(void)
   Serial.print(" 4:");
   Serial.print(m.c4);
 
-  Serial.printf("%c ", ' ');
-
-  Serial.print(" px:");
+  Serial.print("  P");
+  Serial.print(" x:");
   Serial.print(pid_res.x);
   Serial.print(" y:");
   Serial.print(pid_res.y);
@@ -153,9 +154,8 @@ void loop(void)
   Serial.print(" t:");
   Serial.print(pid_res.turn);
 
-  Serial.printf("%c ", ' ');
-
-  Serial.print(" ux:");
+  Serial.print("  U");
+  Serial.print(" x:");
   Serial.print(u.x);
   Serial.print(" y:");
   Serial.print(u.y);
@@ -175,9 +175,9 @@ void loop(void)
     Serial.print(" t:");
     Serial.println(j.turn);
   */
-  Serial.printf("%c ", ' ');
 
-  Serial.print(" jx:");
+  Serial.print("  J");
+  Serial.print(" x:");
   Serial.print(spd.x);
   Serial.print(" y:");
   Serial.print(spd.y);
