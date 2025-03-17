@@ -5,6 +5,7 @@
 
 // 使うライブラリインクルード
 #include <Arduino.h>
+#include "log.h"
 
 // とりあえずデータ入れるやつ
 // 分かり易いようにz,y,z,turnってしてるけど実際何でもいい
@@ -39,8 +40,8 @@ static constexpr double Max_ang = 15.0; // 機体の最大角度これを超え�
 
 /// pid
 static constexpr double KP = 1.0;  // 比例ゲイン
-static constexpr double KI = 0.0; // 積分ゲイン
-static constexpr double KD = 0.0; // 微分ゲイン
+static constexpr double KI = 0.01; // 積分ゲイン
+static constexpr double KD = 0.01; // 微分ゲイン
 
 inline bool check5(int in = pulseIn(PIN_ch5, HIGH, 20000), int n = 1500)
 {
