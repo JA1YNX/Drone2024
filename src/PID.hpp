@@ -6,25 +6,28 @@
 #include "led.h"
 #include "BNOSpeed.h"
 
-static motor m(UM_PIN);
+motor m(UM_PIN);
 
-static contloler c(UC_PIN);
+contloler c(UC_PIN);
 
-static BNOSpeed &sens = bnosens;
+// BNOSpeed &sens = bnosens;
+#define sens bnosens
+
 // static BNO055 sens;
-volatile static double history;
+volatile double history;
 
-volatile static bool flag = 1;
+volatile bool flag = 1;
 
 // セットアップ関数
 void setup(void)
 {
+  Log::logset(Log::LogLevel::_3INFO);
   setup_led();
   set_led(uled_status::stop);
 #ifdef SERIAL_out
   Serial.begin(115200);
 #endif
-  Log::logln("\nSetUp Started");
+  Log::logln("\nSetUp Started", Log::LogLevel::_3INFO);
 
   m.nf = 1;
   m.setup();

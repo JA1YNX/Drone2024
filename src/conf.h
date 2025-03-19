@@ -5,18 +5,8 @@
 
 // 使うライブラリインクルード
 #include <Arduino.h>
+#include "user.h"
 #include "log.h"
-
-// とりあえずデータ入れるやつ
-// 分かり易いようにz,y,z,turnってしてるけど実際何でもいい
-template <typename T>
-struct user
-{
-    T x;
-    T y;
-    T z;
-    T turn;
-};
 
 static constexpr double gravity = 9.80665;
 
