@@ -1,32 +1,31 @@
 #include "conf.h"
 #include "controler.h"
 #include "motor.h"
-// #include "BNO055.h"
 #include "pid.h"
 #include "led.h"
-#include "BNOSpeed.h"
+#include "jsens.h"
 
 motor m(UM_PIN);
 
 contloler c(UC_PIN);
 
-// BNOSpeed &sens = bnosens;
-#define sens bnosens
+Jsens sens;
 
-// static BNO055 sens;
-volatile double history;
+double history;
 
-volatile bool flag = 1;
+bool flag = 1;
+
+int logout(const motor &c, const user<double> &p, const user<int> &u, const user<double> &j);
 
 // セットアップ関数
 void setup(void)
 {
-  Log::logset(Log::LogLevel::_3INFO);
+  Log::logset(Log::LogLevel::_9ALL);
   setup_led();
   set_led(uled_status::stop);
-#ifdef SERIAL_out
+
   Serial.begin(115200);
-#endif
+
   Log::logln("\nSetUp Started", Log::LogLevel::_3INFO);
 
   m.nf = 1;
@@ -45,10 +44,7 @@ void setup(void)
 
   set_led(uled_status::wait);
 
-  // sens.update();
-  // sens.setd(sens.get());
-  history = sens.ang().turn;
-  // history = sens.get().turn;
+  history = sens.getang().turn;
 }
 
 void loop(void)
@@ -63,10 +59,8 @@ void loop(void)
   static user<int> u;
   static user<double> pid_res;
 
-  // sens.update();
-  // j = sens.get();
-  j = sens.ang();
-  spd = sens.speed();
+  j = sens.getang();
+  spd = sens.getspd();
   u = c.read();
 
   // TODO:要値調整
@@ -122,10 +116,15 @@ void loop(void)
     {
       if (flag)
         while (!check5())
-          ;
+        {
+          Log::log("locked  ");
+          logout(m, pid_res, u, spd);
+        }
       flag = 0;
       u = c.read();
-      j = sens.ang();
+      j = sens.getang();
+      Log::log("locked  ");
+      logout(m, pid_res, u, spd);
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
              (abs(u.z) > 2) || (abs(u.x) > 2) || (abs(u.y) > 2) || (abs(u.turn) > 2) ||
              check5());
@@ -134,38 +133,44 @@ void loop(void)
     pid_x.reset();
     pid_y.reset();
     pid_turn.reset();
+    logout(m, pid_res, u, spd);
   }
 
-#ifdef SERIAL_out
-  Serial.print("C");
-  Serial.print(" 1:");
-  Serial.print(m.c1);
-  Serial.print(" 2:");
-  Serial.print(m.c2);
-  Serial.print(" 3:");
-  Serial.print(m.c3);
-  Serial.print(" 4:");
-  Serial.print(m.c4);
+  logout(m, pid_res, u, spd);
+}
 
-  Serial.print("  P");
-  Serial.print(" x:");
-  Serial.print(pid_res.x);
-  Serial.print(" y:");
-  Serial.print(pid_res.y);
-  Serial.print(" z:");
-  Serial.print(pid_res.z);
-  Serial.print(" t:");
-  Serial.print(pid_res.turn);
+int logout(const motor &c, const user<double> &p, const user<int> &u, const user<double> &j)
+{
+  Log::setdef(Log::LogLevel::_4DEBUG);
+  Log::log("C");
+  Log::log(" 1:");
+  Log::log(m.c1);
+  Log::log(" 2:");
+  Log::log(m.c2);
+  Log::log(" 3:");
+  Log::log(m.c3);
+  Log::log(" 4:");
+  Log::log(m.c4);
 
-  Serial.print("  U");
-  Serial.print(" x:");
-  Serial.print(u.x);
-  Serial.print(" y:");
-  Serial.print(u.y);
-  Serial.print(" z:");
-  Serial.print(u.z);
-  Serial.print(" t:");
-  Serial.print(u.turn);
+  Log::log("  P");
+  Log::log(" x:");
+  Log::log(p.x);
+  Log::log(" y:");
+  Log::log(p.y);
+  Log::log(" z:");
+  Log::log(p.z);
+  Log::log(" t:");
+  Log::log(p.turn);
+
+  Log::log("  U");
+  Log::log(" x:");
+  Log::log(u.x);
+  Log::log(" y:");
+  Log::log(u.y);
+  Log::log(" z:");
+  Log::log(u.z);
+  Log::log(" t:");
+  Log::log(u.turn);
   /*
     Serial.printf("%c ", ' ');
 
@@ -179,14 +184,17 @@ void loop(void)
     Serial.println(j.turn);
   */
 
-  Serial.print("  J");
-  Serial.print(" x:");
-  Serial.print(spd.x);
-  Serial.print(" y:");
-  Serial.print(spd.y);
-  Serial.print(" z:");
-  Serial.print(spd.z);
-  Serial.print(" t:");
-  Serial.println(spd.turn);
-#endif
+  Log::log("  J");
+  Log::log(" x:");
+  Log::log(j.x);
+  Log::log(" y:");
+  Log::log(j.y);
+  Log::log(" z:");
+  Log::log(j.z);
+  Log::log(" t:");
+  Log::log(j.turn);
+
+  Log::log("\n");
+  Log::setdef(Log::LogLevel::_3INFO);
+  return 0;
 }
