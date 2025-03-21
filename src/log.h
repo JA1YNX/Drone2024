@@ -3,17 +3,17 @@
 #include <Arduino.h>
 #include "user.h"
 
+enum class LogLevel : int
+{
+    _0NONE = 0,
+    _1ERROR = 1,
+    _2WARN = 2,
+    _3INFO = 3,
+    _4DEBUG = 4,
+    _9ALL = 9
+};
 namespace Log
 {
-    enum class LogLevel : int
-    {
-        _0NONE = 0,
-        _1ERROR = 1,
-        _2WARN = 2,
-        _3INFO = 3,
-        _4DEBUG = 4,
-        _9ALL = 9
-    };
     LogLevel logset(LogLevel l);
     LogLevel logget();
 

@@ -23,7 +23,7 @@ int Jsens::setup()
 {
     while (!bno.begin())
         ;
-    Log::logln("BNOSpeed Started", Log::LogLevel::_3INFO);
+    Log::logln("BNOSpeed Started", LogLevel::_3INFO);
     tim.attach_ms(freq_ms, callback);
     return 0;
 }

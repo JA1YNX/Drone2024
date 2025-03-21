@@ -23,7 +23,6 @@ void contloler::setup()
     pinMode(set.y, INPUT);
     pinMode(set.z, INPUT);
     pinMode(set.turn, INPUT);
-    // delay(5000);
     ud = UC_DEF;
     return;
 }
@@ -34,19 +33,6 @@ user<int> contloler::read()
     c.y = static_cast<int>(pulseIn(set.y, HIGH, 20000));
     c.z = static_cast<int>(pulseIn(set.z, HIGH, 20000));
     c.turn = static_cast<int>(pulseIn(set.turn, HIGH, 20000));
-#ifdef SERIAL_out
-    /*
-    Serial.print(" cx:");
-    Serial.print(c.x);
-    Serial.print(" y:");
-    Serial.print(c.y);
-    Serial.print(" z:");
-    Serial.print(c.z);
-    Serial.print(" t:");
-    Serial.print(c.turn);
-    Serial.print(" ");
-    */
-#endif
     return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 7, (c.turn - ud.turn) / 25};
 }
 void contloler::reset(user<int> dd)

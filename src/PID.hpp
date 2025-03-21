@@ -20,13 +20,13 @@ int logout(const motor &c, const user<double> &p, const user<int> &u, const user
 // セットアップ関数
 void setup(void)
 {
-  Log::logset(Log::LogLevel::_9ALL);
+  Log::logset(LogLevel::_9ALL);
   setup_led();
   set_led(uled_status::stop);
 
   Serial.begin(115200);
 
-  Log::logln("\nSetUp Started", Log::LogLevel::_3INFO);
+  Log::logln("\nSetUp Started", LogLevel::_3INFO);
 
   m.nf = 1;
   m.setup();
@@ -141,7 +141,7 @@ void loop(void)
 
 int logout(const motor &c, const user<double> &p, const user<int> &u, const user<double> &j)
 {
-  Log::setdef(Log::LogLevel::_4DEBUG);
+  Log::setdef(LogLevel::_4DEBUG);
   Log::log("C");
   Log::log(" 1:");
   Log::log(m.c1);
@@ -193,6 +193,6 @@ int logout(const motor &c, const user<double> &p, const user<int> &u, const user
   Log::log(j.turn);
 
   Log::log("\n");
-  Log::setdef(Log::LogLevel::_3INFO);
+  Log::setdef(LogLevel::_3INFO);
   return 0;
 }

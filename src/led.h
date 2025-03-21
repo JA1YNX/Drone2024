@@ -9,13 +9,6 @@ enum uled_status : int
     stop = 0b111,
     none = 0b000,
     def = 0b111,
-    /*
-    ready = 0,
-    set = 1,
-    wait = 2,
-    stop = 3,
-    none = 4,
-    */
 };
 enum ledbin : int
 {
