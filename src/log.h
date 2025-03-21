@@ -1,3 +1,5 @@
+#ifndef LOG_H
+#define LOG_H
 #include <Arduino.h>
 #include "user.h"
 
@@ -15,14 +17,24 @@ namespace Log
     LogLevel logset(LogLevel l);
     LogLevel logget();
 
+    static LogLevel def = LogLevel::_3INFO;
+
+    inline int setdef(LogLevel ll)
+    {
+        def = ll;
+        return 0;
+    }
+
     template <typename T>
-    int log(const T &l, LogLevel ll = LogLevel::_3INFO)
+    int log(const T &l, LogLevel ll = def)
     {
         return (logget() >= ll) ? Serial.print(l) : 0;
     }
     template <typename T>
-    int logln(const T &l, LogLevel ll = LogLevel::_3INFO)
+    int logln(const T &l, LogLevel ll = def)
     {
         return (logget() >= ll) ? Serial.println(l) : 0;
     }
 } // namespace Log
+
+#endif
