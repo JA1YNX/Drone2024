@@ -172,16 +172,14 @@ int logout(const motor &c, const user<double> &p, const user<int> &u, const user
   Log::log(" t:");
   Log::log(u.turn);
   /*
-    Serial.printf("%c ", ' ');
-
-    Serial.print(" jx:");
-    Serial.print(j.x);
-    Serial.print(" y:");
-    Serial.print(j.y);
-    Serial.print(" z:");
-    Serial.print(j.z);
-    Serial.print(" t:");
-    Serial.println(j.turn);
+    Log::log(" jx:");
+    Log::log(j.x);
+    Log::log(" y:");
+    Log::log(j.y);
+    Log::log(" z:");
+    Log::log(j.z);
+    Log::log(" t:");
+    Log::log(j.turn);
   */
 
   Log::log("  J");
