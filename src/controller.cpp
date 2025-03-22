@@ -1,22 +1,22 @@
-#include "controler.h"
+#include "controller.h"
 
 // data
-user<int> contloler::data() const
+user<int> controller::data() const
 {
     return c;
 }
 // 今使ってるピン返すやつ
-user<int> contloler::pin() const
+user<int> controller::pin() const
 {
     return set;
 }
 // コンストラクタピン渡す
-contloler::contloler(user<int> set_)
+controller::controller(user<int> set_)
 {
     set = set_;
 }
 // ピン設定
-void contloler::setup()
+void controller::setup()
 {
     // モード設定
     pinMode(set.x, INPUT);
@@ -27,7 +27,7 @@ void contloler::setup()
     return;
 }
 // 読んで返す
-user<int> contloler::read()
+user<int> controller::read()
 {
     c.x = static_cast<int>(pulseIn(set.x, HIGH, 20000));
     c.y = static_cast<int>(pulseIn(set.y, HIGH, 20000));
@@ -35,7 +35,7 @@ user<int> contloler::read()
     c.turn = static_cast<int>(pulseIn(set.turn, HIGH, 20000));
     return {(c.x - ud.x) / 25, (c.y - ud.y) / 25, (c.z - ud.z) / 7, (c.turn - ud.turn) / 25};
 }
-void contloler::reset(user<int> dd)
+void controller::reset(user<int> dd)
 {
     ud = dd;
 }

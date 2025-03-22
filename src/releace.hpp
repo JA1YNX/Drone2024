@@ -1,7 +1,7 @@
 #include "./conf.h"
-#include "./controler.h"
+#include "./controller.h"
 #include "./motor.h"
-#include "./BNO055.h"
+// #include "./BNO055.h"
 
 // 状態表示用LED
 #define R_pin 16

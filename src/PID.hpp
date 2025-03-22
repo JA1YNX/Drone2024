@@ -1,5 +1,5 @@
 #include "conf.h"
-#include "controler.h"
+#include "controller.h"
 #include "motor.h"
 #include "pid.h"
 #include "led.h"
@@ -7,7 +7,7 @@
 
 motor m(UM_PIN);
 
-contloler c(UC_PIN);
+controller c(UC_PIN);
 
 Jsens sens;
 
