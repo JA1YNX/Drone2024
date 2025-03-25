@@ -10,16 +10,25 @@
 #include <Ticker.h>
 #include <cmath>
 
-class Jsens
+#ifdef __cplusplus
+extern "C"
 {
-private:
-protected:
-public:
-    Jsens(int tick = 50);
-    ~Jsens();
-    int setup();
-    user<double> getang() const;
-    user<double> getspd() const;
-};
+#endif
+
+    class Jsens
+    {
+    private:
+    protected:
+    public:
+        Jsens(int tick = 50);
+        ~Jsens();
+        int setup();
+        user<double> getang() const;
+        user<double> getspd() const;
+    };
+
+#ifdef __cplusplus
+} // extern "C"
+#endif
 
 #endif
