@@ -37,9 +37,9 @@ void callback()
 
     bno.getEvent(&acc_s, Adafruit_BNO055::VECTOR_ACCELEROMETER);
     bno.getEvent(&ang_s, Adafruit_BNO055::VECTOR_EULER);
-    res.x = acc_s.acceleration.x - (sin(dtorad(ang_s.orientation.y)) * gravity);
-    res.y = acc_s.acceleration.y + (sin(dtorad(ang_s.orientation.z)) * gravity);
-    res.z = acc_s.acceleration.z - (cos(dtorad(ang_s.orientation.y)) * cos(dtorad(ang_s.orientation.z)) * gravity);
+    res.x = acc_s.acceleration.x - (sin(deg2rad(ang_s.orientation.y)) * gravity);
+    res.y = acc_s.acceleration.y + (sin(deg2rad(ang_s.orientation.z)) * gravity);
+    res.z = acc_s.acceleration.z - (cos(deg2rad(ang_s.orientation.y)) * cos(deg2rad(ang_s.orientation.z)) * gravity);
 
     if (abs(res.x) > sikiiti)
         speed.x += res.x / 1000.0 * (double)freq_ms;
