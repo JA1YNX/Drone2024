@@ -1,13 +1,11 @@
 #include "./conf.h"
 #include "./controller.h"
 #include "./motor.h"
-#include "BNO055.h"
+#include "jsens.h"
 
-contloler c(user<int>{32, 35, 33, 34}); // T6J   //ch1pin,ch2pin,ch3pin,ch4pin
+controller c(user<int>{32, 35, 33, 34}); // T6J   //ch1pin,ch2pin,ch3pin,ch4pin
 
-// #define sens bnosens
-#define ang get
-BNO055 sens;
+Jsens sens;
 
 void setup(void)
 {
@@ -19,14 +17,13 @@ void setup(void)
 void loop(void)
 {
   Serial.print("x:");
-  Serial.print(sens.ang().x);
+  Serial.print(sens.getang().x);
   Serial.print(" y:");
-  Serial.print(sens.ang().y);
+  Serial.print(sens.getang().y);
   Serial.print(" z:");
-  Serial.print(sens.ang().z);
+  Serial.print(sens.getang().z);
   Serial.print(" t:");
-  Serial.println(sens.ang().turn);
-  sens.update();
+  Serial.println(sens.getang().turn);
 
   /*
   Serial.print("  x:");

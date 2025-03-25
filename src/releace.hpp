@@ -1,7 +1,7 @@
 #include "./conf.h"
 #include "./controller.h"
 #include "./motor.h"
-// #include "./BNO055.h"
+#include "jsens.h"
 
 // 状態表示用LED
 #define R_pin 16
@@ -14,10 +14,10 @@
 motor m({25, 26, 27, 14}); // pin1,pin2,pin3,pin4
 
 // コントローラー制御用クラスインスタンス化
-contloler c({33, 35, 32, 34}); // T6J ch1,ch2,ch3,ch4
+controller c({33, 35, 32, 34}); // T6J ch1,ch2,ch3,ch4
 
 // BNO055
-BNO055 sens;
+Jsens sens;
 int history;
 
 // セットアップ関数
@@ -75,8 +75,7 @@ void setup(void)
   ledcWrite(Y_pin, 0);
 
   // 基準角度設定
-  sens.update();
-  history = sens.get().turn;
+  history = sens.getang().turn;
 
   return;
 }
@@ -87,9 +86,8 @@ bool flag = 0;
 void loop(void)
 {
   // ジャイロの値取得
-  user<int> j;
-  sens.update();
-  j = sens.get();
+  user<double> j;
+  j = sens.getang();
   // 強制停止
   if (pulseIn(PIN_ch5, HIGH, 20000) < 1500 || flag)
   {
@@ -102,9 +100,8 @@ void loop(void)
     do
     {
       stu = c.read();
-      sens.update();
-      j = sens.get();
-      history = sens.get().turn;
+      j = sens.getang();
+      history = sens.getang().turn;
       m.stop();
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || (stu.z > 2) || (stu.x != 0) || (stu.y != 0) || (stu.turn != 0) || (pulseIn(PIN_ch5, HIGH, 20000) < 1500));
   }
