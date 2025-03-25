@@ -12,8 +12,6 @@ extern "C"
     */
     namespace PID_F
     {
-#define DELTA_T 1
-
         class Pid
         {
         private:
