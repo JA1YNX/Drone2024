@@ -14,10 +14,15 @@ enum class LogLevel : int
 };
 namespace Log
 {
+    /// @brief ログの初期化
+    /// @param speed シリアル通信速度
+    /// @return 現在のログレベル
+    LogLevel init(unsigned long speed = 115200);
     /// @brief ログの表示レベルを設定
     /// @param l 表示レベル
     /// @return 変更後のログレベル
-    LogLevel logset(LogLevel l);
+    LogLevel
+    logset(LogLevel l);
     /// @brief ログの表示レベルを取得
     /// @return 現在のログレベル
     LogLevel logget();

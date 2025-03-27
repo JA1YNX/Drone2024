@@ -24,7 +24,7 @@ void setup(void)
   setup_led();
   set_led(uled_status::stop);
 
-  Serial.begin(115200);
+  Log::init();
 
   Log::logln("\nSetUp Started", LogLevel::_3INFO);
 
