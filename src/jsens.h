@@ -1,5 +1,4 @@
-#ifndef JSENS
-#define JSENS
+#pragma once
 
 #include "conf.h"
 #include <Wire.h>
@@ -30,5 +29,3 @@ public:
     /// @return 速度
     user<double> getspd() const;
 };
-
-#endif

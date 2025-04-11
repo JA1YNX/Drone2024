@@ -1,5 +1,5 @@
-#ifndef PID
-#define PID
+#pragma once
+
 #include "conf.h"
 
 /*
@@ -29,5 +29,3 @@ namespace PID_F
     };
 
 }
-
-#endif

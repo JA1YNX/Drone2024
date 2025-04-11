@@ -1,5 +1,5 @@
-#ifndef LED
-#define LED
+#pragma once
+
 #include "conf.h"
 
 enum class uled_status : int
@@ -25,5 +25,3 @@ int set_led(uled_status status_, int y_va = 128);
 /// @brief led初期化
 /// @return エラーコード
 int setup_led();
-
-#endif

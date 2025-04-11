@@ -1,5 +1,5 @@
-#ifndef USER
-#define USER
+#pragma once
+
 // とりあえずデータ入れるやつ
 template <typename T>
 struct user
@@ -9,4 +9,3 @@ struct user
     T z;
     T turn;
 };
-#endif

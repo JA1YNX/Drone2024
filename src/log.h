@@ -1,5 +1,5 @@
-#ifndef LOG_H
-#define LOG_H
+#pragma once
+
 #include <Arduino.h>
 #include "user.h"
 
@@ -58,5 +58,3 @@ namespace Log
         return (logget() >= ll) ? Serial.println(l) : 0;
     }
 } // namespace Log
-
-#endif
