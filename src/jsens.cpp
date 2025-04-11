@@ -7,7 +7,6 @@ user<double> ang;
 user<double> spd;
 
 void callback();
-inline double dtorad(double in);
 double convert(double data_);
 
 Jsens::Jsens(int tick)
@@ -71,11 +70,6 @@ user<double> Jsens::getspd() const
     return spd;
 }
 
-inline double dtorad(double in)
-{
-    constexpr static double rad = M_PI / 180;
-    return in * rad;
-}
 double convert(double data_)
 {
     constexpr static double ti = 190;
