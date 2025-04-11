@@ -22,7 +22,7 @@ void setup(void)
 {
   Log::logset(LogLevel::_9ALL);
   setup_led();
-  set_led(uled_status::stop);
+  set_led(led_status::stop);
 
   Log::init();
 
@@ -33,16 +33,16 @@ void setup(void)
   c.setup();
   sens.setup();
 
-  set_led(uled_status::set);
+  set_led(led_status::set);
   delay(1000);
   m.stop();
 
-  set_led(uled_status::stop);
+  set_led(led_status::stop);
 
   while (c.read().z > 2)
     ;
 
-  set_led(uled_status::wait);
+  set_led(led_status::wait);
 
   history = sens.getang().turn;
 }
@@ -64,7 +64,7 @@ void loop(void)
   u = c.read();
 
   // TODO:要値調整
-  set_led(uled_status::ready, u.z * 2);
+  set_led(led_status::ready, u.z * 2);
 
   m.nf = 1;
   m.def = u.z;
@@ -110,7 +110,7 @@ void loop(void)
 
   if (flag)
   {
-    set_led(uled_status::stop);
+    set_led(led_status::stop);
     m.stop();
     do
     {

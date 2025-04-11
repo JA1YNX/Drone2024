@@ -2,7 +2,7 @@
 
 #include "conf.h"
 
-enum class uled_status : int
+enum class led_status : int
 {
     ready = 0b011,
     set = 0b101,
@@ -21,7 +21,7 @@ enum ledbin : int
 /// @param status_ 状態
 /// @param y_va 黄レベル
 /// @return エラーコード
-int set_led(uled_status status_, int y_va = 128);
+int set_led(led_status status_, int y_va = 128);
 /// @brief led初期化
 /// @return エラーコード
 int setup_led();
