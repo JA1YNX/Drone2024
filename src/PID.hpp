@@ -107,7 +107,7 @@ void loop(void)
 
   m.rotate();
 
-  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5();
+  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5(); //  || Serial;
 
   if (flag)
   {
