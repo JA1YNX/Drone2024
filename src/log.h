@@ -1,7 +1,6 @@
 #pragma once
 
 #include <Arduino.h>
-#include "user.h"
 
 enum class LogLevel : int
 {
