@@ -12,8 +12,11 @@ namespace PID_F
         ret += ie * KI; // I項
         return ret;
     }
-    Pid::Pid(double pre)
+    Pid::Pid(double p, double i, double d, double pre)
     {
+        KP = p;
+        KI = i;
+        KD = d;
         pree = pre;
     }
     Pid::~Pid()

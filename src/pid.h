@@ -12,11 +12,14 @@ namespace PID_F
     private:
         double pree = 0;
         double ie = 0;
+        double KP = 0;
+        double KI = 0;
+        double KD = 0;
 
     public:
         /// @brief コンストラクタ
         /// @param 初期化時点の誤差
-        Pid(double);
+        Pid(double p, double i, double d, double pre = 0);
         ~Pid();
         /// @brief PID計算
         /// @param y 現在値
