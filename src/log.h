@@ -20,8 +20,7 @@ namespace Log
     /// @brief ログの表示レベルを設定
     /// @param l 表示レベル
     /// @return 変更後のログレベル
-    LogLevel
-    logset(LogLevel l);
+    LogLevel logset(LogLevel l);
     /// @brief ログの表示レベルを取得
     /// @return 現在のログレベル
     LogLevel logget();
@@ -42,7 +41,7 @@ namespace Log
     /// @param ll ログレベル
     /// @return 出力結果
     template <typename T>
-    int log(const T &l, LogLevel ll = def)
+    inline int log(const T &l, LogLevel ll = def)
     {
         return (logget() >= ll) ? Serial.print(l) : 0;
     }
@@ -52,7 +51,7 @@ namespace Log
     /// @param ll ログレベル
     /// @return 出力結果
     template <typename T>
-    int logln(const T &l, LogLevel ll = def)
+    inline int logln(const T &l, LogLevel ll = def)
     {
         return (logget() >= ll) ? Serial.println(l) : 0;
     }
