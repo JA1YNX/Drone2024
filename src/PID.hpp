@@ -50,17 +50,18 @@ void setup(void)
 void loop(void)
 {
   static user<double> setpoint;
-  static PID_F::Pid pid_x(0);
-  static PID_F::Pid pid_y(0);
-  static PID_F::Pid pid_turn(0);
+  static PID_F::Pid pid_x(KP_D, KI_D, KD_D);
+  static PID_F::Pid pid_y(KP_D, KI_D, KD_D);
+  // static PID_F::Pid pid_turn(KP_D, KI_D, KD_D);
+  static PID_F::Pid pid_turn(0, 0, 0);
 
   static user<double> j;
-  static user<double> spd;
+  // static user<double> spd;
   static user<int> u;
   static user<double> pid_res;
 
   j = sens.getang();
-  spd = sens.getspd();
+  // spd = sens.getspd();
   u = c.read();
 
   // TODO:要値調整
@@ -78,11 +79,11 @@ void loop(void)
   setpoint.y = u.y / 1;
   setpoint.turn = u.turn / 2;
 
-  // pid_res.x = pid_x.calc(j.x, setpoint.x);
-  // pid_res.y = pid_y.calc(j.y, setpoint.y);
-  pid_res.x = pid_x.calc(spd.x, setpoint.x);
-  pid_res.y = pid_y.calc(spd.y, setpoint.y);
-  pid_res.turn = u.turn; // = pid_turn.calc(j.turn, setpoint.turn);
+  pid_res.x = pid_x.calc(j.x, setpoint.x);
+  pid_res.y = pid_y.calc(j.y, setpoint.y);
+  // pid_res.x = pid_x.calc(spd.x, setpoint.x);
+  // pid_res.y = pid_y.calc(spd.y, setpoint.y);
+  pid_res.turn = pid_turn.calc(j.turn, setpoint.turn);
 
   m.c1 += pid_res.x;
   m.c2 -= pid_res.x;
@@ -118,13 +119,15 @@ void loop(void)
         while (!check5())
         {
           Log::log("locked  ");
-          logout(m, pid_res, u, spd);
+          // logout(m, pid_res, u, spd);
+          logout(m, pid_res, u, j);
         }
       flag = 0;
       u = c.read();
       j = sens.getang();
       Log::log("locked  ");
-      logout(m, pid_res, u, spd);
+      // logout(m, pid_res, u, spd);
+      logout(m, pid_res, u, j);
     } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
              (abs(u.z) > 2) || (abs(u.x) > 2) || (abs(u.y) > 2) || (abs(u.turn) > 2) ||
              check5());
@@ -133,10 +136,12 @@ void loop(void)
     pid_x.reset();
     pid_y.reset();
     pid_turn.reset();
-    logout(m, pid_res, u, spd);
+    // logout(m, pid_res, u, spd);
+    logout(m, pid_res, u, j);
   }
 
-  logout(m, pid_res, u, spd);
+  // logout(m, pid_res, u, spd);
+  logout(m, pid_res, u, j);
 }
 
 int logout(const motor &c, const user<double> &p, const user<int> &u, const user<double> &j)
