@@ -34,9 +34,11 @@ static constexpr int duty_max = 600; // 最高回転
 static constexpr double Max_ang = 15.0; // 機体の最大角度これを超えると強制停止
 
 /// pid
-static constexpr double KP_D = 1.0;  // 比例ゲイン
-static constexpr double KI_D = 0.01; // 積分ゲイン
-static constexpr double KD_D = 0.01; // 微分ゲイン
+static constexpr double KP_D = 2.0; // 比例ゲイン
+static constexpr double KI_D = 0.0; // 積分ゲイン
+static constexpr double KD_D = 1.0; // 微分ゲイン
+
+static constexpr double PI_D = 3.14159265358979323846;
 
 /// ch5の状態確認
 inline bool check5(int in = pulseIn(PIN_ch5, HIGH, 20000), int n = 1500)
@@ -47,12 +49,12 @@ inline bool check5(int in = pulseIn(PIN_ch5, HIGH, 20000), int n = 1500)
 /// @brief 角度をラジアンに変換する関数
 inline double deg2rad(double in)
 {
-    static double rad = 3.14159265358979323846 / 180.0;
+    static double rad = PI_D / 180.0;
     return in * rad;
 }
 /// @brief ラジアンを度に変換する関数
 inline double rad2deg(double in)
 {
-    static double rad = 180.0 / 3.14159265358979323846;
+    static double rad = 180.0 / PI_D;
     return in * rad;
 }
