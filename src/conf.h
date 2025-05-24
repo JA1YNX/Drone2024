@@ -27,16 +27,16 @@ static constexpr user<int> UC_DEF = {1526, 1526, 1110, 1470};
 static constexpr int puls = 73;      // pwm周波数
 static constexpr int bits = 12;      // ledc分解能
 static constexpr int duty_min = 360; // 最低回転
-static constexpr int duty_low = 360; // 最低回転?
+static constexpr int duty_low = 380; // 最低回転?
 // 上に二つは正直わかんないけどこれでうまくいってる
 static constexpr int duty_max = 600; // 最高回転
 
 static constexpr double Max_ang = 15.0; // 機体の最大角度これを超えると強制停止
 
 /// pid
-static constexpr double KP_D = 2.0; // 比例ゲイン
+static constexpr double KP_D = 0.0; // 比例ゲイン
 static constexpr double KI_D = 0.0; // 積分ゲイン
-static constexpr double KD_D = 1.0; // 微分ゲイン
+static constexpr double KD_D = 0.0; // 微分ゲイン
 
 static constexpr double PI_D = 3.14159265358979323846;
 
