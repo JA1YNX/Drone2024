@@ -1,7 +1,7 @@
 #pragma once
 
 #include <Arduino.h>
-
+#define DEBUG_SERIAL
 enum class LogLevel : int
 {
     _0NONE = 0,
@@ -13,10 +13,25 @@ enum class LogLevel : int
 };
 namespace Log
 {
-    /// @brief ログの初期化
-    /// @param speed シリアル通信速度
-    /// @return 現在のログレベル
-    LogLevel init(unsigned long speed = 115200);
+    template <typename T>
+    inline size_t println(const T &l)
+    {
+#ifdef DEBUG_SERIAL
+        return Serial.println(l);
+#else
+        return 0;
+#endif
+    }
+    template <typename T>
+    inline size_t print(const T &l)
+    {
+#ifdef DEBUG_SERIAL
+        return Serial.print(l);
+#else
+        return 0;
+#endif
+    }
+
     /// @brief ログの表示レベルを設定
     /// @param l 表示レベル
     /// @return 変更後のログレベル
@@ -35,6 +50,19 @@ namespace Log
         return def = ll;
     }
 
+    /// @brief ログの初期化
+    /// @param speed シリアル通信速度
+    /// @return 現在のログレベル
+    inline LogLevel init(unsigned long speed = 115200)
+    {
+#ifdef DEBUG_SERIAL
+        Serial.begin(speed);
+        logln("Log Init", LogLevel::_3INFO);
+        return logget();
+#else
+        return LogLevel::_0NONE;
+#endif
+    }
     /// @brief ログ出力　改行なし
     /// @tparam T ログ情報の型
     /// @param l ログ
@@ -43,7 +71,7 @@ namespace Log
     template <typename T>
     inline int log(const T &l, LogLevel ll = def)
     {
-        return (logget() >= ll) ? Serial.print(l) : 0;
+        return (logget() >= ll) ? print(l) : 0;
     }
     /// @brief ログ出力　改行あり
     /// @tparam T ログ情報の型
@@ -53,6 +81,7 @@ namespace Log
     template <typename T>
     inline int logln(const T &l, LogLevel ll = def)
     {
-        return (logget() >= ll) ? Serial.println(l) : 0;
+        return (logget() >= ll) ? println(l) : 0;
     }
+
 } // namespace Log
