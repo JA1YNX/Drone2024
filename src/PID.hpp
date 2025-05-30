@@ -30,6 +30,7 @@ void setup(void)
 
   m.nf = 1;
   m.setup();
+  m.stop();
   c.setup();
   sens.setup();
 
