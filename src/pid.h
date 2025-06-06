@@ -10,7 +10,7 @@ namespace PID_F
     class Pid
     {
     private:
-        double pree = 0;
+        double abe = 0; // Absolute Error
         double ie = 0;
         double KP = 0;
         double KI = 0;
@@ -19,7 +19,7 @@ namespace PID_F
     public:
         /// @brief コンストラクタ
         /// @param 初期化時点の誤差
-        Pid(double p, double i, double d, double pre = 0);
+        Pid(double p, double i, double d, double _abe = 0);
         ~Pid();
         /// @brief PID計算
         /// @param y 現在値
@@ -28,7 +28,7 @@ namespace PID_F
         double calc(double y, double r);
         /// @brief リセット
         /// @param 初期化誤差
-        void reset(double pre = 0);
+        void reset(double _abe = 0);
     };
 
 }
