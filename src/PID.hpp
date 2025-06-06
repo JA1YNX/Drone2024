@@ -60,10 +60,24 @@ void loop(void)
   // static user<double> spd;
   static user<int> u;
   static user<double> pid_res;
-
   j = sens.getang();
   // spd = sens.getspd();
   u = c.read();
+  //初期化処理
+  {
+    static bool init = 1;
+    if (init)
+    {
+      Log::logln("Init", LogLevel::_3INFO);
+      init = 0;
+      pid_x.reset(j.x);
+      pid_y.reset(j.y);
+      pid_turn.reset(j.turn);
+      setpoint.x = 0;
+      setpoint.y = 0;
+      setpoint.turn = 0;
+    }
+  }
 
   // TODO:要値調整
   set_led(led_status::ready, u.z * 2);
