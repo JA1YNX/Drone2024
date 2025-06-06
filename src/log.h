@@ -50,19 +50,6 @@ namespace Log
         return def = ll;
     }
 
-    /// @brief ログの初期化
-    /// @param speed シリアル通信速度
-    /// @return 現在のログレベル
-    inline LogLevel init(unsigned long speed = 115200)
-    {
-#ifdef DEBUG_SERIAL
-        Serial.begin(speed);
-        logln("Log Init", LogLevel::_3INFO);
-        return logget();
-#else
-        return LogLevel::_0NONE;
-#endif
-    }
     /// @brief ログ出力　改行なし
     /// @tparam T ログ情報の型
     /// @param l ログ
@@ -82,6 +69,19 @@ namespace Log
     inline int logln(const T &l, LogLevel ll = def)
     {
         return (logget() >= ll) ? println(l) : 0;
+    }
+    /// @brief ログの初期化
+    /// @param speed シリアル通信速度
+    /// @return 現在のログレベル
+    inline LogLevel init(unsigned long speed = 115200)
+    {
+#ifdef DEBUG_SERIAL
+        Serial.begin(speed);
+        logln("Log Init", LogLevel::_3INFO);
+        return logget();
+#else
+        return LogLevel::_0NONE;
+#endif
     }
 
 } // namespace Log
