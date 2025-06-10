@@ -63,7 +63,7 @@ void loop(void)
   j = sens.getang();
   // spd = sens.getspd();
   u = c.read();
-  //初期化処理
+  // 初期化処理
   {
     static bool init = 1;
     if (init)
@@ -148,9 +148,9 @@ void loop(void)
              check5());
     flag = 0;
     history = j.turn;
-    pid_x.reset();
-    pid_y.reset();
-    pid_turn.reset();
+    pid_x.reset(j.x);
+    pid_y.reset(j.y);
+    pid_turn.reset(j.turn);
     // logout(m, pid_res, u, spd);
     logout(m, pid_res, u, j);
   }
