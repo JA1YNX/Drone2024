@@ -24,19 +24,32 @@ constexpr user<int> UM_PIN = {25, 26, 27, 14};
 /// @brief コントローラーデフォルト値
 constexpr user<int> UC_DEF = {1526, 1526, 1110, 1470};
 
+#define pwmbits 16 // pwmの分解能を12bitに設定
+
+#if defined(pwmbits) && pwmbits == 12
 constexpr int puls = 73;      // pwm周波数
 constexpr int bits = 12;      // ledc分解能
 constexpr int duty_min = 360; // 最低回転
 constexpr int duty_low = 380; // 最低回転?
 // 上に二つは正直わかんないけどこれでうまくいってる
 constexpr int duty_max = 600; // 最高回転
+#elif defined(pwmbits) && pwmbits == 16
+constexpr int puls = 73;       // pwm周波数
+constexpr int bits = 16;       // ledc分解能
+constexpr int duty_min = 5760; // 最低回転
+constexpr int duty_low = 6080; // 最低回転?
+// 上に二つは正直わかんないけどこれでうまくいってる
+constexpr int duty_max = 9600; // 最高回転
+#else
+#error "pwmbits must be defined as 12 or 16"
+#endif
 
-constexpr double Max_ang = 15.0; // 機体の最大角度これを超えると強制停止
+constexpr double Max_ang = 10.0; // 機体の最大角度これを超えると強制停止
 
 /// pid
-constexpr double KP_D = 0.0; // 比例ゲイン
-constexpr double KI_D = 0.0; // 積分ゲイン
-constexpr double KD_D = 0.0; // 微分ゲイン
+constexpr double KP_D = 4;  // 比例ゲイン
+constexpr double KI_D = 0; // 積分ゲイン
+constexpr double KD_D = 0.0;  // 微分ゲイン
 
 constexpr double PI_D = 3.14159265358979323846;
 
