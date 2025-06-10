@@ -23,10 +23,10 @@ max:340
 */
 void motor::setup() const
 {
-    ledcSetup(1, puls, 12); // 1,066,666.666666666666666666666666...まで出来そう?
-    ledcSetup(2, puls, 12); // 20bit
-    ledcSetup(3, puls, 12);
-    ledcSetup(4, puls, 12);
+    ledcSetup(1, puls, bits); // 1,066,666.666666666666666666666666...まで出来そう?
+    ledcSetup(2, puls, bits); // 20bit
+    ledcSetup(3, puls, bits);
+    ledcSetup(4, puls, bits);
     ledcAttachPin(pin.x, 1);
     ledcAttachPin(pin.y, 2);
     ledcAttachPin(pin.z, 3);
