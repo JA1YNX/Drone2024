@@ -37,7 +37,7 @@ constexpr int duty_max = 600; // 最高回転
 constexpr int puls = 73;       // pwm周波数
 constexpr int bits = 16;       // ledc分解能
 constexpr int duty_min = 5760; // 最低回転
-constexpr int duty_low = 6080; // 最低回転?
+constexpr int duty_low = 6050; // 最低回転?
 // 上に二つは正直わかんないけどこれでうまくいってる
 constexpr int duty_max = 9600; // 最高回転
 #else
