@@ -13,14 +13,7 @@ void motor::rotate() const
     ledcWrite(4, (def + c4) * nf + duty_low);
     return;
 }
-/*
-12bit
-75Hz
-res:231
-off:258
-min:260
-max:340
-*/
+
 void motor::setup() const
 {
     ledcSetup(1, puls, bits); // 1,066,666.666666666666666666666666...まで出来そう?

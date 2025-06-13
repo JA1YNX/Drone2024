@@ -28,14 +28,14 @@ constexpr user<int> UC_DEF = {1526, 1526, 1110, 1470};
 
 #if defined(pwmbits) && pwmbits == 12
 constexpr int puls = 73;      // pwm周波数
-constexpr int bits = 12;      // ledc分解能
+constexpr int bits = 12;      // ledc分解能4096段階
 constexpr int duty_min = 360; // 最低回転
 constexpr int duty_low = 380; // 最低回転?
 // 上に二つは正直わかんないけどこれでうまくいってる
 constexpr int duty_max = 600; // 最高回転
 #elif defined(pwmbits) && pwmbits == 16
 constexpr int puls = 73;       // pwm周波数
-constexpr int bits = 16;       // ledc分解能
+constexpr int bits = 16;       // ledc分解能65536段階
 constexpr int duty_min = 5760; // 最低回転
 constexpr int duty_low = 6050; // 最低回転?
 // 上に二つは正直わかんないけどこれでうまくいってる
