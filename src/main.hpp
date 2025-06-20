@@ -57,12 +57,11 @@ void loop(void)
   static PID_F::Pid pid_turn(0, 0, 0);
 
   static user<double> j;
-  // static user<double> spd;
   static user<int> u;
   static user<double> pid_res;
   j = sens.getang();
-  // spd = sens.getspd();
   u = c.read();
+
   // 初期化処理
   {
     static bool init = 1;
@@ -89,15 +88,12 @@ void loop(void)
   m.c3 = 0;
   m.c4 = 0;
 
-  // TODO:
-  setpoint.x = u.x / 1;
-  setpoint.y = u.y / 1;
+  setpoint.x = u.x;
+  setpoint.y = u.y;
   setpoint.turn = u.turn / 2;
 
   pid_res.x = pid_x.calc(j.x, setpoint.x);
   pid_res.y = pid_y.calc(j.y, setpoint.y);
-  // pid_res.x = pid_x.calc(spd.x, setpoint.x);
-  // pid_res.y = pid_y.calc(spd.y, setpoint.y);
   pid_res.turn = pid_turn.calc(j.turn, setpoint.turn);
 
   m.c1 += pid_res.x;
@@ -114,11 +110,6 @@ void loop(void)
   m.c2 -= pid_res.turn;
   m.c3 -= pid_res.turn;
   m.c4 += pid_res.turn;
-
-  m.c1 -= 0;
-  m.c2 -= 0;
-  m.c3 -= 0;
-  m.c4 -= 0;
 
   m.rotate();
 
