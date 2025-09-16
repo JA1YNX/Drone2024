@@ -12,20 +12,20 @@ public:
   void setup();
   /// @brief 値取得
   /// @return 取得した値
-  user<int> read();
+  user<double> read();
   /// @brief 指定したピン
   /// @return user<int>型
   user<int> pin() const;
   /// @brief 加工する前のデータ（readで値更新）
   /// @return user<int>型
-  user<int> data() const;
+  user<double> data() const;
   /// @brief リセット
   /// @param 初期化誤差
-  void reset(user<int>);
+  void reset(user<double>);
 
 private:
   // 入力ピン格納用変数構造体
   user<int> set;
-  user<int> c;  // スタック用変数
-  user<int> ud; // 標準値
+  user<double> c; // スタック用変数
+  user<double> ud; // 標準値
 };

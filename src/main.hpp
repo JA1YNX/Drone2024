@@ -15,7 +15,7 @@ double history;
 
 bool flag = 1;
 
-int logout(const motor &c, const user<double> &p, const user<int> &u, const user<double> &j);
+int logout(const motor &c, const user<double> &p, const user<double> &u, const user<double> &j);
 
 // セットアップ関数
 void setup(void)
@@ -54,10 +54,10 @@ void loop(void)
   static PID_F::Pid pid_x(KP_D, KI_D, KD_D);
   static PID_F::Pid pid_y(KP_D, KI_D, KD_D);
   // static PID_F::Pid pid_turn(KP_D, KI_D, KD_D);
-  static PID_F::Pid pid_turn(0, 0, 0);
+  static PID_F::Pid pid_turn(0, 0, 0); // note:一時的に無効化
 
   static user<double> j;
-  static user<int> u;
+  static user<double> u;
   static user<double> pid_res;
   j = sens.getang();
   u = c.read();
@@ -96,14 +96,9 @@ void loop(void)
   pid_res.y = pid_y.calc(j.y, setpoint.y);
   pid_res.turn = pid_turn.calc(j.turn, setpoint.turn);
 
-  m.c1 += pid_res.x;
+  m.c1 -= pid_res.y;
   m.c2 -= pid_res.x;
   m.c3 += pid_res.x;
-  m.c4 -= pid_res.x;
-
-  m.c1 -= pid_res.y;
-  m.c2 -= pid_res.y;
-  m.c3 += pid_res.y;
   m.c4 += pid_res.y;
 
   m.c1 += pid_res.turn;
@@ -113,29 +108,36 @@ void loop(void)
 
   m.rotate();
 
-  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5(); //  || Serial;
+  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5();
 
   if (flag)
   {
     set_led(led_status::stop);
     m.stop();
+    // if (flag)
+    while (!check5()) // プロポOFFまで待機
+    {
+      u = c.read();
+      j = sens.getang();
+      Log::log("lock0 ");
+      Log::log(check5());
+      Log::log(" ");
+      // logout(m, pid_res, u, spd);
+      logout(m, pid_res, u, j);
+    }
+
     do
     {
-      if (flag)
-        while (!check5())
-        {
-          Log::log("locked  ");
-          // logout(m, pid_res, u, spd);
-          logout(m, pid_res, u, j);
-        }
       flag = 0;
       u = c.read();
       j = sens.getang();
-      Log::log("locked  ");
+      Log::log("lock1 ");
+      Log::log(check5());
+      Log::log(" ");
       // logout(m, pid_res, u, spd);
       logout(m, pid_res, u, j);
-    } while ((abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) ||
-             (abs(u.z) > 2) || (abs(u.x) > 2) || (abs(u.y) > 2) || (abs(u.turn) > 2) ||
+    } while ((abs(j.x) > Min_ang) || (abs(j.y) > Min_ang) ||
+             ((int)u.z > Min_ang) || (abs(u.x) > Min_ang) || (abs(u.y) > Min_ang) || (abs(u.turn) > 2) ||
              check5());
     flag = 0;
     history = j.turn;
@@ -150,7 +152,7 @@ void loop(void)
   logout(m, pid_res, u, j);
 }
 
-int logout(const motor &c, const user<double> &p, const user<int> &u, const user<double> &j)
+int logout(const motor &c, const user<double> &p, const user<double> &u, const user<double> &j)
 {
   Log::setdef(LogLevel::_4DEBUG);
   Log::log("C");

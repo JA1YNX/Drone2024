@@ -1,7 +1,7 @@
 #include "controller.h"
 
 // data
-user<int> controller::data() const
+user<double> controller::data() const
 {
     return c;
 }
@@ -27,15 +27,15 @@ void controller::setup()
     return;
 }
 // 読んで返す
-user<int> controller::read()
+user<double> controller::read()
 {
     c.x = static_cast<int>(pulseIn(set.x, HIGH, 20000));
     c.y = static_cast<int>(pulseIn(set.y, HIGH, 20000));
     c.z = static_cast<int>(pulseIn(set.z, HIGH, 20000));
     c.turn = static_cast<int>(pulseIn(set.turn, HIGH, 20000));
-    return {(c.x - ud.x) / 90, (c.y - ud.y) / 90, (c.z - ud.z) * 2, (c.turn - ud.turn) / 50};
+    return {(c.x - ud.x) / 90.0, (c.y - ud.y) / 90.0, (c.z - ud.z) * 2.0, (c.turn - ud.turn) / 50.0};
 }
-void controller::reset(user<int> dd)
+void controller::reset(user<double> dd)
 {
     ud = dd;
 }
