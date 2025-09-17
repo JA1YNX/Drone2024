@@ -106,8 +106,6 @@ void loop(void)
   m.c3 -= pid_res.turn;
   m.c4 += pid_res.turn;
 
-  m.rotate();
-
   flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5();
 
   if (flag)
@@ -122,7 +120,6 @@ void loop(void)
       Log::log("lock0 ");
       Log::log(check5());
       Log::log(" ");
-      // logout(m, pid_res, u, spd);
       logout(m, pid_res, u, j);
     }
 
@@ -134,7 +131,6 @@ void loop(void)
       Log::log("lock1 ");
       Log::log(check5());
       Log::log(" ");
-      // logout(m, pid_res, u, spd);
       logout(m, pid_res, u, j);
     } while ((abs(j.x) > Min_ang) || (abs(j.y) > Min_ang) ||
              ((int)u.z > Min_ang) || (abs(u.x) > Min_ang) || (abs(u.y) > Min_ang) || (abs(u.turn) > 2) ||
@@ -144,11 +140,11 @@ void loop(void)
     pid_x.reset(j.x);
     pid_y.reset(j.y);
     pid_turn.reset(j.turn);
-    // logout(m, pid_res, u, spd);
     logout(m, pid_res, u, j);
   }
 
-  // logout(m, pid_res, u, spd);
+  m.rotate();
+
   logout(m, pid_res, u, j);
 }
 
@@ -184,16 +180,6 @@ int logout(const motor &c, const user<double> &p, const user<double> &u, const u
   Log::log(u.z);
   Log::log(" t:");
   Log::log(u.turn);
-  /*
-    Log::log(" jx:");
-    Log::log(j.x);
-    Log::log(" y:");
-    Log::log(j.y);
-    Log::log(" z:");
-    Log::log(j.z);
-    Log::log(" t:");
-    Log::log(j.turn);
-  */
 
   Log::log("  J");
   Log::log(" x:");
