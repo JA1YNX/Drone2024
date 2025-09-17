@@ -1,5 +1,9 @@
 #include "motor.h"
-
+// #define cutsighn(x) ((x)<0?0:(x))
+static inline unsigned int cutsighn(int x)
+{
+    return x < 0 ? 0 : x;
+}
 void motor::stop()
 {
     nf = 0;
@@ -7,10 +11,10 @@ void motor::stop()
 }
 void motor::rotate() const
 {
-    ledcWrite(1, (def + c1) * nf + duty_low);
-    ledcWrite(2, (def + c2) * nf + duty_low);
-    ledcWrite(3, (def + c3) * nf + duty_low);
-    ledcWrite(4, (def + c4) * nf + duty_low);
+    ledcWrite(1, cutsighn(def + c1) * nf + duty_low);
+    ledcWrite(2, cutsighn(def + c2) * nf + duty_low);
+    ledcWrite(3, cutsighn(def + c3) * nf + duty_low);
+    ledcWrite(4, cutsighn(def + c4) * nf + duty_low);
     return;
 }
 

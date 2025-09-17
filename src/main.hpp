@@ -51,10 +51,10 @@ void setup(void)
 void loop(void)
 {
   static user<double> setpoint;
-  static PID_F::Pid pid_x(KP_D, KI_D, KD_D);
-  static PID_F::Pid pid_y(KP_D, KI_D, KD_D);
+  static PID_F::Pid pid_x(0);
+  static PID_F::Pid pid_y(0);
   // static PID_F::Pid pid_turn(KP_D, KI_D, KD_D);
-  static PID_F::Pid pid_turn(0, 0, 0); // note:一時的に無効化
+  static PID_F::Pid pid_turn(0); // note:一時的に無効化
 
   static user<double> j;
   static user<double> u;
@@ -92,9 +92,9 @@ void loop(void)
   setpoint.y = u.y;
   setpoint.turn = u.turn / 2;
 
-  pid_res.x = pid_x.calc(j.x, setpoint.x);
-  pid_res.y = pid_y.calc(j.y, setpoint.y);
-  pid_res.turn = pid_turn.calc(j.turn, setpoint.turn);
+  pid_res.x = pid_x.calc(j.x, setpoint.x, KP_D, KI_D, KD_D);
+  pid_res.y = pid_y.calc(j.y, setpoint.y, KP_D, KI_D, KD_D);
+  pid_res.turn = pid_turn.calc(j.turn, setpoint.turn, KP_D, KI_D, KD_D);
 
   m.c1 -= pid_res.y;
   m.c2 -= pid_res.x;

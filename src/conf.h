@@ -44,13 +44,13 @@ constexpr int duty_max = 9600; // 最高回転
 #error "pwmbits must be defined as 12 or 16"
 #endif
 
-constexpr double Max_ang = 15.0; // 機体の最大角度これを超えると強制停止
-constexpr double Min_ang = 3.0; // 初期化時許容誤差
+constexpr double Max_ang = 30.0; // 機体の最大角度これを超えると強制停止 //note:
+constexpr double Min_ang = 3.0;  // 初期化時許容誤差
 
 /// pid
-constexpr double KP_D = 10.0; // 比例ゲイン
-constexpr double KI_D = 0.0; // 積分ゲイン
-constexpr double KD_D = 0.0; // 微分ゲイン
+constexpr double KP_D = 2.18; // 比例ゲイン
+constexpr double KI_D = 0.01; // 積分ゲイン
+constexpr double KD_D = 0.000001; // 微分ゲイン
 
 constexpr double PI_D = 3.14159265358979323846;
 
