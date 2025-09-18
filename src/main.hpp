@@ -14,7 +14,7 @@ Jsens sens;
 double history;
 
 bool flag = 1;
-
+volatile int logno = 0;
 int logout(const motor &c, const user<double> &p, const user<double> &u, const user<double> &j);
 
 // セットアップ関数
@@ -32,7 +32,11 @@ void setup(void)
   m.setup();
   m.stop();
   c.setup();
+  Log::logln("\n", LogLevel::_3INFO);
+  Log::logln(logno++, LogLevel::_3INFO);
   sens.setup();
+  Log::logln("\n", LogLevel::_3INFO);
+  Log::logln(logno++, LogLevel::_3INFO);
 
   set_led(led_status::set);
   delay(1000);
@@ -46,6 +50,7 @@ void setup(void)
   set_led(led_status::wait);
 
   history = sens.getang().turn;
+  Log::logln("\nInit Done", LogLevel::_3INFO);
 }
 
 void loop(void)

@@ -20,9 +20,11 @@ Jsens::~Jsens()
 
 int Jsens::setup()
 {
+    Log::logln("BNO055 Waiting", LogLevel::_3INFO);
     while (!bno.begin())
-        ;
-    Log::logln("BNOSpeed Started", LogLevel::_3INFO);
+        Log::logln("BNO055 Waiting", LogLevel::_3INFO);
+    Log::logln("BNO055 Started", LogLevel::_3INFO);
+    bno.printSensorDetails();
     tim.attach_ms(freq_ms, callback);
     return 0;
 }

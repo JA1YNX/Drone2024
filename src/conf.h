@@ -48,9 +48,9 @@ constexpr double Max_ang = 30.0; // 機体の最大角度これを超えると�
 constexpr double Min_ang = 3.0;  // 初期化時許容誤差
 
 /// pid
-constexpr double KP_D = 2.18; // 比例ゲイン
-constexpr double KI_D = 0.01; // 積分ゲイン
-constexpr double KD_D = 0.000001; // 微分ゲイン
+constexpr double KP_D = 2.165; // 比例ゲイン
+constexpr double KI_D = 0.008; // 積分ゲイン
+constexpr double KD_D = 0.01; // 微分ゲイン
 
 constexpr double PI_D = 3.14159265358979323846;
 
