@@ -2,16 +2,32 @@
 
 namespace PID_F
 {
+    /*double Pid::calc(double y, double r, double a, double p, double i, double d)
+    {
+        y -= abe;         // バイアス補正
+        double e = r - y; // 誤差
+
+        // 積分（台形則）
+        ie += (e)*0.01; // note:制御周期0.01sで固定
+
+        // 微分（角加速度に基づく）
+        double de = -a; // note:角加速度が正ならば角速度が増加しているので、誤差は減少する方向に働く
+
+        // 出力
+        double u = p * e + i * ie + d * de;
+
+        return u;
+    }
     double Pid::calc(double y, double r, double p, double i, double d)
     {
-        /*
-        double ret = 0;
-        double e = r - y;
-        ret += e * KP;          // P項
-        ret += (e - pree) * KD; // D項
-        ie += (e + pree) / 2;
-        ret += ie * KI; // I項
-        */
+        //
+        // double ret = 0;
+        // double e = r - y;
+        // ret += e * KP;          // P項
+        // ret += (e - pree) * KD; // D項
+        // ie += (e + pree) / 2;
+        // ret += ie * KI; // I項
+
         // 下記変数は既に与えられているものとする
         // y       : 現在の出力
         // r       : 現在の目標値
@@ -65,5 +81,5 @@ namespace PID_F
     {
         ie = 0;
         abe = _abe;
-    }
+    }*/
 }

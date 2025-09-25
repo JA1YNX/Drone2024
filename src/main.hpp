@@ -16,6 +16,7 @@ double history;
 bool flag = 1;
 volatile int logno = 0;
 int logout(const motor &c, const user<double> &p, const user<double> &u, const user<double> &j);
+int logout(const user<double> &p, const char *tag = "");
 
 // セットアップ関数
 void setup(void)
@@ -55,16 +56,31 @@ void setup(void)
 
 void loop(void)
 {
-  static user<double> setpoint;
-  static PID_F::Pid pid_x(0);
-  static PID_F::Pid pid_y(0);
-  // static PID_F::Pid pid_turn(KP_D, KI_D, KD_D);
-  static PID_F::Pid pid_turn(0); // note:一時的に無効化
+  while (0) // テストループ
+  {
+    // logout(c.data(), "U      ");
+    // logout(sens.getang(), "ANG    ");
+    // logout(sens.getspd(), "SPD    ");
+    logout(sens.getangacc(), "ANGACC ");
+    // logout(sens.getmag(), "MAG    ");
+    // Log::log("\n");
+    // delay(500);
+  }
 
-  static user<double> j;
+  static user<double> setpoint;
+  // static PID_F::Pid pid_x(0);
+  // static PID_F::Pid pid_y(0);
+  // static PID_F::Pid pid_turn(0); // note:一時的に無効化
+  static PID_F::AngleController pid_x;
+  static PID_F::AngleController pid_y;
+  static PID_F::AngleController pid_turn;
+
+  static user<double> j_ang;
+  static user<double> j_angacc;
   static user<double> u;
   static user<double> pid_res;
-  j = sens.getang();
+  j_ang = sens.getang();
+  j_angacc = sens.getangacc();
   u = c.read();
 
   // 初期化処理
@@ -74,9 +90,9 @@ void loop(void)
     {
       Log::logln("Init", LogLevel::_3INFO);
       init = 0;
-      pid_x.reset(j.x);
-      pid_y.reset(j.y);
-      pid_turn.reset(j.turn);
+      // pid_x.reset(j.x);
+      // pid_y.reset(j.y);
+      // pid_turn.reset(j.turn);
       setpoint.x = 0;
       setpoint.y = 0;
       setpoint.turn = 0;
@@ -97,9 +113,12 @@ void loop(void)
   setpoint.y = u.y;
   setpoint.turn = u.turn / 2;
 
-  pid_res.x = pid_x.calc(j.x, setpoint.x, KP_D, KI_D, KD_D);
-  pid_res.y = pid_y.calc(j.y, setpoint.y, KP_D, KI_D, KD_D);
-  pid_res.turn = pid_turn.calc(j.turn, setpoint.turn, KP_D, KI_D, KD_D);
+  // pid_res.x = pid_x.calc(j.x, setpoint.x, KP_D, KI_D, KD_D);
+  // pid_res.y = pid_y.calc(j.y, setpoint.y, KP_D, KI_D, KD_D);
+  // pid_res.turn = pid_turn.calc(j.turn, setpoint.turn, KP_D, KI_D, KD_D);
+  pid_res.x = pid_x.calc(j_ang.x, setpoint.x, j_angacc.x, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
+  pid_res.y = pid_y.calc(j_ang.y, setpoint.y, j_angacc.y, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
+  pid_res.turn = pid_turn.calc(j_ang.turn, j_angacc.turn, setpoint.turn, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
 
   m.c1 -= pid_res.y;
   m.c2 -= pid_res.x;
@@ -111,7 +130,7 @@ void loop(void)
   m.c3 -= pid_res.turn;
   m.c4 += pid_res.turn;
 
-  flag = (abs(j.x) > Max_ang) || (abs(j.y) > Max_ang) || check5();
+  flag = (abs(j_ang.x) > Max_ang) || (abs(j_ang.y) > Max_ang) || check5();
 
   if (flag)
   {
@@ -121,36 +140,38 @@ void loop(void)
     while (!check5()) // プロポOFFまで待機
     {
       u = c.read();
-      j = sens.getang();
+      j_ang = sens.getang();
+      j_angacc = sens.getangacc();
       Log::log("lock0 ");
       Log::log(check5());
       Log::log(" ");
-      logout(m, pid_res, u, j);
+      logout(m, pid_res, u, j_ang);
     }
 
     do
     {
       flag = 0;
       u = c.read();
-      j = sens.getang();
+      j_ang = sens.getang();
+      j_angacc = sens.getangacc();
       Log::log("lock1 ");
       Log::log(check5());
       Log::log(" ");
-      logout(m, pid_res, u, j);
-    } while ((abs(j.x) > Min_ang) || (abs(j.y) > Min_ang) ||
+      logout(m, pid_res, u, j_ang);
+    } while ((abs(j_ang.x) > Min_ang) || (abs(j_ang.y) > Min_ang) ||
              ((int)u.z > Min_ang) || (abs(u.x) > Min_ang) || (abs(u.y) > Min_ang) || (abs(u.turn) > 2) ||
              check5());
     flag = 0;
-    history = j.turn;
-    pid_x.reset(j.x);
-    pid_y.reset(j.y);
-    pid_turn.reset(j.turn);
-    logout(m, pid_res, u, j);
+    history = j_ang.turn;
+    // pid_x.reset(j.x);
+    // pid_y.reset(j.y);
+    // pid_turn.reset(j.turn);
+    logout(m, pid_res, u, j_ang);
   }
 
   m.rotate();
 
-  logout(m, pid_res, u, j);
+  logout(m, pid_res, u, j_ang);
 }
 
 int logout(const motor &c, const user<double> &p, const user<double> &u, const user<double> &j)
@@ -196,6 +217,23 @@ int logout(const motor &c, const user<double> &p, const user<double> &u, const u
   Log::log(" t:");
   Log::log(j.turn);
 
+  Log::log("\n");
+  Log::setdef(LogLevel::_3INFO);
+  return 0;
+}
+int logout(const user<double> &p, const char *tag)
+{
+  Log::setdef(LogLevel::_4DEBUG);
+  Log::log(tag);
+
+  Log::log(" x:");
+  Log::log(p.x);
+  Log::log(" y:");
+  Log::log(p.y);
+  Log::log(" z:");
+  Log::log(p.z);
+  Log::log(" t:");
+  Log::log(p.turn);
   Log::log("\n");
   Log::setdef(LogLevel::_3INFO);
   return 0;

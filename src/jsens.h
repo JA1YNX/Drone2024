@@ -28,4 +28,10 @@ public:
     /// @brief 速度取得
     /// @return 速度
     user<double> getspd() const;
+    /// @brief 角速度取得
+    /// @return 角速度
+    user<double> getangacc() const;
+    /// @brief 重力加速取得
+    /// @return 重力加速度
+    user<double> getmag() const;
 };
