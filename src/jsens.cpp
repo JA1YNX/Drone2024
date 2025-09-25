@@ -67,8 +67,8 @@ void callback()
     ang.z = 0;
     ang.turn = convert((double)ang_s.orientation.x);
 
-    angacc.x = angacc_s.gyro.y;
-    angacc.y = angacc_s.gyro.x;
+    angacc.x = angacc_s.gyro.y * (-1);
+    angacc.y = angacc_s.gyro.x * (-1);
     angacc.z = 0;
     angacc.turn = angacc_s.gyro.z;
 

@@ -51,7 +51,7 @@ constexpr double Min_ang = 3.0;  // 初期化時許容誤差
 constexpr double KP_D = 2.0;     // 比例ゲイン angle
 constexpr double KI_D = 0.008;     // 積分ゲイン angle
 constexpr double KD_D = 0.00;      // 微分ゲイン angle
-constexpr double KP_ACC_D = 0.2; // 角速度 比例ゲイン rate
+constexpr double KP_ACC_D = 1; // 角速度 比例ゲイン rate
 constexpr double KI_ACC_D = 0.001; // 角速度 積分ゲイン rate
 constexpr double KD_ACC_D = 0.003;  // 角速度 微分ゲイン rate
 
