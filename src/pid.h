@@ -2,39 +2,8 @@
 
 #include "conf.h"
 
-/*
-正直PID制御についてあんまりわかってないけどいろんなサイト見てみてこんな感じかな？って感じで実装した結果
-*/
 namespace PID_F
 {
-    // class Pid
-    // {
-    // private:
-    //     double abe = 0; // Absolute Error
-    //     double ie = 0;
-    //     // double KP = 0;
-    //     // double KI = 0;
-    //     // double KD = 0;
-    // public:
-    //     /// @brief コンストラクタ
-    //     /// @param 初期化時点の誤差
-    //     // Pid(double p, double i, double d, double _abe = 0);
-    //     Pid(double _abe = 0);
-    //     ~Pid();
-    //     /// @brief PID計算
-    //     /// @param y 現在値 角度
-    //     /// @param r 目標値
-    //     /// @param a 現在の角速度
-    //     /// @param p Pゲイン
-    //     /// @param i Iゲイン
-    //     /// @param d Dゲイン
-    //     /// @return 出力
-    //     // double calc(double y, double r, double p, double i, double d);
-    //     double calc(double y, double r, double a, double p, double i, double d);
-    //     /// @brief リセット
-    //     /// @param 初期化誤差
-    //     void reset(double _abe = 0);
-    // };
     class PID
     {
     public:
@@ -50,21 +19,7 @@ namespace PID_F
         /// @param d Dゲイン
         /// @param deriv_meas 微分測定値（角加速度など）
         /// @return 出力
-        double calc(double e, double p, double i, double d, double deriv_meas)
-        {
-            // 積分
-            integrator += 0.5 * (e + e_prev) * T;
-            if (integrator > integrator_max)
-                integrator = integrator_max;
-            if (integrator < integrator_min)
-                integrator = integrator_min;
-
-            // PID出力
-            double u = p * e + i * integrator - d * deriv_meas;
-
-            e_prev = e;
-            return u;
-        }
+        double calc(double e, double p, double i, double d, double deriv_meas);
     };
     class AngleController
     {
@@ -81,20 +36,6 @@ namespace PID_F
         /// @param p_rate,  i_rate,  d_rate  角速度ループPIDゲイン
         double calc(double y, double r, double rate,
                     double p_angle, double i_angle, double d_angle,
-                    double p_rate, double i_rate, double d_rate)
-        {
-            // ---- 外側ループ：角度PID ----
-            double e_angle = r - y;
-            // D項は角速度を利用
-            double rate_ref = anglePID.calc(e_angle, p_angle, i_angle, d_angle, rate);
-
-            // ---- 内側ループ：角速度PID ----
-            double e_rate = rate_ref - rate;
-            // D項は角加速度が理想だが、ジャイロからは直接取れないので
-            // ここは rate の変化を近似的に使う or LPF で滑らかにする
-            double u = ratePID.calc(e_rate, p_rate, i_rate, d_rate, 0.0);
-
-            return u;
-        }
+                    double p_rate, double i_rate, double d_rate);
     };
 }
