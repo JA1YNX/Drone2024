@@ -48,12 +48,20 @@ constexpr double Max_ang = 30.0; // 機体の最大角度これを超えると�
 constexpr double Min_ang = 3.0;  // 初期化時許容誤差
 
 /// pid
-constexpr double KP_D = 2.0;     // 比例ゲイン angle
-constexpr double KI_D = 0.008;     // 積分ゲイン angle
-constexpr double KD_D = 0.00;      // 微分ゲイン angle
-constexpr double KP_ACC_D = 1; // 角速度 比例ゲイン rate
-constexpr double KI_ACC_D = 0.001; // 角速度 積分ゲイン rate
-constexpr double KD_ACC_D = 0.003;  // 角速度 微分ゲイン rate
+constexpr double KP_D = 2.0;   // 比例ゲイン angle 2.0
+constexpr double KI_D = 0.006; // 積分ゲイン angle 0.006
+constexpr double KD_D = 0.015; // 微分ゲイン angle
+// constexpr double KP_ACC_D = 1.08;  // 角速度 比例ゲイン rate
+constexpr double KP_ACC_D = 1.001; // 角速度 比例ゲイン rate
+// constexpr double KI_ACC_D = 0.001; // 角速度 積分ゲイン rate 半分
+constexpr double KI_ACC_D = 0.0001; // 角速度 積分ゲイン rate 半分
+constexpr double KD_ACC_D = 0.10;   // 角速度 微分ゲイン rate 0.10
+// constexpr double KP_D = 2.437;     // 比例ゲイン angle
+// constexpr double KI_D = 0.008;     // 積分ゲイン angle
+// constexpr double KD_D = 0.015;     // 微分ゲイン angle
+// constexpr double KP_ACC_D = 1.08;  // 角速度 比例ゲイン rate
+// constexpr double KI_ACC_D = 0.002; // 角速度 積分ゲイン rate
+// constexpr double KD_ACC_D = 0.15;  // 角速度 微分ゲイン rate
 
 constexpr double PI_D = 3.14159265358979323846;
 
