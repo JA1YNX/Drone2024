@@ -145,6 +145,9 @@ void loop(void)
       Log::log("lock0 ");
       Log::log(check5());
       Log::log(" ");
+      pid_res.x = pid_x.calc(j_ang.x, setpoint.x, j_angacc.x, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
+      pid_res.y = pid_y.calc(j_ang.y, setpoint.y, j_angacc.y, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
+      pid_res.turn = pid_turn.calc(j_ang.turn, j_angacc.turn, setpoint.turn, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
       logout(m, pid_res, u, j_ang);
     }
 
@@ -157,6 +160,9 @@ void loop(void)
       Log::log("lock1 ");
       Log::log(check5());
       Log::log(" ");
+      pid_res.x = pid_x.calc(j_ang.x, setpoint.x, j_angacc.x, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
+      pid_res.y = pid_y.calc(j_ang.y, setpoint.y, j_angacc.y, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
+      pid_res.turn = pid_turn.calc(j_ang.turn, j_angacc.turn, setpoint.turn, KP_D, KI_D, KD_D, KP_ACC_D, KI_ACC_D, KD_ACC_D);
       logout(m, pid_res, u, j_ang);
     } while ((abs(j_ang.x) > Min_ang) || (abs(j_ang.y) > Min_ang) ||
              ((int)u.z > Min_ang) || (abs(u.x) > Min_ang) || (abs(u.y) > Min_ang) || (abs(u.turn) > 2) ||
